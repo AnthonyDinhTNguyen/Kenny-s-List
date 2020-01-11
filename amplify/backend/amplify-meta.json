@@ -1,0 +1,14 @@
+{
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-kennyslist-kennyslist-143538-authRole",
+            "UnauthRoleArn": "arn:aws:iam::428663290127:role/amplify-kennyslist-kennyslist-143538-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::428663290127:role/amplify-kennyslist-kennyslist-143538-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-kennyslist-kennyslist-143538-deployment",
+            "UnauthRoleName": "amplify-kennyslist-kennyslist-143538-unauthRole",
+            "StackName": "amplify-kennyslist-kennyslist-143538",
+            "StackId": "arn:aws:cloudformation:us-east-1:428663290127:stack/amplify-kennyslist-kennyslist-143538/8710f450-33f9-11ea-b1be-0ab389d40b93"
+        }
+    }
+}
