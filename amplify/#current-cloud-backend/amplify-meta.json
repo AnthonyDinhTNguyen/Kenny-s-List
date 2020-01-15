@@ -1,0 +1,81 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-kennyslist-kennyslist-145823-authRole",
+			"UnauthRoleArn": "arn:aws:iam::428663290127:role/amplify-kennyslist-kennyslist-145823-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::428663290127:role/amplify-kennyslist-kennyslist-145823-authRole",
+			"Region": "us-east-1",
+			"DeploymentBucketName": "amplify-kennyslist-kennyslist-145823-deployment",
+			"UnauthRoleName": "amplify-kennyslist-kennyslist-145823-unauthRole",
+			"StackName": "amplify-kennyslist-kennyslist-145823",
+			"StackId": "arn:aws:cloudformation:us-east-1:428663290127:stack/amplify-kennyslist-kennyslist-145823/89b5f620-37ea-11ea-a348-1204ddd846a2",
+			"AmplifyAppId": "d2nmsllsuquwvm"
+		}
+	},
+	"api": {
+		"kennyslist": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "API_KEY",
+						"apiKeyConfig": {
+							"description": "Access to KennysList Services",
+							"apiKeyExpirationDays": "365"
+						}
+					}
+				},
+				"GraphQLAPIIdOutput": "cplfw262jndzhilo67cmwd7ive",
+				"GraphQLAPIEndpointOutput": "https://j6ngyh5f45albosbh3sdjj4szm.appsync-api.us-east-1.amazonaws.com/graphql",
+				"GraphQLAPIKeyOutput": "da2-tuouahyi5rcvzlxz67ban2hkqm"
+			},
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-kennyslist-kennyslist-145823-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"logicalId": "apikennyslist"
+			},
+			"lastPushTimeStamp": "2020-01-15T23:05:54.082Z",
+			"lastPushDirHash": "VxyO71st/e2IMDsEyWOGXCGT36M="
+		}
+	},
+	"auth": {
+		"kennyslist7144be6d": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false,
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-kennyslist-kennyslist-145823-deployment/amplify-cfn-templates/auth/kennyslist7144be6d-cloudformation-template.yml",
+				"logicalId": "authkennyslist7144be6d"
+			},
+			"lastPushTimeStamp": "2020-01-15T23:05:54.082Z",
+			"output": {
+				"AppClientSecret": "19ib3qb58cf8nb683916pksmb0csd8vhp56ih1jc6lrgv9rkk8fh",
+				"UserPoolId": "us-east-1_YSW6jd3Tg",
+				"AppClientIDWeb": "7d1n151p039plsjsmvvbaqibee",
+				"AppClientID": "6j9ch7b9fqg1lpaoi9e23l46jf",
+				"IdentityPoolId": "us-east-1:b9adb40c-9803-478e-af5b-ca2c77557919",
+				"IdentityPoolName": "kennyslist7144be6d_identitypool_7144be6d__kennyslist",
+				"UserPoolName": "kennyslist7144be6d_userpool_7144be6d"
+			},
+			"lastPushDirHash": "BJ7jUGFFe/W3afvDlcncqKbpJ58="
+		}
+	},
+	"storage": {
+		"kennysliststorage": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-kennyslist-kennyslist-145823-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+				"logicalId": "storagekennysliststorage"
+			},
+			"lastPushTimeStamp": "2020-01-15T23:05:54.082Z",
+			"output": {
+				"BucketName": "kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist",
+				"Region": "us-east-1"
+			},
+			"lastPushDirHash": "Rm7R4YzSi2rbPy7Ne9GUmmnjXXQ="
+		}
+	}
+}

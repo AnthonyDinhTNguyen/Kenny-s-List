@@ -1,5 +1,5 @@
 {
-    "AppSyncApiName": "platenbowl",
+    "AppSyncApiName": "kennyslist",
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
     "DynamoDBEnableServerSideEncryption": "false"
 }

@@ -1,14 +1,14 @@
 {
-    "projectName": "KennysList",
+    "projectName": "kennyslist",
     "version": "2.0",
     "frontend": "javascript",
     "javascript": {
         "framework": "react",
         "config": {
-            "SourceDir": "C:\\Users/JosephRasmussen/workspace/kennyslist",
+            "SourceDir": "src",
             "DistributionDir": "build",
-            "BuildCommand": "npm.cmd run-script build",
-            "StartCommand": "npm.cmd run-script start"
+            "BuildCommand": "npm run-script build",
+            "StartCommand": "npm run-script start"
         }
     },
     "providers": [

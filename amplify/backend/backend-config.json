@@ -1,26 +1,34 @@
 {
-	"auth": {
-		"platebowl1b339ffc": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": []
-		}
-	},
 	"api": {
-		"platebowl2": {
+		"kennyslist": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {
 				"authConfig": {
 					"additionalAuthenticationProviders": [],
 					"defaultAuthentication": {
-						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
-						"userPoolConfig": {
-							"userPoolId": "authplatebowl1b339ffc"
+						"authenticationType": "API_KEY",
+						"apiKeyConfig": {
+							"description": "Access to KennysList Services",
+							"apiKeyExpirationDays": "365"
 						}
 					}
 				}
 			}
+		}
+	},
+	"auth": {
+		"kennyslist7144be6d": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	},
+	"storage": {
+		"kennysliststorage": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
 		}
 	}
 }
