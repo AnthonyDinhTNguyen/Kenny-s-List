@@ -1,5 +1,3 @@
-// src/App.js
-
 // import useEffect hook
 import React, { useEffect } from 'react';
 // import Hub
@@ -10,6 +8,23 @@ import {
   Route,
   Link
 } from "react-router-dom";
+
+Amplify.configure({
+  Auth: {
+    identityPoolId: 'us-east-1:b9adb40c-9803-478e-af5b-ca2c77557919',
+    region: 'us-east-1',
+    userPoolId: 'us-east-1_YSW6jd3Tg',
+    userPoolWebClientId: '7d1n151p039plsjsmvvbaqibee',
+    mandatorySignIn: true,
+    oath: {
+      domain: 'kennyslist.auth.us-east-1.amazoncognito.com',
+      scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
+      redirectSignIn: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
+      redirectSignOut: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
+      responseType: 'token'
+    }
+  }
+});
 
 async function checkUser() {
   return (await Auth.currentAuthenticatedUser());
@@ -48,24 +63,32 @@ class App extends React.Component {
   }
   
   render() {
-    return (
-      <Router>
-        <div id="routeDiv">
-          <Switch>
-            <Route path="/test">
-              <Test1 />
-            </Route>
-            <Route path="/test2">
-              <Test2 />
-            </Route>
-            <Route path="/">
-              <Home />
-            </ Route>
-          </Switch>
+    if (this.state.user == null) {
+      return (
+        <div>
+          <Login/>
         </div>
-      </Router>
-    );
-  }  
+      );
+    } else { 
+      return (
+        <Router>
+          <div id="routeDiv">
+            <Switch>
+              <Route path="/test">
+                <Test1 />
+              </Route>
+              <Route path="/test2">
+                <Test2 />
+              </Route>
+              <Route path="/">
+                <Home />
+              </ Route>
+            </Switch>
+          </div>
+        </Router>
+      );
+    } 
+  } 
 }
   function Home() {
     return (
@@ -95,6 +118,20 @@ class App extends React.Component {
      );
   }
 
+  const imgStyle = {width: '400px'};
 
+  function Login() {
+    return (
+      <div id="login-page" className="app">
+        <div id="login-page" className="app-header">
+          <div className="App">
+            <header className="App-header">
+              <button id="SignInButton" onClick={() => Auth.federatedSignIn()}>Sign In</button>
+            </header>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-export default App
+export default App;
