@@ -1,11 +1,11 @@
 {
-    "projectName": "Plate-Bowl",
+    "projectName": "KennysList",
     "version": "2.0",
     "frontend": "javascript",
     "javascript": {
         "framework": "react",
         "config": {
-            "SourceDir": "C:\\Users\\Tsang\\Documents\\SCHOOL\\FIFTH YEAR\\CS 130\\Plate-Bowl",
+            "SourceDir": "C:\\Users/JosephRasmussen/workspace/kennyslist",
             "DistributionDir": "build",
             "BuildCommand": "npm.cmd run-script build",
             "StartCommand": "npm.cmd run-script start"
