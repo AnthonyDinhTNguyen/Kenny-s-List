@@ -1,19 +1,17 @@
 {
-  "name": "kennyslist",
-  "version": "0.1.0",
+  "name": "amplify-js-app",
+  "version": "1.0.0",
+  "description": "Ebay Ripoff.",
   "dependencies": {
     "@aws-amplify/api": "latest",
     "@aws-amplify/auth": "^1.5.0",
     "@aws-amplify/pubsub": "latest",
     "aws-amplify": "^1.2.4",
     "aws-amplify-react": "^2.5.4",
+    "html-loader": "^0.5.5",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2"
-  },
-  "scripts": {
-    "start": "webpack && webpack-dev-server --mode development",
-    "build": "webpack"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
@@ -21,10 +19,14 @@
     "@babel/preset-react": "^7.7.0",
     "b": "^2.0.1",
     "babel-loader": "^8.0.6",
-    "css-loader": "^3.4.2",
-    "style-loader": "^1.1.2",
+    "css-loader": "^3.2.0",
+    "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
+  },
+  "scripts": {
+    "start": "webpack && webpack-dev-server --mode development",
+    "build": "webpack"
   }
 }
