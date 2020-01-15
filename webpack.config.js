@@ -6,7 +6,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'build')
     },
     module: {
         rules: [
@@ -34,7 +34,7 @@ module.exports = {
         ]
     },
     devServer: {
-        contentBase: './dist',
+        contentBase: './build',
         overlay: true,
         hot: true
     },
