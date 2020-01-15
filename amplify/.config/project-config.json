@@ -1,0 +1,17 @@
+{
+    "projectName": "Plate-Bowl",
+    "version": "2.0",
+    "frontend": "javascript",
+    "javascript": {
+        "framework": "react",
+        "config": {
+            "SourceDir": "C:\\Users\\Tsang\\Documents\\SCHOOL\\FIFTH YEAR\\CS 130\\Plate-Bowl",
+            "DistributionDir": "build",
+            "BuildCommand": "npm.cmd run-script build",
+            "StartCommand": "npm.cmd run-script start"
+        }
+    },
+    "providers": [
+        "awscloudformation"
+    ]
+}
