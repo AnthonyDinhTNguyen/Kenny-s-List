@@ -7,10 +7,9 @@
 				"authConfig": {
 					"additionalAuthenticationProviders": [],
 					"defaultAuthentication": {
-						"authenticationType": "API_KEY",
-						"apiKeyConfig": {
-							"description": "Access to KennysList Services",
-							"apiKeyExpirationDays": "365"
+						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
+						"userPoolConfig": {
+							"userPoolId": "authkennyslistc8b0ac57"
 						}
 					}
 				}
@@ -18,11 +17,10 @@
 		}
 	},
 	"auth": {
-		"kennyslist7144be6d": {
+		"kennyslistc8b0ac57": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
-			"dependsOn": [],
-			"customAuth": false
+			"dependsOn": []
 		}
 	},
 	"storage": {
@@ -30,5 +28,6 @@
 			"service": "S3",
 			"providerPlugin": "awscloudformation"
 		}
-	}
+	},
+	"function": {}
 }

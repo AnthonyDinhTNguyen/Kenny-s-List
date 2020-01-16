@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "kennyslist7144be6d_identitypool_7144be6d",
+    "identityPoolName": "kennyslistc8b0ac57_identitypool_c8b0ac57",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "kennys7144be6d",
-    "userPoolName": "kennyslist7144be6d_userpool_7144be6d",
+    "resourceNameTruncated": "kennysc8b0ac57",
+    "userPoolName": "kennyslistc8b0ac57_userpool_c8b0ac57",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -18,7 +18,8 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+        "email",
+        "name"
     ],
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
@@ -28,9 +29,9 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "kennys7144be6d_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "kennysc8b0ac57_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "kennyslist7144be6d",
+    "resourceName": "kennyslistc8b0ac57",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -45,6 +46,11 @@
         ]
     },
     "useDefault": "default",
+    "triggers": "{}",
     "userPoolGroupList": [],
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
     "dependsOn": []
 }

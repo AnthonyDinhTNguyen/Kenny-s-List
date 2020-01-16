@@ -8,15 +8,17 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import awsconfig from './aws-exports';
 
+Amplify.configure(awsconfig);
 Amplify.configure({
   Auth: {
-    identityPoolId: 'us-east-1:b9adb40c-9803-478e-af5b-ca2c77557919',
+    IdentityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
     region: 'us-east-1',
-    userPoolId: 'us-east-1_YSW6jd3Tg',
-    userPoolWebClientId: '7d1n151p039plsjsmvvbaqibee',
+    userPoolId: 'us-east-1_buFSrhliB',
+    userPoolWebClientId: '1qkrcfqgqv63hk594qi92q5hqi',
     mandatorySignIn: true,
-    oath: {
+    oauth: {
       domain: 'kennyslist.auth.us-east-1.amazoncognito.com',
       scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
       redirectSignIn: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
