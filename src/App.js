@@ -17,7 +17,7 @@ Amplify.configure({
     userPoolWebClientId: '1qkrcfqgqv63hk594qi92q5hqi',
     mandatorySignIn: true,
     oauth: {
-      domain: 'kennyslist.auth.us-east-1.amazoncognito.com',
+      domain: 'https://kennyslist.auth.us-east-1.amazoncognito.com',
       scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
       redirectSignIn: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
       redirectSignOut: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
@@ -117,8 +117,6 @@ class App extends React.Component {
        </div>
      );
   }
-
-  const imgStyle = {width: '400px'};
 
   function Login() {
     return (
