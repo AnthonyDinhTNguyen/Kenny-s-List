@@ -8,9 +8,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import awsconfig from './aws-exports';
 
-Amplify.configure(awsconfig);
 Amplify.configure({
   Auth: {
     IdentityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
