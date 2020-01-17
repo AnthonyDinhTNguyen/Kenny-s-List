@@ -17,7 +17,7 @@ Amplify.configure({
     userPoolWebClientId: '1qkrcfqgqv63hk594qi92q5hqi',
     mandatorySignIn: true,
     oauth: {
-      domain: 'https://kennyslist.auth.us-east-1.amazoncognito.com',
+      domain: 'kennyslist.auth.us-east-1.amazoncognito.com',
       scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
       redirectSignIn: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
       redirectSignOut: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
