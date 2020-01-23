@@ -1,14 +1,23 @@
 // import useEffect hook
-import React, { useEffect } from 'react';
+import React, { Component } from 'react';
+import {Provider} from 'react-redux';
+import {createStore } from 'redux';
+import rootReducer from './reducers';
+
 // import Hub
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Redirect
 } from "react-router-dom";
-
+import './App.scss';
+import Home from "./components/Pages/Home/Home";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import ProductDetail from "./components/Pages/ProductDetailPage/ProductDetailPage";
+export const  store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 Amplify.configure({
   Auth: {
     IdentityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
@@ -81,7 +90,7 @@ class App extends React.Component {
                 <Test2 />
               </Route>
               <Route path="/">
-                <Home />
+                <Main />
               </ Route>
             </Switch>
           </div>
@@ -90,15 +99,23 @@ class App extends React.Component {
     } 
   } 
 }
-  function Home() {
+  function Main() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <body>
-            Fill in files using the established React Components.
-          </body>
-        </header>
-      </div>
+      <Provider store={store}>
+            <Router>
+            <React.Fragment>
+                <Header/>
+                <Switch>
+                    <Route exact path={'/'} render={() => {
+                        return <Redirect to={'/products'}/>
+                    }}/>
+                    <Route exact path={'/products'} component={Home}/>
+                    <Route exact path={'/products/:id'} component={ProductDetail}/>
+                </Switch>
+                <Footer/>
+            </React.Fragment>
+            </Router>
+        </Provider>
     );
   }
   
