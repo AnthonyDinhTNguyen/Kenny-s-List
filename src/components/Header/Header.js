@@ -2,11 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 
-const Header = ({cartLength}) => {
+const Header = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div className="container">
-                <NavLink className="navbar-brand" to="/">KenList</NavLink>
+                <NavLink className="navbar-brand" to="/">KennysList</NavLink>
                 <div>
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
@@ -29,8 +29,4 @@ const Header = ({cartLength}) => {
     );
 };
 
-
-const mapStateToProps = (state) => {
-};
-
-export default connect(mapStateToProps, null)(Header);
+export default connect(null)(Header);
