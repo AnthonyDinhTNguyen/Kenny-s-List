@@ -12,7 +12,6 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import './App.scss';
 import Home from "./components/Pages/Home/Home";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";

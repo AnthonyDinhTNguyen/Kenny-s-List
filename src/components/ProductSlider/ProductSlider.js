@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './ProductSlider.scss';
+import './ProductSlider.css';
 
 const ProductSlider = ({images}) => {
     const imageRef = React.createRef();

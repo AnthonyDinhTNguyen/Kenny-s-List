@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {formatMoney} from "../Pipes/priceFormatter";
 
-import './Product.scss';
+import './Product.css';
 import {addProductToCart} from "../../actions";
 
 

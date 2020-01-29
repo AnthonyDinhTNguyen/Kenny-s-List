@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import './CategoryFilter.scss';
+import './CategoryFilter.css';
 import {categories} from "../../data/categories";
 import {addBrandToFilter, removeBrandFromFilter} from "../../actions";
 
