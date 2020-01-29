@@ -96,8 +96,9 @@ class App extends React.Component {
         </Router>
       );
     } 
-  } 
-}
+  }
+};
+  
   function Main() {
     return (
       <Provider store={store}>
@@ -117,7 +118,7 @@ class App extends React.Component {
         </Provider>
     );
   }
-  
+
   function Test1() {
      return (
        <div>
