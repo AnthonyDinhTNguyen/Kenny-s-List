@@ -33,7 +33,7 @@ module.exports = {
               },
               {
                   test: /\.scss$/,
-                  user: {
+                  use: {
                       loader: 'sass-loader'
                   }
               }
