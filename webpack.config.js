@@ -30,12 +30,6 @@ module.exports = {
                     attrs: [':data-src']
                   }
                 }
-              },
-              {
-                  test: /\.scss$/,
-                  use: {
-                      loader: 'sass-loader'
-                  }
               }
         ]
     },
