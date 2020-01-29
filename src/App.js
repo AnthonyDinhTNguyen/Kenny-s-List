@@ -43,6 +43,7 @@ function signOut() {
     .then(data => console.log(data))
     .catch(err => console.log(err));
 }
+
 class App extends React.Component {
   constructor() {
     super();
@@ -89,7 +90,7 @@ class App extends React.Component {
                 <Test2 />
               </Route>
               <Route path="/">
-                <Main />
+                <Test1 />
               </ Route>
             </Switch>
           </div>
