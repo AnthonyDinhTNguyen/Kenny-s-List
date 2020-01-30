@@ -90,7 +90,7 @@ class App extends React.Component {
                 <Test2 />
               </Route>
               <Route path="/">
-                <Test1 />
+                <Main />
               </ Route>
             </Switch>
           </div>
