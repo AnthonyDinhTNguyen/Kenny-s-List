@@ -27,7 +27,7 @@ const BrandFilter = (props) => {
                 </div>
                 <ul className="list-group flex-row flex-wrap">
                     {categories.map(category => (
-                        <li className="list-group-item flex-50">
+                        <li key={category} className="list-group-item flex-50">
                             <label className="custom-checkbox text-capitalize"> {category} ({brandItemsCount[category]})
                                 <input type="checkbox"
                                        name={category}

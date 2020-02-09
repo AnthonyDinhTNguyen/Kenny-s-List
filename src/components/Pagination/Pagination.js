@@ -76,7 +76,7 @@ class Pagination extends Component {
                 buttonClass += ' active';
             }
 
-            return (<li className={buttonClass} onClick={() => {this.onPage(pageNum)}}><button className="page-link" >{pageNum}</button></li>);
+            return (<li key={pageNum} className={buttonClass} onClick={() => {this.onPage(pageNum)}}><button className="page-link" >{pageNum}</button></li>);
         });
 
         let prevButtonClass = 'page-item';
