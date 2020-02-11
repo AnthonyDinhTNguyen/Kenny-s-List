@@ -23,6 +23,12 @@ Amplify.configure({
         }
     }
 });
+Storage.configure({
+    bucket:'kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist',
+    level: 'public',
+    region:'us-east-1',
+    identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3'
+});
 
 export default class AddItem extends React.Component {
     onChange(e) {
