@@ -32,7 +32,7 @@ Amplify.configure({
 export default class AddItem extends React.Component {
     onChange(e) {
         const file = e.target.files[0];
-        Storage.put('example.png', file, {
+        Storage.put('example1.png', file, {
             contentType: 'image/png'
         })
         .then (result => console.log(result))
