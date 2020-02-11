@@ -29,11 +29,6 @@ Amplify.configure({
     identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3'
   });
 
-  const getCreds = async () => {
-    let creds = await Auth.currentCredentials() //This will give unauthenticated credentials object
-    creds.identityId;  
-  }
-  getCreds();
 export default class AddItem extends React.Component {
     onChange(e) {
         const file = e.target.files[0];
