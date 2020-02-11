@@ -91,7 +91,7 @@ class App extends React.Component {
             'cognito-idp.us-east-1.amazonaws.com/us-east-1_buFSrhliB': result.getIdToken().getJwtToken()
         }
     });
-    
+    AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
     AWS.config.credentials.get(function(err){
         if (err) {
             alert(err);
