@@ -83,6 +83,18 @@ class App extends React.Component {
       console.log("User is " + JSON.stringify(res));
       Auth.currentSession().then(data => console.log(data)).catch(err => console.log(err));
       this.setState({user: res});
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
+        Logins: {
+            'cognito-idp.us-east-1.amazonaws.com/us-east-1_buFSrhliB': result.getIdToken().getJwtToken()
+        }
+    });
+    
+    AWS.config.credentials.get(function(err){
+        if (err) {
+            alert(err);
+        }
+    });
   }
   
   render() {
