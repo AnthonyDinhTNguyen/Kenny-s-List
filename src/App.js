@@ -20,7 +20,7 @@ import AddItem from "./components/Pages/AddItem/AddItem";
 export const  store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 Amplify.configure({
   Auth: {
-      IdentityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
+      identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
       region: 'us-east-1',
       userPoolId: 'us-east-1_buFSrhliB',
       userPoolWebClientId: '1qkrcfqgqv63hk594qi92q5hqi',
@@ -37,6 +37,7 @@ Amplify.configure({
       AWSS3: {
           bucket: 'kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist', //REQUIRED -  Amazon S3 bucket
           region: 'us-east-1', //OPTIONAL -  Amazon service region
+          identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3'
       }
   }
 });
