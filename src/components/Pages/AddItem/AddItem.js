@@ -1,5 +1,5 @@
 import React from 'react';
-import {Auth, Storage } from 'aws-amplify';
+import Amplify, {Auth, Storage } from 'aws-amplify';
 Amplify.configure({
     Auth: {
         IdentityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
