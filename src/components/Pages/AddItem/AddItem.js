@@ -5,7 +5,7 @@ export default class AddItem extends React.Component {
     constructor(props){
         super(props)
         this.state = {value: '', file:'',desc: ''};
-        this.handleChange = this.handleChange.bind(this);
+        this.handleName = this.handleName.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFile = this.handleFile.bind(this);
         this.handleDesc = this.handleDesc.bind(this);
@@ -22,18 +22,28 @@ export default class AddItem extends React.Component {
     handleFile(event){
         this.setState({file: event.target.files[0]});
     }
-    handleChange(event) {
-        this.setState({value: event.target.value});
+    handleName(event) {//enforce alphanumeric input
+        const re = /[^0-9a-zA-Z]/;
+        if(event.target.value===''||re.test(event.target.value)){
+            this.setState({value: event.target.value});
+        }
       }
     handleDesc(event){
-        this.setState({desc: event.target.value});
+        const re = /^[a-z\d\s]+$/i;
+        if(event.target.value===''||re.test(event.target.value)){
+            this.setState({desc: event.target.value});
+        }
+        console.log(this.state.desc);
+      }
     }
     
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.value);
         const file = this.state.file;
         const name = this.state.value;
-
+        const desc = this.state.desc;
+        console.log(file);
+        
         Storage.put(name, file, {
             level: 'protected',
             contentType: 'image/png'
@@ -55,7 +65,7 @@ export default class AddItem extends React.Component {
                     </label>
                     <label>
                         Name:
-                        <input type="text" value = {this.state.value} onChange={this.handleChange} />
+                        <input type="text" value = {this.state.value} onChange={this.handleName} />
                     </label>
                     <label>
                         Description of Item:
