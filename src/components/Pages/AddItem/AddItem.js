@@ -4,10 +4,11 @@ import {Auth, Storage } from 'aws-amplify';
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
-        this.state = {value: '', file:''};
+        this.state = {value: '', file:'',desc: ''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFile = this.handleFile.bind(this);
+        this.handleDesc = this.handleDesc.bind(this);
     }
     onChange(e) {
         const file = e.target.files[0];
@@ -24,12 +25,17 @@ export default class AddItem extends React.Component {
     handleChange(event) {
         this.setState({value: event.target.value});
       }
+    handleDesc(event){
+        this.setState({desc: event.target.value});
+    }
     
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.value);
         const file = this.state.file;
-        Storage.put(this.state.value, file, {
-            level: 'private',
+        const name = this.state.value;
+
+        Storage.put(name, file, {
+            level: 'protected',
             contentType: 'image/png'
         })
         .then (result => console.log(result))
@@ -50,6 +56,10 @@ export default class AddItem extends React.Component {
                     <label>
                         Name:
                         <input type="text" value = {this.state.value} onChange={this.handleChange} />
+                    </label>
+                    <label>
+                        Description of Item:
+                        <input type="text" value = {this.state.desc} onChange={this.handleDesc} />
                     </label>
                     <input type="submit" value = "Submit" />
                 </form>
