@@ -1,5 +1,5 @@
 import React from 'react';
-import { Storage } from 'aws-amplify';
+import {Auth, Storage } from 'aws-amplify';
 
 export default class AddItem extends React.Component {
     constructor(props){
@@ -12,6 +12,7 @@ export default class AddItem extends React.Component {
     onChange(e) {
         const file = e.target.files[0];
         Storage.put('example1.png', file, {
+            level: 'protected',
             contentType: 'image/png'
         })
         .then (result => console.log(result))
@@ -28,6 +29,7 @@ export default class AddItem extends React.Component {
         alert('A name was submitted: ' + this.state.value);
         const file = this.state.file;
         Storage.put('example1.png', file, {
+            level: 'protected',
             contentType: 'image/png'
         })
         .then (result => console.log(result))
