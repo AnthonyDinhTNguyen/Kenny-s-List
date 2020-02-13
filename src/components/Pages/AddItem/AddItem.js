@@ -23,7 +23,7 @@ export default class AddItem extends React.Component {
         this.setState({file: event.target.files[0]});
     }
     handleName(event) {//enforce alphanumeric input
-        const re = /[^0-9a-zA-Z]/;
+        const re = /[0-9a-zA-Z]/;
         if(event.target.value===''||re.test(event.target.value)){
             this.setState({value: event.target.value});
         }
