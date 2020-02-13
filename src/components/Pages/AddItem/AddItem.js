@@ -34,7 +34,6 @@ export default class AddItem extends React.Component {
             this.setState({desc: event.target.value});
         }
         console.log(this.state.desc);
-      }
     }
     
     handleSubmit(event) {
