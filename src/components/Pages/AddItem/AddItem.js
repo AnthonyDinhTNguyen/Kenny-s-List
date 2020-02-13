@@ -28,7 +28,7 @@ export default class AddItem extends React.Component {
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.value);
         const file = this.state.file;
-        Storage.put(this.state.value, file, {
+        Storage.put('example1.png', file, {
             level: 'private',
             contentType: 'image/png'
         })
