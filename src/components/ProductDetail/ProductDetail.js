@@ -13,7 +13,7 @@ const ProductDetail = (props) => {
         description,
         id
     } = props.product;
-
+    console.log(this.props.res);
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState({});
     const [username, serUsername] = useState('');
