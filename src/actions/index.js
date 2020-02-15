@@ -10,28 +10,6 @@ export const addProductToCart = product => {
     }
 };
 
-export const removeProductToCart = productId => {
-    return {
-        type: REMOVE_PRODUCT_FROM_CART,
-        payload: productId
-    }
-};
-
-export const incrementCartQuantity = productId => {
-    return{
-        type: INCREMENT_CART_ITEM_QUANTITY,
-        payload: productId
-    }
-};
-
-export const decrementCartQuantity = productId => {
-  return {
-      type: DECREMENT_CART_ITEM_QUANTITY,
-      payload: productId
-  }
-};
-
-
 export const ADD_BRAND_TO_FILTER = 'ADD_BRAND_TO_FILTER';
 export const REMOVE_BRAND_FROM_FILTER = 'REMOVE_BRAND_FROM_FILTER';
 
@@ -98,9 +76,3 @@ export const goPage = (n) => {
     }
 };
 
-export const countItem = (n) => {
-    return {
-        type: COUNT_ITEM,
-        totalItemsCount: n
-    }
-}

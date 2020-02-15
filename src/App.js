@@ -17,6 +17,8 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import ProductDetail from "./components/Pages/ProductDetailPage/ProductDetailPage";
 import AddItem from "./components/Pages/AddItem/AddItem";
+import CheckOutPage from "./components/Pages/CheckOutPage/CheckOutPage";
+
 export const  store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 Amplify.configure({
   Auth: {
@@ -96,7 +98,7 @@ class App extends React.Component {
   }
   
   render() {
-    if (this.state.user == null) {
+    if (this.state.user != null) {
       return (
         <div>
           <Login/>
@@ -137,6 +139,7 @@ class App extends React.Component {
                     <Route exact path={'/products'} component={Home}/>
                     <Route exact path={'/products/:id'} component={ProductDetail}/>
                     <Route exact path={'/additem'} component={AddItem}/>
+                    <Route exact path={'/cart'} component={CheckOutPage}/>
                 </Switch>
                 <Footer/>
             </React.Fragment>
