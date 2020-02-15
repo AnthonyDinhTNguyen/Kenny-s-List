@@ -14,8 +14,6 @@ const ProductDetail = (props) => {
         id
     } = props.product;
 
-    console.log("SayHiii to", this.props.res);
-
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState({});
     const [username, serUsername] = useState('');
