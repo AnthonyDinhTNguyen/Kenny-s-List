@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect, useSelector, useDispatch} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
+import { getItemTable } from '../../graphql/queries.js';
 import {addProductToCart,updateUsername} from "../../actions";
 import axios from 'axios';
 import API, { graphqlOperation } from '@aws-amplify/api'
