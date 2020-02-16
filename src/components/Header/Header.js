@@ -19,7 +19,7 @@ const Header = () => {
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to={"/cart"}><i className="fa fa-shopping-cart mr-2"
-                                                                          aria-hidden="true" />Wishlist</NavLink>
+                                                                          aria-hidden="true" />BidCart</NavLink>
                         </li>
                         
                     </ul>

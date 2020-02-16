@@ -5,7 +5,7 @@ import {createStore } from 'redux';
 import rootReducer from './reducers';
 
 // import Hub
-import Amplify, { Auth, Hub } from 'aws-amplify';
+import Amplify, { Auth, Hub,Storage } from 'aws-amplify';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,22 +16,38 @@ import Home from "./components/Pages/Home/Home";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import ProductDetail from "./components/Pages/ProductDetailPage/ProductDetailPage";
+import AddItem from "./components/Pages/AddItem/AddItem";
+import CheckOutPage from "./components/Pages/CheckOutPage/CheckOutPage";
+
 export const  store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 Amplify.configure({
   Auth: {
-    IdentityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
-    region: 'us-east-1',
-    userPoolId: 'us-east-1_buFSrhliB',
-    userPoolWebClientId: '1qkrcfqgqv63hk594qi92q5hqi',
-    mandatorySignIn: true,
-    oauth: {
-      domain: 'kennyslist.auth.us-east-1.amazoncognito.com',
-      scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
-      redirectSignIn: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
-      redirectSignOut: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
-      responseType: 'token'
-    }
+      identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
+      region: 'us-east-1',
+      userPoolId: 'us-east-1_buFSrhliB',
+      userPoolWebClientId: '1qkrcfqgqv63hk594qi92q5hqi',
+      mandatorySignIn: true,
+      oauth: {
+        domain: 'kennyslist.auth.us-east-1.amazoncognito.com',
+        scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
+        redirectSignIn: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
+        redirectSignOut: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
+        responseType: 'token'
+      }
+    },
+  Storage: {
+      AWSS3: {
+          bucket: 'kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist', //REQUIRED -  Amazon S3 bucket
+          region: 'us-east-1', //OPTIONAL -  Amazon service region
+          identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3'
+      }
   }
+});
+Storage.configure({
+  bucket:'kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist',
+  level: 'public',
+  region:'us-east-1',
+  identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3'
 });
 
 async function checkUser() {
@@ -44,7 +60,8 @@ function signOut() {
     .catch(err => console.log(err));
 }
 
-class App extends React.Component {
+class App extends Component {
+
   constructor() {
     super();
     this.state = {user: null};
@@ -54,7 +71,7 @@ class App extends React.Component {
         this.onAuthEvent(payload);
         console.log('A new auth event has happened: ', data);
       })
-  }
+  };
   
   onAuthEvent(payload) {
     if (payload.event === 'signIn') {
@@ -64,13 +81,23 @@ class App extends React.Component {
       console.log('a user has signed out!')
     }
   }
-  
+
   async componentDidMount() {
       const res = await checkUser();
       console.log("User is " + JSON.stringify(res));
+      Auth.currentSession().then(data => console.log(data)).catch(err => console.log(err));
       this.setState({user: res});
+      const result = await Auth.currentSession();
+      AWS.config.region ='us-east=1';
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
+        Logins: {
+            'cognito-idp.us-east-1.amazonaws.com/us-east-1_buFSrhliB': result.getIdToken().getJwtToken()
+        }
+      });
+      AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
   }
-  
+
   render() {
     if (this.state.user == null) {
       return (
@@ -101,6 +128,7 @@ class App extends React.Component {
 };
   
   function Main() {
+
     return (
       <Provider store={store}>
             <Router>
@@ -112,6 +140,8 @@ class App extends React.Component {
                     }}/>
                     <Route exact path={'/products'} component={Home}/>
                     <Route exact path={'/products/:id'} component={ProductDetail}/>
+                    <Route exact path={'/additem'} component={AddItem}/>
+                    <Route exact path={'/cart'} component={CheckOutPage}/>
                 </Switch>
                 <Footer/>
             </React.Fragment>
@@ -136,13 +166,16 @@ class App extends React.Component {
      );
   }
 
+
   function Login() {
     return (
       <div id="login-page" className="app">
         <div id="login-page" className="app-header">
           <div className="App">
             <header className="App-header">
-              <button id="SignInButton" onClick={() => Auth.federatedSignIn()}>Sign In</button>
+              <button id="SignInButton" onClick={() => Auth.federatedSignIn()}
+                    >Sign In
+              </button>
             </header>
           </div>
         </div>
