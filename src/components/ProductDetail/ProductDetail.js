@@ -50,7 +50,7 @@ const ProductDetail = (props) => {
         
         const fetchData = async () => {
    
-                const result = await API.graphql(graphqlOperation(getItemTable, {itemID: 0})).then(e =>
+                await API.graphql(graphqlOperation(getItemTable, {itemID: 0})).then(e =>
                     console.log(e.category)
                 );
         };
