@@ -1,9 +1,8 @@
 // import useEffect hook
 import React, { Component } from 'react';
-import {Provider, useDispatch} from 'react-redux';
+import {Provider} from 'react-redux';
 import {createStore } from 'redux';
 import rootReducer from './reducers';
-import {updateUsername} from "./actions";
 
 // import Hub
 import Amplify, { Auth, Hub,Storage } from 'aws-amplify';
@@ -82,7 +81,7 @@ class App extends Component {
       console.log('a user has signed out!')
     }
   }
-  
+
   async componentDidMount() {
       const res = await checkUser();
       console.log("User is " + JSON.stringify(res));
@@ -100,7 +99,7 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.user == null) {
+    if (this.state.user != null) {
       return (
         <div>
           <Login/>
@@ -169,14 +168,12 @@ class App extends Component {
 
 
   function Login() {
-      const dispatch = useDispatch();
     return (
       <div id="login-page" className="app">
         <div id="login-page" className="app-header">
           <div className="App">
             <header className="App-header">
-              <button id="SignInButton" onClick={() => {Auth.federatedSignIn();
-                dispatch(updateUsername(this.state.user));}}
+              <button id="SignInButton" onClick={() => Auth.federatedSignIn()}
                     >Sign In
               </button>
             </header>
