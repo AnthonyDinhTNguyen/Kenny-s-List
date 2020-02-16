@@ -169,7 +169,7 @@ class App extends Component {
 
 
   function Login() {
-
+      const dispatch = useDispatch();
     return (
       <div id="login-page" className="app">
         <div id="login-page" className="app-header">
