@@ -6,6 +6,7 @@ import rootReducer from './reducers';
 
 // import Hub
 import Amplify, { Auth, Hub,Storage } from 'aws-amplify';
+import API from '@aws-amplify/api'
 import {
   BrowserRouter as Router,
   Switch,
@@ -20,6 +21,9 @@ import AddItem from "./components/Pages/AddItem/AddItem";
 import CheckOutPage from "./components/Pages/CheckOutPage/CheckOutPage";
 
 export const  store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+import awsconfig from "./aws-exports";
+API.configure(awsconfig);
+
 Amplify.configure({
   Auth: {
       identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
