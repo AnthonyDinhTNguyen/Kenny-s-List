@@ -6,7 +6,8 @@ import rootReducer from './reducers';
 
 // import Hub
 import Amplify, { Auth, Hub,Storage } from 'aws-amplify';
-import API from '@aws-amplify/api'
+import API, {graphqlOperation} from '@aws-amplify/api'
+import PubSub from '@aws-amplify/pubsub';
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,7 +24,7 @@ import CheckOutPage from "./components/Pages/CheckOutPage/CheckOutPage";
 export const  store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 import awsconfig from "./aws-exports";
 API.configure(awsconfig);
-
+PubSub.configure(awsconfig);
 Amplify.configure({
   Auth: {
       identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
@@ -47,7 +48,9 @@ Amplify.configure({
       }
   },
   API:{
-    graphql_endpoint:"https://j6ngyh5f45albosbh3sdjj4szm.appsync-api.us-east-1.amazonaws.com/graphql"
+    graphql_endpoint:"https://j6ngyh5f45albosbh3sdjj4szm.appsync-api.us-east-1.amazonaws.com/graphql",
+    aws_appsync_region: "us-east-1",
+    aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS"
   }
 });
 Storage.configure({
