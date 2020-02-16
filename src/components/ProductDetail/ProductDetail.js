@@ -51,8 +51,8 @@ const ProductDetail = (props) => {
         const fetchData = async () => {
    
                 await (API.graphql(graphqlOperation(getItemTable, {itemID: 0})).then(e =>{
-                    console.log(e);}
-                ).catch(e => {console.log(e);}));
+                    console.log(e.data.getItemTable.category);}
+                ).catch(e => {console.log("UndefinedMessageDude");}));
         };
         fetchData();
 
