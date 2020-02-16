@@ -45,6 +45,9 @@ Amplify.configure({
           region: 'us-east-1', //OPTIONAL -  Amazon service region
           identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3'
       }
+  },
+  API:{
+    graphql_endpoint:"https://j6ngyh5f45albosbh3sdjj4szm.appsync-api.us-east-1.amazonaws.com/graphql"
   }
 });
 Storage.configure({
