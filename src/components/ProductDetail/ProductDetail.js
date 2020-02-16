@@ -5,12 +5,12 @@ import { getItemTable } from '../../graphql/queries.js';
 import {addProductToCart,updateUsername} from "../../actions";
 import axios from 'axios';
 import API, { graphqlOperation } from '@aws-amplify/api'
-//import PubSub from '@aws-amplify/pubsub';
+import PubSub from '@aws-amplify/pubsub';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 
 API.configure(awsconfig);
-//PubSub.configure(awsconfig);
+PubSub.configure(awsconfig);
 
 Amplify.configure({
     Auth: {
