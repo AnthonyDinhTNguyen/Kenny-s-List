@@ -48,6 +48,7 @@ const ProductDetail = (props) => {
     useEffect(() => {
         if (!expTime) return;
         
+        console.log("Get item table is " getItemTable);
         const fetchData = async () => {
    
                 await (API.graphql(graphqlOperation(getItemTable, {itemID: 0})).then(e =>{
