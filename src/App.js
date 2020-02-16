@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {Provider, useDispatch} from 'react-redux';
 import {createStore } from 'redux';
 import rootReducer from './reducers';
-
+import {updateUsername} from "./actions";
 
 // import Hub
 import Amplify, { Auth, Hub,Storage } from 'aws-amplify';
