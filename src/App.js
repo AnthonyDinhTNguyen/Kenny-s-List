@@ -176,7 +176,7 @@ class App extends Component {
           <div className="App">
             <header className="App-header">
               <button id="SignInButton" onClick={() => {Auth.federatedSignIn();
-                props.dispatch(updateUsername(this.state.user));}}
+                dispatch(updateUsername(this.state.user));}}
                     >Sign In
               </button>
             </header>
