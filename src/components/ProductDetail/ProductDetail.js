@@ -3,7 +3,30 @@ import {connect, useSelector, useDispatch} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
 import {addProductToCart,updateUsername} from "../../actions";
 import axios from 'axios';
+import API, { graphqlOperation } from '@aws-amplify/api'
+//import PubSub from '@aws-amplify/pubsub';
 import { Auth } from 'aws-amplify';
+import awsconfig from '../../aws-exports';
+
+API.configure(awsconfig);
+//PubSub.configure(awsconfig);
+
+Amplify.configure({
+    Auth: {
+      IdentityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
+      region: 'us-east-1',
+      userPoolId: 'us-east-1_buFSrhliB',
+      userPoolWebClientId: '1qkrcfqgqv63hk594qi92q5hqi',
+      mandatorySignIn: true,
+      oauth: {
+        domain: 'kennyslist.auth.us-east-1.amazoncognito.com',
+        scope: ['phone','email','profile','openid','aws.cognito.signin.user.admin'],
+        redirectSignIn: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
+        redirectSignOut: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
+        responseType: 'token'
+      }
+    }
+    });
 
 const ProductDetail = (props) => {
     const {
@@ -19,6 +42,28 @@ const ProductDetail = (props) => {
     const [BidHistory, setBidHistory] = useState({});
     const [username, serUsername] = useState('');
     const [error, setError] = useState(null);
+    const [expTime, setExpTime] = useState(1000);
+
+    useEffect(() => {
+        if (!expTime) return;
+        
+        const fetchData = async () => {
+            try {
+                const result = await API.graphql(graphqlOperation(getItemTable, {itemID: 0})).then(e =>
+                    console.log(e.category)
+                );
+            } catch(e) {
+                console.log(e);
+            }
+        };
+        fetchData();
+
+        const interval = setInterval(() => {
+            setExpTime(expTime - 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [expTime]);
 
     useEffect(() => {
         try {
