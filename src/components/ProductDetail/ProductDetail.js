@@ -38,7 +38,7 @@ const ProductDetail = (props) => {
     // }, []);
 
     const users = useSelector(state => state.username.username);
-
+    console.log("Say Hi To:", users);
     const clearState = () => {
         setValue('');
     };
@@ -50,13 +50,13 @@ const ProductDetail = (props) => {
         event.preventDefault();
         const bidhistory = {'BidAmt': value};
         setBidHistory(bidhistory);
-        clearState();
         await axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
             {Username:`${users}`, ProductID:id, BidAmt:value, Status : `Bidding`}
         );
         await axios.post('https://l4px6d2via.execute-api.us-east-1.amazonaws.com/default/postLatestUserBid',
-            {BidAmt:`${value}`,ProductID:`${id}`, Username: `${users}`}
+            { BidAmt:value, ProductID: `${id}`, Username: `${users}`}
         );
+        clearState();
     };
 
     useEffect(() => {

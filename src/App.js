@@ -100,7 +100,7 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.user == null) {
+    if (this.state.user != null) {
       return (
         <div>
           <Login/>
@@ -175,7 +175,10 @@ class App extends Component {
         <div id="login-page" className="app-header">
           <div className="App">
             <header className="App-header">
-              <button id="SignInButton" onClick={() => {Auth.federatedSignIn(); props.dispatch(updateUsername(this.state.user));}}>Sign In</button>
+              <button id="SignInButton" onClick={() => {Auth.federatedSignIn();
+                props.dispatch(updateUsername(this.state.user));}}
+                    >Sign In
+              </button>
             </header>
           </div>
         </div>
