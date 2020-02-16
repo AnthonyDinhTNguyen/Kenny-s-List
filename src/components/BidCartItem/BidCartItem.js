@@ -1,43 +1,25 @@
 import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import StripePayment from '../StripePayment/StripePayment';
 import axios from "axios";
 import styled from 'styled-components';
-import {Auth} from "aws-amplify";
 
 const BidCartItem = (
     {
         title,
         id,
-        img
+        img,
     }
 ) => {
+    const users = useSelector(state => state.username.username);
+
     const [bidInfo, setBidInfo] = useState ({});
-    const [username, serUsername] = useState('');
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        try {
-            setError(null);
-
-            Auth.currentAuthenticatedUser({
-                bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-            }).then(user => {
-                serUsername(user.username);
-                console.log(`Load additional settings for user: ${user.username}`);
-                // TBD
-            }).catch(err => setError(err));
-        }
-        catch (e) {
-            setError(e);
-        }
-    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios.get
-            (`https://vhwckrva1j.execute-api.us-east-1.amazonaws.com/default/FetchBidsForCheckout?Username=${username}&ProductID=${id}`,);
+            (`https://vhwckrva1j.execute-api.us-east-1.amazonaws.com/default/FetchBidsForCheckout?Username=${users}&ProductID=${id}`,);
             setBidInfo(result.data);
         };
         fetchData();

@@ -1,8 +1,9 @@
 // import useEffect hook
 import React, { Component } from 'react';
-import {Provider} from 'react-redux';
+import {Provider, useDispatch} from 'react-redux';
 import {createStore } from 'redux';
 import rootReducer from './reducers';
+
 
 // import Hub
 import Amplify, { Auth, Hub,Storage } from 'aws-amplify';
@@ -60,7 +61,8 @@ function signOut() {
     .catch(err => console.log(err));
 }
 
-class App extends React.Component {
+class App extends Component {
+
   constructor() {
     super();
     this.state = {user: null};
@@ -70,7 +72,7 @@ class App extends React.Component {
         this.onAuthEvent(payload);
         console.log('A new auth event has happened: ', data);
       })
-  }
+  };
   
   onAuthEvent(payload) {
     if (payload.event === 'signIn') {
@@ -96,9 +98,9 @@ class App extends React.Component {
       });
       AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
   }
-  
+
   render() {
-    if (this.state.user == null) {
+    if (this.state.user != null) {
       return (
         <div>
           <Login/>
@@ -127,6 +129,7 @@ class App extends React.Component {
 };
   
   function Main() {
+
     return (
       <Provider store={store}>
             <Router>
@@ -164,13 +167,20 @@ class App extends React.Component {
      );
   }
 
+
+    const onClick = async () => {
+      const dispatch = useDispatch();
+      Auth.federatedSignIn();
+      dispatch(updateUsername(this.state.user));
+    };
+
   function Login() {
     return (
       <div id="login-page" className="app">
         <div id="login-page" className="app-header">
           <div className="App">
             <header className="App-header">
-              <button id="SignInButton" onClick={() => Auth.federatedSignIn()}>Sign In</button>
+              <button id="SignInButton" onClick={onClick}>Sign In</button>
             </header>
           </div>
         </div>

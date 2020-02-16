@@ -1,7 +1,7 @@
 export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
 export const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
-export const INCREMENT_CART_ITEM_QUANTITY = 'INCREMENT_CART_ITEM_QUANTITY';
-export const DECREMENT_CART_ITEM_QUANTITY = 'DECREMENT_CART_ITEM_QUANTITY';
+export const UPDATE_USERNAME = 'UPDATE_USERNAME';
+
 
 export const addProductToCart = product => {
     return {
@@ -9,6 +9,12 @@ export const addProductToCart = product => {
         payload: product
     }
 };
+export const updateUsername = username => {
+    return {
+        type: UPDATE_USERNAME,
+        username
+    }
+}
 
 export const ADD_BRAND_TO_FILTER = 'ADD_BRAND_TO_FILTER';
 export const REMOVE_BRAND_FROM_FILTER = 'REMOVE_BRAND_FROM_FILTER';

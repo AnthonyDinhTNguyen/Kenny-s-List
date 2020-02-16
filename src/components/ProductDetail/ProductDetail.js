@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
 import {addProductToCart} from "../../actions";
 import axios from 'axios';
-import {Auth} from 'aws-amplify';
+
 
 const ProductDetail = (props) => {
     const {
@@ -14,28 +14,30 @@ const ProductDetail = (props) => {
         id
     } = props.product;
 
+
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState({});
-    const [username, serUsername] = useState('');
-    const [error, setError] = useState(null);
+    // const [username, serUsername] = useState('');
+    // const [error, setError] = useState(null);
 
-    useEffect(() => {
-        try {
-            setError(null);
+    // useEffect(() => {
+    //     try {
+    //         setError(null);
+    //
+    //         Auth.currentAuthenticatedUser({
+    //             bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+    //         }).then(user => {
+    //             serUsername(user.username);
+    //             console.log(`Load additional settings for user: ${user.username}`);
+    //             // TBD
+    //         }).catch(err => setError(err));
+    //     }
+    //     catch (e) {
+    //         setError(e);
+    //     }
+    // }, []);
 
-            Auth.currentAuthenticatedUser({
-                bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-            }).then(user => {
-                serUsername(user.username);
-                console.log(`Load additional settings for user: ${user.username}`);
-                // TBD
-            }).catch(err => setError(err));
-        }
-        catch (e) {
-            setError(e);
-        }
-    }, []);
-
+    const users = useSelector(state => state.username.username);
 
     const clearState = () => {
         setValue('');
@@ -49,12 +51,11 @@ const ProductDetail = (props) => {
         const bidhistory = {'BidAmt': value};
         setBidHistory(bidhistory);
         clearState();
-        console.log(username);
         await axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
-            {Username:`${username}`, ProductID:id, BidAmt:value, Status : `Bidding`}
+            {Username:`${users}`, ProductID:id, BidAmt:value, Status : `Bidding`}
         );
         await axios.post('https://l4px6d2via.execute-api.us-east-1.amazonaws.com/default/postLatestUserBid',
-            {BidAmt:`${value}`,ProductID:`${id}`}
+            {BidAmt:`${value}`,ProductID:`${id}`, Username: `${users}`}
         );
     };
 
@@ -70,6 +71,7 @@ const ProductDetail = (props) => {
     const onCart = async () => {
         props.dispatch(addProductToCart(props.product));
     };
+
 
     return (
         <aside className="col-sm-7">
