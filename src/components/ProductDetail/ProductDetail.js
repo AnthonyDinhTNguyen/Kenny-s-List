@@ -29,7 +29,6 @@ const ProductDetail = (props) => {
             }).then(user => {
                 serUsername(user.username);
                 console.log(`Load additional settings for user: ${user.username}`);
-                // TBD
             }).catch(err => setError(err));
         }
         catch (e) {
@@ -71,7 +70,6 @@ const ProductDetail = (props) => {
         props.dispatch(addProductToCart(props.product));
         props.dispatch(updateUsername(username));
     };
-
 
     return (
         <aside className="col-sm-7">
