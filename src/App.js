@@ -167,11 +167,6 @@ class App extends Component {
      );
   }
 
-const onClick = async () => {
-    Auth.federatedSignIn();
-    props.dispatch(updateUsername(this.state.user));
-};
-
 
   function Login() {
 
@@ -180,7 +175,7 @@ const onClick = async () => {
         <div id="login-page" className="app-header">
           <div className="App">
             <header className="App-header">
-              <button id="SignInButton" onClick={onClick}>Sign In</button>
+              <button id="SignInButton" onClick={() => {Auth.federatedSignIn(); props.dispatch(updateUsername(this.state.user));}}>Sign In</button>
             </header>
           </div>
         </div>
