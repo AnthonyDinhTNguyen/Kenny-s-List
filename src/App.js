@@ -46,6 +46,10 @@ Amplify.configure({
           region: 'us-east-1', //OPTIONAL -  Amazon service region
           identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3'
       }
+  },
+  API: {
+  	aws_appsync_authenticationType: "API_KEY",
+    aws_appsync_apiKey: "da2-5ze6sharjrbklo5xrf4r5r5cnq"
   }
 });
 Storage.configure({
