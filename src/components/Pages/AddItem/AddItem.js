@@ -1,6 +1,6 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
-import { getItemTable } from '../../graphql/queries';
+import { getItemTable } from '../../../graphql/queries';
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
