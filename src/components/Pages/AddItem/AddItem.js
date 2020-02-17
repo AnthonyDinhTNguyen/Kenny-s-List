@@ -47,6 +47,9 @@ export default class AddItem extends React.Component {
         if(file ==''||name==''||desc==''){
             console.log("missing an input");
         }
+        API.graphql(graphqlOperation(getItemTable, {itemID: 0})).then(e =>{
+            console.log(e.data.getItemTable.category);}
+        ).catch(e => {console.log("UndefinedMessageDude");});
         
         Storage.put(name, file, {
             level: 'protected',
