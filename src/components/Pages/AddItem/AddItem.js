@@ -36,7 +36,7 @@ export default class AddItem extends React.Component {
         console.log(this.state.desc);
     }
     
-    async handleSubmit(event) {
+    handleSubmit(event) {
         alert('A name was submitted: ' + this.state.value);
         const file = this.state.file;
         const name = this.state.value;
@@ -47,10 +47,7 @@ export default class AddItem extends React.Component {
         if(file ==''||name==''||desc==''){
             console.log("missing an input");
         }
-        await (API.graphql(graphqlOperation(getItemTable, {itemID: 0})).then(e =>{
-            console.log(e.data.getItemTable.category);}
-        ).catch(e => {console.log("UndefinedMessageDude");}));
-
+        
         Storage.put(name, file, {
             level: 'protected',
             contentType: 'image/png'
