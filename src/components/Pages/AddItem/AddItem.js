@@ -42,6 +42,8 @@ export default class AddItem extends React.Component {
         const name = this.state.value;
         const desc = this.state.desc;
         console.log(file);
+        console.log(name);
+        console.log(desc);
         
         Storage.put(name, file, {
             level: 'protected',
