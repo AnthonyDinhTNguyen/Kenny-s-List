@@ -76,8 +76,7 @@ const ProductDetail = (props) => {
                 const bidTime = 604800 
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch)
                 setExpTime(time)
-                console.log(e.data.getItemTable.category);
-            }).catch(e => {console.log("failed");}));
+            }).catch(e => {console.log("Failed to retrieve data");}));
         };
         fetchData();
     }, []);
