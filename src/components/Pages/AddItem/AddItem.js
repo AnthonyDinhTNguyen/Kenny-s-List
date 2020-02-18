@@ -79,7 +79,7 @@ export default class AddItem extends React.Component {
                         <input type="file" accept='image/png' onChange={this.handleFile}/>
                     </label>
                     <label>
-                        Name:
+                        Title:
                         <input type="text" value = {this.state.value} onChange={this.handleName} />
                     </label>
                     <label>
