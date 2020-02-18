@@ -1,6 +1,8 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable } from '../../../graphql/queries';
+import { updateItemTable } from '../../../graphql/mutations';
+import API, { graphqlOperation } from '@aws-amplify/api'
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
@@ -56,10 +58,15 @@ export default class AddItem extends React.Component {
         .catch(err => console.log(err));
         console.log(this.state.value);
         event.preventDefault();
-        
+
         API.graphql(graphqlOperation(getItemTable, {itemID: 0})).then(e =>{
             console.log(e.data.getItemTable.category);}
         ).catch(e => {console.log("UndefinedMessageDude");});
+
+        API.graphql(graphqlOperation(updateItemTable,{input:{itemID:0,name:"testingDB"}})).then(e=>{
+            console.log(e);}
+            ).catch(e => {console.log("Error updatin");});
+
       }
   //images will be validated server side as well
     render() {
