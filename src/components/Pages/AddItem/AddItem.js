@@ -71,7 +71,7 @@ export default class AddItem extends React.Component {
         
       }
       async componentDidMount(){
-        await API.graphql(graphqlOperation(updateItemTable, {input: {itemID: "o392jf093j9aijfslijdfk", category: "test", description: "test", highestBidder: "test", images: ["test"], itemOwner: "test2", name: "testingDB", postTime: "test"}}));
+        await API.graphql(graphqlOperation(updateItemTable, {input: {itemID: "o392jf093j9aijfslijdfk"}}));
       }
   //images will be validated server side as well
     render() {
