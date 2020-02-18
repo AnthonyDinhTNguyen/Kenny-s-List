@@ -53,7 +53,7 @@ const ProductDetail = (props) => {
    
                 await (API.graphql(graphqlOperation(getItemTable, {itemID: "f392jf093j9aijfslijdfkz"})).then(e =>{
                     console.log(e.data.getItemTable.category);}
-                ).catch(e => {console.log("UndefinedMessageDude");}));
+                ).catch(e => {console.log(e);}));
         };
         fetchData();
 

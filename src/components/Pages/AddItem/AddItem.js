@@ -2,7 +2,8 @@ import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable } from '../../../graphql/queries';
 import { updateItemTable } from '../../../graphql/mutations';
-import API, { graphqlOperation } from '@aws-amplify/api'
+import API, { graphqlOperation } from '@aws-amplify/api';
+import uuid from "uuid";
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
@@ -58,12 +59,12 @@ export default class AddItem extends React.Component {
         .catch(err => console.log(err));
         console.log(this.state.value);
         event.preventDefault();
-
+        const uID = uuid.v4();
         API.graphql(graphqlOperation(getItemTable, {itemID: "f392jf093j9aijfslijdfkz"})).then(e =>{
             console.log(e.data.getItemTable.category);}
-        ).catch(e => {console.log("UndefinedMessageDude");});
+        ).catch(e => {console.log(e);});
 
-        API.graphql(graphqlOperation(updateItemTable,{input:{itemID:"waduHeck",name:"testingDB"}})).then(e=>{
+        API.graphql(graphqlOperation(updateItemTable,{input:{itemID:uID.toString(),name:"testingDB"}})).then(e=>{
             console.log(e);}
             ).catch(e => {console.log("Error updatin");});
 
