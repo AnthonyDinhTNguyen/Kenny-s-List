@@ -42,16 +42,16 @@ export default class AddItem extends React.Component {
     async handleSubmit(event) {
         alert('A name was submitted: ' + this.state.value);
         const file = this.state.file;
-        const name = this.state.value;
+        const title = this.state.value;
         const desc = this.state.desc;
         console.log(file);
-        console.log(name);
+        console.log(title);
         console.log(desc);
-        if(file ==''||name==''||desc==''){
+        if(file ==''||title==''||desc==''){
             console.log("missing an input");
         }
 
-        Storage.put(name, file, {
+        Storage.put(title, file, {
             level: 'protected',
             contentType: 'image/png'
         })
@@ -61,7 +61,7 @@ export default class AddItem extends React.Component {
         event.preventDefault();
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
-        API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user}}));
+        API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title}}));
         
       }
       async componentDidMount(){
