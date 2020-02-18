@@ -2,14 +2,12 @@
 // this is an auto generated file. This will be overwritten
 
 export const getItemTable = /* GraphQL */ `
-  query GetItemTable($itemID: String!) {
+  query GetItemTable($itemID: Int!) {
     getItemTable(itemID: $itemID) {
       itemID
       category
       description
-      highestBidder
       images
-      itemOwner
       name
       postTime
     }
@@ -26,9 +24,7 @@ export const listItemTables = /* GraphQL */ `
         itemID
         category
         description
-        highestBidder
         images
-        itemOwner
         name
         postTime
       }

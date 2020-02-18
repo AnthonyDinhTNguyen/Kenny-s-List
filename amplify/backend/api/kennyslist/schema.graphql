@@ -4,5 +4,4 @@ type kennyslist @model {
 	content: String!
 	price: Int
 	rating: Float
-	test: String
 }
