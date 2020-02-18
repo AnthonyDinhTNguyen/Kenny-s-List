@@ -71,6 +71,7 @@ export default class AddItem extends React.Component {
         
       }
       async componentDidMount(){
+        const uID = uuid.v4();
         await API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString()}}));
       }
   //images will be validated server side as well
