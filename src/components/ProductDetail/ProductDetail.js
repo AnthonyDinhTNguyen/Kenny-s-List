@@ -43,11 +43,37 @@ const ProductDetail = (props) => {
     const [BidHistory, setBidHistory] = useState({});
     const [username, serUsername] = useState('');
     const [error, setError] = useState(null);
+
     const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
 
 
+    const [expTime, setExpTime] = useState(0);
+
+    const expTimeFormatted = () => {
+        var time = expTime
+        const days = Math.floor(time / 86400)
+        time = time % 86400
+        const hours = Math.floor(time / 3600)
+        time = time % 3600
+        const minutes = Math.floor(time / 60)
+        time = time % 60
+        const seconds = time
+
+        var formattedTime = ""
+
+        if (days) formattedTime += days + "d ";
+        if (hours) formattedTime += hours + "h ";
+        if (minutes) formattedTime += minutes + "m ";
+
+        formattedTime += seconds + "s ";
+
+        return formattedTime;
+    }
+
+    // Fetch the item data from the server and set the expiration time accordingly.
     useEffect(() => {
+
         if (!expTime) return;
         console.log("Get item table is " + getItemTable);
         const fetchData = async () => {
@@ -55,8 +81,23 @@ const ProductDetail = (props) => {
                 await (API.graphql(graphqlOperation(getItemTable, {itemID: "f392jf093j9aijfslijdfkz"})).then(e =>{
                     console.log(e.data.getItemTable.category);}
                 ).catch(e => {console.log(e);}));
+
+        const fetchData = async () => {
+            await (API.graphql(graphqlOperation(getItemTable, {itemID: "f392jf093j9aijfslijdfkz"})).then(e => {
+                const curTimeInEpoch = Math.round(new Date().getTime() / 1000)
+                const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000))
+                // 604800 = seven days in seconds
+                const bidTime = 604800 
+                const time = bidTime - (curTimeInEpoch - postTimeInEpoch)
+                setExpTime(time)
+            }).catch(e => {console.log("Failed to retrieve data");}));
+
         };
         fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (!expTime) return;
 
         const interval = setInterval(() => {
             setExpTime(expTime - 1);
@@ -147,7 +188,7 @@ const ProductDetail = (props) => {
                 <strong>Base Bid: $</strong>
                         {BidHistory.BidAmt != null ?( <span>{BidHistory.BidAmt}</span>):(<span>0</span>)}
                 <dl className="param param-feature">
-                    <dt>Time Left: <span>6d</span></dt>
+                    <dt>Time Left: <span>{expTimeFormatted()}</span></dt>
                 </dl>
 
                 <form onSubmit={handleSubmit}>
