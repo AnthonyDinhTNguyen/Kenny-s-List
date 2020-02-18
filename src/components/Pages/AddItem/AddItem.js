@@ -59,11 +59,11 @@ export default class AddItem extends React.Component {
         console.log(this.state.value);
         event.preventDefault();
 
-        API.graphql(graphqlOperation(getItemTable, {itemID: 0})).then(e =>{
+        API.graphql(graphqlOperation(getItemTable, {itemID: "f392jf093j9aijfslijdfkz"})).then(e =>{
             console.log(e.data.getItemTable.category);}
         ).catch(e => {console.log("UndefinedMessageDude");});
 
-        API.graphql(graphqlOperation(updateItemTable,{input:{itemID:0,name:"testingDB"}})).then(e=>{
+        API.graphql(graphqlOperation(updateItemTable,{input:{itemID:"waduHeck",name:"testingDB"}})).then(e=>{
             console.log(e);}
             ).catch(e => {console.log("Error updatin");});
 
