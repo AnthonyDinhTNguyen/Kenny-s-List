@@ -39,7 +39,7 @@ export default class AddItem extends React.Component {
         console.log(this.state.desc);
     }
     
-    handleSubmit(event) {
+    async handleSubmit(event) {
         alert('A name was submitted: ' + this.state.value);
         const file = this.state.file;
         const name = this.state.value;
@@ -60,6 +60,8 @@ export default class AddItem extends React.Component {
         console.log(this.state.value);
         event.preventDefault();
         const uID = uuid.v4();
+        const user = (await Auth.currentAuthenticatedUser()).username;
+        console.log(user);
         API.graphql(graphqlOperation(getItemTable, {itemID: "f392jf093j9aijfslijdfkz"})).then(e =>{
             console.log(e.data.getItemTable.category);}
         ).catch(e => {console.log(e);});
