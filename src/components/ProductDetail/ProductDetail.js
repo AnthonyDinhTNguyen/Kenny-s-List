@@ -43,12 +43,8 @@ const ProductDetail = (props) => {
     const [BidHistory, setBidHistory] = useState({});
     const [username, serUsername] = useState('');
     const [error, setError] = useState(null);
-
     const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
-
-
-    const [expTime, setExpTime] = useState(0);
 
     const expTimeFormatted = () => {
         var time = expTime
@@ -69,27 +65,23 @@ const ProductDetail = (props) => {
         formattedTime += seconds + "s ";
 
         return formattedTime;
-    }
+    };
 
     // Fetch the item data from the server and set the expiration time accordingly.
     useEffect(() => {
+        if (!expTime)
+            return;
 
-        if (!expTime) return;
         console.log("Get item table is " + getItemTable);
-        const fetchData = async () => {
-
-                await (API.graphql(graphqlOperation(getItemTable, {itemID: "f392jf093j9aijfslijdfkz"})).then(e =>{
-                    console.log(e.data.getItemTable.category);}
-                ).catch(e => {console.log(e);}));
 
         const fetchData = async () => {
             await (API.graphql(graphqlOperation(getItemTable, {itemID: "f392jf093j9aijfslijdfkz"})).then(e => {
-                const curTimeInEpoch = Math.round(new Date().getTime() / 1000)
-                const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000))
+                const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
+                const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
                 // 604800 = seven days in seconds
-                const bidTime = 604800 
-                const time = bidTime - (curTimeInEpoch - postTimeInEpoch)
-                setExpTime(time)
+                const bidTime = 604800 ;
+                const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
+                setExpTime(time);
             }).catch(e => {console.log("Failed to retrieve data");}));
 
         };
@@ -169,7 +161,6 @@ const ProductDetail = (props) => {
         props.dispatch(updateUsername(username));
     };
 
-
     return (
         <aside className="col-sm-7">
             <article className="card-body p-5">
@@ -180,29 +171,24 @@ const ProductDetail = (props) => {
                     <span className="currency">$</span><span className="num">{formatMoney(price)} (Market Value)</span>
                 </span>
                 </p>
-                <dl className="param param-feature">
-                    <dt>Product ID: {id}</dt>
-                </dl>
-                <h6 ><strong>Condition:</strong> {condition}</h6>
 
-                <strong>Base Bid: $</strong>
+                <h6 className="mb-3"><strong>Condition:</strong> {condition}</h6>
+                <h6 className="mb-3">
+                <strong >Base Bid: $</strong>
                         {BidHistory.BidAmt != null ?( <span>{BidHistory.BidAmt}</span>):(<span>0</span>)}
-                <dl className="param param-feature">
-                    <dt>Time Left: <span>{expTimeFormatted()}</span></dt>
-                </dl>
-
+                </h6>
+                <h6 className="mb-3">
+                <strong>Time Left: </strong><span>{expTimeFormatted()}</span>
+                </h6>
                 <form onSubmit={handleSubmit}>
-                      {/*{ > 0 &&*/}
-                        <div>
-                          <h6><strong>Your bid:</strong></h6>
-                            <input id={id} name="input-field" className="form-control ml-3" type="number" value={value}
-                                        min={BidHistory.BidAmt}
-                                        placeholder="Your Price"  onChange={handleChange} />
-                          </div>
-                        {errorValidation.length > 0 ? (<div className="ml-3" style={{ color: 'red' }}>{errorValidation}</div>):(<div></div>)}
+                    <div>
+                        <h6><strong>Your bid:</strong></h6>
+                        <input id={id} name="input-field" className="form-control" type="number" value={value}
+                        placeholder="Your Price"  onChange={handleChange} />
+                    </div>
+                    {errorValidation.length > 0 ? (<div style={{color: 'red'}}>{errorValidation}</div>):(<div></div>)}
 
-                        <input onClick={onCart} type="submit" className="ml-3" value="Place Bid" />
-                      {/* } */}
+                    <input onClick={onCart} type="submit" className="mt-2" value="Place Bid" disabled={expTime===0}/>
                 </form>
                 <hr/>
                 <dl className="item-property">
