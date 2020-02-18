@@ -44,13 +44,14 @@ const ProductDetail = (props) => {
     const [username, serUsername] = useState('');
     const [error, setError] = useState(null);
     const [expTime, setExpTime] = useState(1000);
+    const [errorValidation, setErrorValidation] = useState('');
+
 
     useEffect(() => {
         if (!expTime) return;
-        
         console.log("Get item table is " + getItemTable);
         const fetchData = async () => {
-   
+
                 await (API.graphql(graphqlOperation(getItemTable, {itemID: "f392jf093j9aijfslijdfkz"})).then(e =>{
                     console.log(e.data.getItemTable.category);}
                 ).catch(e => {console.log(e);}));
@@ -91,14 +92,26 @@ const ProductDetail = (props) => {
     const  handleSubmit = async event => {
         event.preventDefault();
         const bidhistory = {'BidAmt': value};
-        setBidHistory(bidhistory);
-        await axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
-            {Username:`${username}`, ProductID:id, BidAmt:value, Status : `Won`}
-        );
-        await axios.post('https://l4px6d2via.execute-api.us-east-1.amazonaws.com/default/postLatestUserBid',
-            { BidAmt:value, ProductID: `${id}`, Username: `${username}`}
-        );
-        clearState();
+
+        if(value.length === 0){
+            setErrorValidation('Bid Value cannot be NULL');
+        }
+        else if(value <= BidHistory.BidAmt){
+            setErrorValidation(`Bid Value must be greater than $${BidHistory.BidAmt}`);
+        }
+        else {
+            setBidHistory(bidhistory);
+            setErrorValidation('');
+            clearState();
+            await axios.post('https://l4px6d2via.execute-api.us-east-1.amazonaws.com/default/postLatestUserBid',
+                {BidAmt: value, ProductID: `${id}`, Username: `${username}`}
+            );
+            await axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
+                {Username: `${username}`, ProductID: id, BidAmt: value, Status: `Won`}
+            );
+
+        }
+
     };
 
     useEffect(() => {
@@ -114,6 +127,7 @@ const ProductDetail = (props) => {
         props.dispatch(addProductToCart(props.product));
         props.dispatch(updateUsername(username));
     };
+
 
     return (
         <aside className="col-sm-7">
@@ -140,10 +154,11 @@ const ProductDetail = (props) => {
                       {/*{ > 0 &&*/}
                         <div>
                           <h6><strong>Your bid:</strong></h6>
-                            <input id={id} className="form-control ml-3" type="number" value={value}
+                            <input id={id} name="input-field" className="form-control ml-3" type="number" value={value}
                                         min={BidHistory.BidAmt}
                                         placeholder="Your Price"  onChange={handleChange} />
                           </div>
+                        {errorValidation.length > 0 ? (<div className="ml-3" style={{ color: 'red' }}>{errorValidation}</div>):(<div></div>)}
 
                         <input onClick={onCart} type="submit" className="ml-3" value="Place Bid" />
                       {/* } */}
