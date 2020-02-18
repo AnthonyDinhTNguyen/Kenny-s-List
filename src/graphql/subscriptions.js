@@ -3,23 +3,25 @@
 
 export const onCreateItemTable = /* GraphQL */ `
   subscription OnCreateItemTable(
-    $itemID: Int
+    $itemID: String
     $category: String
     $description: String
+    $highestBidder: String
     $images: [String]
-    $name: String
   ) {
     onCreateItemTable(
       itemID: $itemID
       category: $category
       description: $description
+      highestBidder: $highestBidder
       images: $images
-      name: $name
     ) {
       itemID
       category
       description
+      highestBidder
       images
+      itemOwner
       name
       postTime
     }
@@ -27,23 +29,25 @@ export const onCreateItemTable = /* GraphQL */ `
 `;
 export const onUpdateItemTable = /* GraphQL */ `
   subscription OnUpdateItemTable(
-    $itemID: Int
+    $itemID: String
     $category: String
     $description: String
+    $highestBidder: String
     $images: [String]
-    $name: String
   ) {
     onUpdateItemTable(
       itemID: $itemID
       category: $category
       description: $description
+      highestBidder: $highestBidder
       images: $images
-      name: $name
     ) {
       itemID
       category
       description
+      highestBidder
       images
+      itemOwner
       name
       postTime
     }
@@ -51,23 +55,25 @@ export const onUpdateItemTable = /* GraphQL */ `
 `;
 export const onDeleteItemTable = /* GraphQL */ `
   subscription OnDeleteItemTable(
-    $itemID: Int
+    $itemID: String
     $category: String
     $description: String
+    $highestBidder: String
     $images: [String]
-    $name: String
   ) {
     onDeleteItemTable(
       itemID: $itemID
       category: $category
       description: $description
+      highestBidder: $highestBidder
       images: $images
-      name: $name
     ) {
       itemID
       category
       description
+      highestBidder
       images
+      itemOwner
       name
       postTime
     }

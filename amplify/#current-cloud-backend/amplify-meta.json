@@ -10,6 +10,11 @@
 			"StackName": "amplify-kennyslist-kennyslist-145823",
 			"StackId": "arn:aws:cloudformation:us-east-1:428663290127:stack/amplify-kennyslist-kennyslist-145823/89b5f620-37ea-11ea-a348-1204ddd846a2",
 			"AmplifyAppId": "d2nmsllsuquwvm"
+		},
+		"categories": {
+			"auth": {
+				"kennyslistc8b0ac57": {}
+			}
 		}
 	},
 	"api": {
@@ -29,12 +34,12 @@
 				"GraphQLAPIIdOutput": "cplfw262jndzhilo67cmwd7ive",
 				"GraphQLAPIEndpointOutput": "https://j6ngyh5f45albosbh3sdjj4szm.appsync-api.us-east-1.amazonaws.com/graphql"
 			},
-			"lastPushTimeStamp": "2020-01-16T00:46:24.003Z",
+			"lastPushTimeStamp": "2020-02-16T02:46:58.121Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-kennyslist-kennyslist-145823-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"logicalId": "apikennyslist"
 			},
-			"lastPushDirHash": "cCTGooi18M3KQYTZEhcWetdhRd4="
+			"lastPushDirHash": "hOLy+eA7ABBFtAtss4dm5qrymC4="
 		}
 	},
 	"auth": {
@@ -42,11 +47,6 @@
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [],
-			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/amplify-kennyslist-kennyslist-145823-deployment/amplify-cfn-templates/auth/kennyslistc8b0ac57-cloudformation-template.yml",
-				"logicalId": "authkennyslistc8b0ac57"
-			},
-			"lastPushTimeStamp": "2020-01-16T00:46:23.996Z",
 			"output": {
 				"AppClientSecret": "3vlmj8copmf40hik106doq3usbvvf3jbs7n21nrb3rrpj1bhc45",
 				"UserPoolId": "us-east-1_buFSrhliB",
@@ -56,21 +56,25 @@
 				"IdentityPoolName": "kennyslistc8b0ac57_identitypool_c8b0ac57__kennyslist",
 				"UserPoolName": "kennyslistc8b0ac57_userpool_c8b0ac57"
 			},
-			"lastPushDirHash": "sgaIr8z5FFKRTS4QFroOpl/gp0M="
+			"lastPushTimeStamp": "2020-02-16T02:46:56.535Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-kennyslist-kennyslist-145823-deployment/amplify-cfn-templates/auth/kennyslistc8b0ac57-cloudformation-template.yml",
+				"logicalId": "authkennyslistc8b0ac57"
+			}
 		}
 	},
 	"storage": {
 		"kennysliststorage": {
 			"service": "S3",
 			"providerPlugin": "awscloudformation",
-			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/amplify-kennyslist-kennyslist-145823-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
-				"logicalId": "storagekennysliststorage"
-			},
-			"lastPushTimeStamp": "2020-01-16T00:46:23.999Z",
 			"output": {
 				"BucketName": "kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist",
 				"Region": "us-east-1"
+			},
+			"lastPushTimeStamp": "2020-02-16T02:46:56.536Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-kennyslist-kennyslist-145823-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+				"logicalId": "storagekennysliststorage"
 			},
 			"lastPushDirHash": "Rm7R4YzSi2rbPy7Ne9GUmmnjXXQ="
 		}

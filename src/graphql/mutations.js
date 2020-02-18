@@ -7,7 +7,9 @@ export const createItemTable = /* GraphQL */ `
       itemID
       category
       description
+      highestBidder
       images
+      itemOwner
       name
       postTime
     }
@@ -19,7 +21,9 @@ export const updateItemTable = /* GraphQL */ `
       itemID
       category
       description
+      highestBidder
       images
+      itemOwner
       name
       postTime
     }
@@ -31,7 +35,9 @@ export const deleteItemTable = /* GraphQL */ `
       itemID
       category
       description
+      highestBidder
       images
+      itemOwner
       name
       postTime
     }
