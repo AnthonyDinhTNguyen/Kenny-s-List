@@ -61,15 +61,7 @@ export default class AddItem extends React.Component {
         event.preventDefault();
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
-        console.log(user);
-        API.graphql(graphqlOperation(getItemTable, {itemID: "f392jf093j9aijfslijdfkz"})).then(e =>{
-            console.log(e.data.getItemTable.category);}
-        ).catch(e => {console.log(e);});
-
-        /*API.graphql(graphqlOperation(createItemTable, {input: {itemID: "o392jf093j9aijfslijdfk", category: "test", description: "test", highestBidder: "test", images: ["test"], itemOwner: "test2", name: "testingDB", postTime: "test"}})).then(e=>{
-            console.log(e);}
-            ).catch(e => {console.log(e);});*/
-        API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc}}));
+        API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user}}));
         
       }
       async componentDidMount(){
