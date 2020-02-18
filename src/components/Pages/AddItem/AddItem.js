@@ -1,7 +1,7 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable } from '../../../graphql/queries';
-import { updateItemTable } from '../../../graphql/mutations';
+import { updateItemTable,createItemTable } from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
 export default class AddItem extends React.Component {
@@ -64,14 +64,14 @@ export default class AddItem extends React.Component {
             console.log(e.data.getItemTable.category);}
         ).catch(e => {console.log(e);});
 
-        //API.graphql(graphqlOperation(updateItemTable, {input: {itemID: "o392jf093j9aijfslijdfk", category: "test", description: "test", highestBidder: "test", images: ["test"], itemOwner: "test2", name: "testingDB", postTime: "test"}})).then(e=>{
-        //    console.log(e);}
-        //    ).catch(e => {console.log(e);});
+        API.graphql(graphqlOperation(createItemTable, {input: {itemID: "o392jf093j9aijfslijdfk", category: "test", description: "test", highestBidder: "test", images: ["test"], itemOwner: "test2", name: "testingDB", postTime: "test"}})).then(e=>{
+            console.log(e);}
+            ).catch(e => {console.log(e);});
 
         
       }
       async componentDidMount(){
-        await API.graphql(graphqlOperation(updateItemTable, {input: {itemID: "o392jf093j9aijfslijdfk"}}));
+        await API.graphql(graphqlOperation(createItemTable, {input: {itemID: "o392jf093j9aijfslijdfk"}}));
       }
   //images will be validated server side as well
     render() {
