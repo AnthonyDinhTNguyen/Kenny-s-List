@@ -12,6 +12,7 @@ export const getItemTable = /* GraphQL */ `
       itemOwner
       name
       postTime
+      condition
     }
   }
 `;
@@ -31,6 +32,7 @@ export const listItemTables = /* GraphQL */ `
         itemOwner
         name
         postTime
+        condition
       }
       nextToken
     }

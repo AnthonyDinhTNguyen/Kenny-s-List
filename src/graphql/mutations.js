@@ -12,6 +12,7 @@ export const createItemTable = /* GraphQL */ `
       itemOwner
       name
       postTime
+      condition
     }
   }
 `;
@@ -26,6 +27,7 @@ export const updateItemTable = /* GraphQL */ `
       itemOwner
       name
       postTime
+      condition
     }
   }
 `;
@@ -40,6 +42,7 @@ export const deleteItemTable = /* GraphQL */ `
       itemOwner
       name
       postTime
+      condition
     }
   }
 `;
