@@ -1,6 +1,6 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
-import { getItemTable } from '../../../graphql/queries';
+import { getItemTable,listItemTables } from '../../../graphql/queries';
 import { updateItemTable,createItemTable } from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
