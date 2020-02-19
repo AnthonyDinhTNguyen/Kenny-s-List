@@ -20,6 +20,7 @@ import Footer from "./components/Footer/Footer";
 import ProductDetail from "./components/Pages/ProductDetailPage/ProductDetailPage";
 import AddItem from "./components/Pages/AddItem/AddItem";
 import CheckOutPage from "./components/Pages/CheckOutPage/CheckOutPage";
+import Profile from "./components/Pages/Profile/Profile";
 
 export const  store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 import awsconfig from "./aws-exports";
@@ -151,6 +152,7 @@ class App extends Component {
                     <Route exact path={'/products/:id'} component={ProductDetail}/>
                     <Route exact path={'/additem'} component={AddItem}/>
                     <Route exact path={'/cart'} component={CheckOutPage}/>
+                    <Route exact path={'/profile'} component={Profile}/>
                 </Switch>
                 <Footer/>
             </React.Fragment>
