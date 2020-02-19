@@ -36,6 +36,7 @@ export default class AddItem extends React.Component {
     }
     
     async handleSubmit(event) {
+        event.preventDefault();
         const file = this.state.file;
         const title = this.state.value;
         const desc = this.state.desc;
@@ -58,7 +59,6 @@ export default class AddItem extends React.Component {
             .then (result => console.log(result))
             .catch(err => console.log(err));
             console.log(this.state.value);
-            event.preventDefault();
             const time = new Date().toISOString();
             API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));
         }
