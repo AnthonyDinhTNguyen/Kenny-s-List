@@ -36,28 +36,30 @@ export default class AddItem extends React.Component {
     }
     
     async handleSubmit(event) {
-        event.preventDefault();
         alert('A name was submitted: ' + this.state.value);
         const file = this.state.file;
         const title = this.state.value;
         const desc = this.state.desc;
         const cate = this.state.category;
-        const uID = uuid.v4();
-        const user = (await Auth.currentAuthenticatedUser()).username;
-        const time = new Date().toISOString();
         console.log(file);
         console.log(title);
         console.log(desc);
         if(file ==''||title==''||desc==''){
             console.log("missing an input");
         }
+
         Storage.put(title, file, {
             level: 'protected',
             contentType: 'image/png'
-        }).catch(err => {console.log(err)}).then(e => {Storage.get(title,{level:'protected'})}).then(result => {console.log(result);
-            API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));});
-
-            
+        })
+        .then (result => console.log(result))
+        .catch(err => console.log(err));
+        console.log(this.state.value);
+        event.preventDefault();
+        const uID = uuid.v4();
+        const user = (await Auth.currentAuthenticatedUser()).username;
+        const time = new Date().toISOString();
+        API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));
         
       }
       async componentDidMount(){
