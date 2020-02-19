@@ -41,36 +41,23 @@ export default class AddItem extends React.Component {
         const title = this.state.value;
         const desc = this.state.desc;
         const cate = this.state.category;
+        const uID = uuid.v4();
+        const user = (await Auth.currentAuthenticatedUser()).username;
+        const time = new Date().toISOString();
         console.log(file);
         console.log(title);
         console.log(desc);
         if(file ==''||title==''||desc==''){
             console.log("missing an input");
         }
+        Storage.put(title, file, {
+            level: 'protected',
+            contentType: 'image/png'
+        }).then(e => {Storage.get(title,{level:'protected'})}).then(result => {console.log(result);
+            API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));});
 
-        try{
-            Storage.put(title, file, {
-                level: 'protected',
-                contentType: 'image/png'
-            });
-        }catch(err){
-            console.log("Error Putting Image"+err);
-        }
-        try{
-            const resultURL = await Storage.get(title,{level:'protected'});
-            console.log(resultURL);
-        }catch(err){
-            console.log("Error Getting Image URL"+err);
-        }
         event.preventDefault();
-        const uID = uuid.v4();
-        const user = (await Auth.currentAuthenticatedUser()).username;
-        const time = new Date().toISOString();
-        try{
-            API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));
-        }catch(err){
-            console.log("Error Uploading New Item");
-        }
+            
         
       }
       async componentDidMount(){
