@@ -48,18 +48,29 @@ export default class AddItem extends React.Component {
             console.log("missing an input");
         }
 
-        Storage.put(title, file, {
-            level: 'protected',
-            contentType: 'image/png'
-        })
-        .then (result => console.log(result))
-        .catch(err => console.log(err));
-        console.log(this.state.value);
+        try{
+            await Storage.put(title, file, {
+                level: 'protected',
+                contentType: 'image/png'
+            });
+        }catch(err){
+            console.log("Error Putting Image"+err);
+        }
+        try{
+            const resultURL = await Storage.get(title,{level:'protected'});
+            console.log(resultURL);
+        }catch(err){
+            console.log("Error Getting Image URL"+err);
+        }
         event.preventDefault();
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
         const time = new Date().toISOString();
-        API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));
+        try{
+            API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));
+        }catch(err){
+            console.log("Error Uploading New Item");
+        }
         
       }
       async componentDidMount(){
@@ -85,7 +96,7 @@ export default class AddItem extends React.Component {
                         <input type="text" value = {this.state.desc} onChange={this.handleDesc} />
                     </label>
                     <label>
-                        Choose a car:
+                        Category:
                         <select id="category" onChange={this.handleCategory}>
                             <option value="Other">Other</option>
                             <option value="Electronics">Electronics</option>
