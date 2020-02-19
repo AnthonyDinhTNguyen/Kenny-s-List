@@ -180,7 +180,7 @@ const ProductDetail = (props) => {
                 {Username: `${username}`, ProductID: id, BidAmt: value, Status: `Won`});
         }else{
             console.log("Lost");
-            aaxios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
+            axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
                 {Usernme: `${username}`, ProductID: id, BidAmt: value, Status: `Lost`});
         }
 
