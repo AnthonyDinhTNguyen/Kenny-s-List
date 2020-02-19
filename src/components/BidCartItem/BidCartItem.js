@@ -42,9 +42,8 @@ const BidCartItem = (
                         <StripePayment price={bidInfo.BidAmt} />
                     </ButtonContainer>
                 ):(<ButtonContainer>
-                    <StripePayment disabled price={bidInfo.BidAmt} />
+                    <StripePayment disabled/>
                 </ButtonContainer>)}
-
         </CheckoutItemContainer>
     );
 };
