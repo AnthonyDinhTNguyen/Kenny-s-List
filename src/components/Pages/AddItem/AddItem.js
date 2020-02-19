@@ -7,7 +7,7 @@ import uuid from "uuid";
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
-        this.state = {value: '', file:'',desc: '',category: ''};
+        this.state = {value: '', file:'',desc: '',category: 'Other'};
         this.handleName = this.handleName.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -36,31 +36,32 @@ export default class AddItem extends React.Component {
     }
     
     async handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
         const file = this.state.file;
         const title = this.state.value;
         const desc = this.state.desc;
         const cate = this.state.category;
+        const uID = uuid.v4();
+        const user = (await Auth.currentAuthenticatedUser()).username;
         console.log(file);
         console.log(title);
         console.log(desc);
-        if(file ==''||title==''||desc==''){
+        console.log(user);
+        if(file ==''||title==''||desc==''||user==null){
+            alert('Missing an input');
             console.log("missing an input");
         }
-
-        Storage.put(title, file, {
-            level: 'protected',
-            contentType: 'image/png'
-        })
-        .then (result => console.log(result))
-        .catch(err => console.log(err));
-        console.log(this.state.value);
-        event.preventDefault();
-        const uID = uuid.v4();
-        const user = (await Auth.currentAuthenticatedUser()).username;
-        const time = new Date().toISOString();
-        API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time}}));
-        
+        else{
+            Storage.put(title, file, {
+                level: 'protected',
+                contentType: 'image/png'
+            })
+            .then (result => console.log(result))
+            .catch(err => console.log(err));
+            console.log(this.state.value);
+            event.preventDefault();
+            const time = new Date().toISOString();
+            API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));
+        }
       }
       async componentDidMount(){
         //const uID = uuid.v4();
