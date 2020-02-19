@@ -61,7 +61,22 @@ export default class AddItem extends React.Component {
                     ).catch(err => console.log(err));
         }
       }
-      componentDidMount(){
+      async componentDidMount(){
+        let itemList = [];
+        let currentUser = "";
+        try {
+            let response = await Auth.currentAuthenticatedUser();
+            currentUser = response.username;
+          } catch(err) {
+              console.log("ERROR: Failed to retrieve username.");
+        }
+
+        await API.graphql(graphqlOperation(listItemTables, {filter:{itemOwner:{eq:currentUser}}})).then((evt) => {
+            if(evt.data.listItemTables.items!= null){
+                evt.data.listItemTables.map((itemDB,i) =>{itemList.push(itemDB);});
+            }
+        });
+        console.log(itemList);
 
       }
   //images will be validated server side as well
