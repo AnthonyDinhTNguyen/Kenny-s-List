@@ -57,10 +57,10 @@ export default class AddItem extends React.Component {
                 level: 'protected',
                 contentType: 'image/png'
             })
-            .then (result => console.log(result))
+            .then (result => {console.log(result); API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));})
             .catch(err => console.log(err));
             console.log(this.state.value);
-            API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));
+            
         }
       }
       async componentDidMount(){
