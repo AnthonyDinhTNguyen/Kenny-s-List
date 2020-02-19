@@ -38,8 +38,9 @@ export default class Profile extends React.Component {
                     <div style={{borderBottom: '2px solid black'}}>
                         <h5>Selling</h5>
                     </div>
-                    {this.state.selling.map(item => <div style={{height: 100, padding: 15, borderBottom: '1px solid black'}}>
-                        <NavLink to={{pathname: "/products/" + item.itemId}}>{item.name}</NavLink>
+                    {this.state.selling.map(item => <div style={{paddingTop: 15, paddingBottom: 15, borderBottom: '1px solid black'}}>
+                        <img style={{objectFit: 'cover', height: 80, marginRight: 15}} src={item.images[0]}></img>
+                        <NavLink to={{pathname: "/products/" + item.itemId}} style={{verticalAlign: 'top', fontSize: 18}}>{item.name}</NavLink>
                     </div>)}
                 </div>
                 
