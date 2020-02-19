@@ -2,7 +2,6 @@ import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { listItemTables } from '../../../graphql/queries';
 import API, { graphqlOperation } from '@aws-amplify/api';
-import uuid from "uuid";
 
 export default class Profile extends React.Component {
     constructor(props){
@@ -11,19 +10,17 @@ export default class Profile extends React.Component {
     }
 
     async componentDidMount(){
-
         let currentUser = "";
         try {
             let response = await Auth.currentAuthenticatedUser();
             currentUser = response.username;
           } catch(err) {
-              console.log("ERROR: Failed to retrieve username. Defaulting to 'Kenny'.");
-              currentUser = 'Kenny';
+              console.log("ERROR: Failed to retrieve username.");
           }
 
-        await API.graphql(graphqlOperation(listItemTables, {filter:{username:{eq:currentUser}}})).then((evt) => {
+        await API.graphql(graphqlOperation(listItemTables, {filter:{itemOwner:{eq:currentUser}}})).then((evt) => {
             console.log("REEEEE");
-            console.log(evt.data.listUsers.items);
+            console.log(evt.data.listItemTables.items);
         })
     }
 
