@@ -30,6 +30,8 @@ export default class Profile extends React.Component {
 
     async handleOnRemove(event) {
         let itemId = event.target.getAttribute('name');
+        console.log(event.target.name);
+        console.log(event.target);
         console.log(itemId);
         if (confirm("Are you sure that you want to remove this item listing?")) {
             await API.graphql(graphqlOperation(deleteItemTables, {input:{itemId}})).then((evt) => {
@@ -63,6 +65,7 @@ export default class Profile extends React.Component {
                         </div>
                         <div style={{display: 'inline-block', width: "60%", verticalAlign: 'top'}}>
                             <NavLink to={{pathname: "/products/" + item.itemId}} style={{verticalAlign: 'top', fontSize: 18}}>{item.name}</NavLink>
+                            {item.itemId}
                         </div>
                         <div style={{display: 'inline-block', width: "20%", verticalAlign: 'bottom', textAlign: 'right'}}>
                             <span name={item.itemId} onClick={this.handleOnRemove}>Remove </span><span>Edit</span>
