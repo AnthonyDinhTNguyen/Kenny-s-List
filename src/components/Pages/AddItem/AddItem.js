@@ -43,8 +43,13 @@ export default class AddItem extends React.Component {
         const cate = this.state.category;
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
+        const sellable = (await this.checkSellable(user));
         const time = new Date().toISOString();
-        if(file ==''||title==''||desc==''||user==null){
+        if(sellable ==false){
+            alert('You can only sell 5 items at a time. Please Delete Some Items or wait');
+            console.log('adding too many items');
+        }
+        else if(file ==''||title==''||desc==''||user==null){
             alert('Missing an input');
             console.log("missing an input");
         }
@@ -61,15 +66,9 @@ export default class AddItem extends React.Component {
                     ).catch(err => console.log(err));
         }
       }
-      async componentDidMount(){
+      async checkSellable(uname){
         let itemList = [];
-        let currentUser = "";
-        try {
-            let response = await Auth.currentAuthenticatedUser();
-            currentUser = response.username;
-          } catch(err) {
-              console.log("ERROR: Failed to retrieve username.");
-        }
+        let currentUser = uname;
 
         await API.graphql(graphqlOperation(listItemTables, {filter:{itemOwner:{eq:currentUser}}})).then((evt) => {
             if(evt.data.listItemTables.items!= null){
@@ -77,7 +76,12 @@ export default class AddItem extends React.Component {
             }
         });
         console.log(itemList);
-
+        if(itemList.length <=5){
+            return true;
+        }
+        else{
+            return false;
+        }
       }
   //images will be validated server side as well
     render() {
