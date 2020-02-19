@@ -44,27 +44,25 @@ export default class AddItem extends React.Component {
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
         const time = new Date().toISOString();
-        console.log(file);
-        console.log(title);
-        console.log(desc);
-        console.log(user);
         if(file ==''||title==''||desc==''||user==null){
             alert('Missing an input');
             console.log("missing an input");
         }
         else{
-            Storage.put(title, file, {
+            Storage.put(uID, file, {
                 level: 'protected',
                 contentType: 'image/png'
             })
-            .then (result => {console.log(result); Storage.get(title, {level: 'protected'}).then(r=>{API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate, images: [r]}}));});})
-            .catch(err => console.log(err));
-            console.log(this.state.value);
+            .then (result => {Storage.get(uID, {level: 'protected'}
+            ).then(r=>
+            {console.log(r); API.graphql(graphqlOperation(createItemTable, 
+                {input: {itemID: uID.toString(), description: desc,itemOwner:user, 
+                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))]}})).catch(err=>console.log(err));}).catch(e=>console.log(e));}
+                    ).catch(err => console.log(err));
         }
       }
-      async componentDidMount(){
-        //const uID = uuid.v4();
-        //await API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString()}}));
+      componentDidMount(){
+
       }
   //images will be validated server side as well
     render() {
