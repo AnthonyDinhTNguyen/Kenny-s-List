@@ -7,20 +7,16 @@ import uuid from "uuid";
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
-        this.state = {value: '', file:'',desc: ''};
+        this.state = {value: '', file:'',desc: '',category: ''};
         this.handleName = this.handleName.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFile = this.handleFile.bind(this);
         this.handleDesc = this.handleDesc.bind(this);
+        this.handleCategory = this.handleCategory.bind(this);
     }
-    onChange(e) {
-        const file = e.target.files[0];
-        Storage.put('example1.png', file, {
-            level: 'protected',
-            contentType: 'image/png'
-        })
-        .then (result => console.log(result))
-        .catch(err => console.log(err));
+    handleCategory(event){
+        this.setState({category: event.target.value});
+        console.log(event.target.value);
     }
     handleFile(event){
         this.setState({file: event.target.files[0]});
@@ -44,6 +40,7 @@ export default class AddItem extends React.Component {
         const file = this.state.file;
         const title = this.state.value;
         const desc = this.state.desc;
+        const cate = this.state.category;
         console.log(file);
         console.log(title);
         console.log(desc);
@@ -62,7 +59,7 @@ export default class AddItem extends React.Component {
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
         const time = new Date().toISOString();
-        API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time}}));
+        API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));
         
       }
       async componentDidMount(){
@@ -86,6 +83,15 @@ export default class AddItem extends React.Component {
                     <label>
                         Description of Item:
                         <input type="text" value = {this.state.desc} onChange={this.handleDesc} />
+                    </label>
+                    <label>
+                        Choose a car:
+                        <select id="category" onChange={this.handleCategory}>
+                            <option value="Other">Other</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Home">Home</option>
+                        </select>
                     </label>
                     <input type="submit" value = "Submit" />
                 </form>
