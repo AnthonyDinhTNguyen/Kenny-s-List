@@ -37,7 +37,7 @@ const BidCartItem = (
                 {bidInfo.Status}
             </StatusContainer>
             <TextContainer>${bidInfo.BidAmt}</TextContainer>
-                {bidInfo.Status == "Won" ? (
+                {bidInfo.Status === "Won" ? (
                     <TimeContainer>
                         <StripePayment price={bidInfo.BidAmt} />
                     </TimeContainer>

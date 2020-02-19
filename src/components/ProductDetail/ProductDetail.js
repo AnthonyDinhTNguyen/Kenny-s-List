@@ -43,7 +43,7 @@ const ProductDetail = (props) => {
     const [BidHistory, setBidHistory] = useState({});
     const [username, serUsername] = useState('');
     const [error, setError] = useState(null);
-    const [expTime, setExpTime] = useState(0);
+    const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
 
     const expTimeFormatted = () => {
@@ -165,7 +165,7 @@ const ProductDetail = (props) => {
     if(expTime === 0){
         let status;
         const [winner,setWinner] = useState('');
-;        useEffect(() => {
+        useEffect(() => {
             const fetchData = async () => {
                 const result = await axios.get
                 (`https://9mu1bkcave.execute-api.us-east-1.amazonaws.com/default/FetchUserBidFunc?ProductID=${id}`,);
