@@ -2,12 +2,12 @@ import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { listItemTables } from '../../../graphql/queries';
 import API, { graphqlOperation } from '@aws-amplify/api';
-import { Redirect } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 export default class Profile extends React.Component {
     constructor(props){
         super(props);
-        this.state = {redirect: false, productClicked: 0, selling: []};
+        this.state = {selling: []};
     }
 
     async componentDidMount(){
@@ -26,11 +26,6 @@ export default class Profile extends React.Component {
 
     render() {
 
-        let redirect = <div></div>;
-        if (this.state.redirect) {
-            redirect = <Redirect to={{pathname: "/products/" + this.state.productClicked}}/>;
-        }
-
         return (
             <div className="container" style={{paddingTop: '6rem', width: '100%'}}>
                 
@@ -44,11 +39,9 @@ export default class Profile extends React.Component {
                         <h5>Selling</h5>
                     </div>
                     {this.state.selling.map(item => <div style={{height: 100, padding: 15, borderBottom: '1px solid black'}}>
-                        <h5 style={{cursor: 'pointer'}} onClick={() => this.setState({redirect: true, productClicked: item.itemId})}>{item.name}</h5>
+                        <NavLink to={{pathname: "/products/" + item.itemId}}>{item.name}</NavLink>
                     </div>)}
                 </div>
-
-                {redirect}
                 
             </div>
         )

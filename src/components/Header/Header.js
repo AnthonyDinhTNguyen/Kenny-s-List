@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
+import Amplify, { Auth, Hub,Storage } from 'aws-amplify';
 
 const Header = () => {
     return (
@@ -21,7 +22,10 @@ const Header = () => {
                             <NavLink className="nav-link" to={"/cart"}><i className="fa fa-shopping-cart mr-2"
                                                                           aria-hidden="true" />BidCart</NavLink>
                         </li>
-                        
+                        <li className="nav-item" onClick={() => Auth.signOut().then(data => console.log(data)).catch(err => console.log(err))}>
+                            <NavLink className="nav-link" to={"/logout"}><i className="fa fa-shopping-cart mr-2"
+                                                                          aria-hidden="true" />Logout</NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>
