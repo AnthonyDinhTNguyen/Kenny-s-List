@@ -36,6 +36,7 @@ export default class AddItem extends React.Component {
     }
     
     async handleSubmit(event) {
+        event.preventDefault();
         alert('A name was submitted: ' + this.state.value);
         const file = this.state.file;
         const title = this.state.value;
@@ -53,10 +54,9 @@ export default class AddItem extends React.Component {
         Storage.put(title, file, {
             level: 'protected',
             contentType: 'image/png'
-        }).then(e => {Storage.get(title,{level:'protected'})}).then(result => {console.log(result);
+        }).catch(err => {console.log(err)}).then(e => {Storage.get(title,{level:'protected'})}).then(result => {console.log(result);
             API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));});
 
-        event.preventDefault();
             
         
       }
