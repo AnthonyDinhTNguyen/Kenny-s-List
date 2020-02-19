@@ -43,6 +43,7 @@ export default class AddItem extends React.Component {
         const cate = this.state.category;
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
+        const time = new Date().toISOString();
         console.log(file);
         console.log(title);
         console.log(desc);
@@ -59,7 +60,6 @@ export default class AddItem extends React.Component {
             .then (result => console.log(result))
             .catch(err => console.log(err));
             console.log(this.state.value);
-            const time = new Date().toISOString();
             API.graphql(graphqlOperation(createItemTable, {input: {itemID: uID.toString(), description: desc,itemOwner:user, name: title, postTime: time, category: cate}}));
         }
       }
