@@ -22,7 +22,7 @@ export default class AddItem extends React.Component {
         this.setState({file: event.target.files[0]});
     }
     handleName(event) {//enforce alphanumeric input
-        const re = /^[a-z\d]+$/i;
+        const re = /^[a-z\d\s]+$/i;
         if(event.target.value===''||re.test(event.target.value)){
             this.setState({value: event.target.value});
         }
@@ -55,9 +55,9 @@ export default class AddItem extends React.Component {
             })
             .then (result => {Storage.get(uID, {level: 'protected'}
             ).then(r=>
-            {console.log(r); API.graphql(graphqlOperation(createItemTable, 
+            {API.graphql(graphqlOperation(createItemTable, 
                 {input: {itemID: uID.toString(), description: desc,itemOwner:user, 
-                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))]}})).catch(err=>console.log(err));}).catch(e=>console.log(e));}
+                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))]}})).then(e=>{alert('Successful Upload');this.setState({value: '', file:'',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
                     ).catch(err => console.log(err));
         }
       }
