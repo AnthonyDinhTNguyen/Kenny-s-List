@@ -49,7 +49,7 @@ export default class AddItem extends React.Component {
         }
 
         try{
-            await Storage.put(title, file, {
+            Storage.put(title, file, {
                 level: 'protected',
                 contentType: 'image/png'
             });
