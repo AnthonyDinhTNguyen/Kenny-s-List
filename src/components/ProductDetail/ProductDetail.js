@@ -140,7 +140,7 @@ const ProductDetail = (props) => {
                 {BidAmt: value, ProductID: `${id}`, Username: `${username}`}
             );
             await axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
-                {Username: `${username}`, ProductID: id, BidAmt: value, Status: `Won`}
+                {Username: `${username}`, ProductID: id, BidAmt: value, Status: `Bidding`}
             );
 
         }
@@ -160,6 +160,31 @@ const ProductDetail = (props) => {
         props.dispatch(addProductToCart(props.product));
         props.dispatch(updateUsername(username));
     };
+
+
+    if(expTime === 0){
+        let status;
+        const [winner,setWinner] = useState('');
+        useEffect(() => {
+            const fetchData = async () => {
+                const result = await axios.get
+                (`https://9mu1bkcave.execute-api.us-east-1.amazonaws.com/default/FetchUserBidFunc?ProductID=${id}`,);
+                setWinner(result.data.Username);
+            };
+            fetchData();
+        }, [id]);
+
+        if(username === winner){
+            console.log("won");
+            axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
+                {Username: `${username}`, ProductID: id, BidAmt: value, Status: `Won`});
+        }else{
+            console.log("Lost");
+            axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
+                {Usernme: `${username}`, ProductID: id, BidAmt: value, Status: `Lost`});
+        }
+
+    }
 
     return (
         <aside className="col-sm-7">

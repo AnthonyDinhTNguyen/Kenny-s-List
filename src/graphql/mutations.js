@@ -12,6 +12,7 @@ export const createItemTable = /* GraphQL */ `
       itemOwner
       name
       postTime
+      condition
     }
   }
 `;
@@ -26,6 +27,7 @@ export const updateItemTable = /* GraphQL */ `
       itemOwner
       name
       postTime
+      condition
     }
   }
 `;
@@ -40,6 +42,40 @@ export const deleteItemTable = /* GraphQL */ `
       itemOwner
       name
       postTime
+      condition
+    }
+  }
+`;
+export const createUserBidsTable = /* GraphQL */ `
+  mutation CreateUserBidsTable($input: CreateUserBidsTableInput!) {
+    createUserBidsTable(input: $input) {
+      ProductID
+      Username
+      BidAmt
+      BidID
+      Status
+    }
+  }
+`;
+export const updateUserBidsTable = /* GraphQL */ `
+  mutation UpdateUserBidsTable($input: UpdateUserBidsTableInput!) {
+    updateUserBidsTable(input: $input) {
+      ProductID
+      Username
+      BidAmt
+      BidID
+      Status
+    }
+  }
+`;
+export const deleteUserBidsTable = /* GraphQL */ `
+  mutation DeleteUserBidsTable($input: DeleteUserBidsTableInput!) {
+    deleteUserBidsTable(input: $input) {
+      ProductID
+      Username
+      BidAmt
+      BidID
+      Status
     }
   }
 `;

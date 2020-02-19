@@ -37,12 +37,13 @@ const BidCartItem = (
                 {bidInfo.Status}
             </StatusContainer>
             <TextContainer>${bidInfo.BidAmt}</TextContainer>
-                {bidInfo.Status == "Won" ? (
-                    <TimeContainer>
+                {bidInfo.Status === "Won" ? (
+                    <ButtonContainer>
                         <StripePayment price={bidInfo.BidAmt} />
-                    </TimeContainer>
-                ):(<span>X</span>)}
-
+                    </ButtonContainer>
+                ):(<ButtonContainer>
+                    <StripePayment disabled/>
+                </ButtonContainer>)}
         </CheckoutItemContainer>
     );
 };
@@ -84,7 +85,7 @@ const StatusContainer = styled(TextContainer)`
   }
 `;
 
-const TimeContainer = styled.div`
+const ButtonContainer = styled.div`
   padding-left: 12px;
   cursor: pointer;
   padding-bottom: 50px;

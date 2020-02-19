@@ -24,6 +24,7 @@ export const onCreateItemTable = /* GraphQL */ `
       itemOwner
       name
       postTime
+      condition
     }
   }
 `;
@@ -50,6 +51,7 @@ export const onUpdateItemTable = /* GraphQL */ `
       itemOwner
       name
       postTime
+      condition
     }
   }
 `;
@@ -76,6 +78,76 @@ export const onDeleteItemTable = /* GraphQL */ `
       itemOwner
       name
       postTime
+      condition
+    }
+  }
+`;
+export const onCreateUserBidsTable = /* GraphQL */ `
+  subscription OnCreateUserBidsTable(
+    $ProductID: Int
+    $Username: String
+    $BidAmt: String
+    $BidID: String
+    $Status: String
+  ) {
+    onCreateUserBidsTable(
+      ProductID: $ProductID
+      Username: $Username
+      BidAmt: $BidAmt
+      BidID: $BidID
+      Status: $Status
+    ) {
+      ProductID
+      Username
+      BidAmt
+      BidID
+      Status
+    }
+  }
+`;
+export const onUpdateUserBidsTable = /* GraphQL */ `
+  subscription OnUpdateUserBidsTable(
+    $ProductID: Int
+    $Username: String
+    $BidAmt: String
+    $BidID: String
+    $Status: String
+  ) {
+    onUpdateUserBidsTable(
+      ProductID: $ProductID
+      Username: $Username
+      BidAmt: $BidAmt
+      BidID: $BidID
+      Status: $Status
+    ) {
+      ProductID
+      Username
+      BidAmt
+      BidID
+      Status
+    }
+  }
+`;
+export const onDeleteUserBidsTable = /* GraphQL */ `
+  subscription OnDeleteUserBidsTable(
+    $ProductID: Int
+    $Username: String
+    $BidAmt: String
+    $BidID: String
+    $Status: String
+  ) {
+    onDeleteUserBidsTable(
+      ProductID: $ProductID
+      Username: $Username
+      BidAmt: $BidAmt
+      BidID: $BidID
+      Status: $Status
+    ) {
+      ProductID
+      Username
+      BidAmt
+      BidID
+      Status
     }
   }
 `;
