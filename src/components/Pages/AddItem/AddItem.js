@@ -4,6 +4,7 @@ import { getItemTable,listItemTables } from '../../../graphql/queries';
 import { updateItemTable,createItemTable } from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
+import './AddItem.css'
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
@@ -95,7 +96,7 @@ export default class AddItem extends React.Component {
                 <form onSubmit = {this.handleSubmit}>
                     <label>
                         Image:
-                        <input type="file" accept='image/png' onChange={this.handleFile}/>
+                        <input type="file" value = {this.state.file} accept='image/png' onChange={this.handleFile}/>
                     </label>
                     <label>
                         Title:
@@ -107,7 +108,7 @@ export default class AddItem extends React.Component {
                     </label>
                     <label>
                         Category:
-                        <select id="category" onChange={this.handleCategory}>
+                        <select id="category" value = {this.state.category} onChange={this.handleCategory}>
                             <option value="Other">Other</option>
                             <option value="Electronics">Electronics</option>
                             <option value="Clothing">Clothing</option>
