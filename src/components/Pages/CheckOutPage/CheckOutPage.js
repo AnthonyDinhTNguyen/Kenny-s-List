@@ -29,11 +29,13 @@ export default class CheckoutPage extends React.Component {
             console.log("It worked!");
             let itemIds = [];
             evt.data.listUserBidsTables.items.forEach(tuple => {
-                itemIds.push(tuple.itemID);
+                itemIds.push(tuple.productID);
             });
 
+            console.log(itemIds);
+
             itemIds.forEach(element => {
-                API.graphql(graphqlOperation(getItemTable, {input:{itemID: element}})).then((evt) => {
+                API.graphql(graphqlOperation(getItemTable, {itemID: element})).then((evt) => {
                     let temp = this.state.biddingItems;
                     temp.push(evt.data.getItemTable);
                     this.setState({biddingItems: temp});
