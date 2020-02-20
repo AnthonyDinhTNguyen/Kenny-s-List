@@ -64,11 +64,10 @@ export default class Profile extends React.Component {
                             <img style={{objectFit: 'cover', height: 80, marginRight: 15}} src={item.images[0]}></img>
                         </div>
                         <div style={{display: 'inline-block', width: "60%", verticalAlign: 'top'}}>
-                            <NavLink to={{pathname: "/products/" + item.itemId}} style={{verticalAlign: 'top', fontSize: 18}}>{item.name}</NavLink>
-                            {item.itemId}
+                            <NavLink to={{pathname: "/products/" + item.itemID}} style={{verticalAlign: 'top', fontSize: 18}}>{item.name}</NavLink>
                         </div>
                         <div style={{display: 'inline-block', width: "20%", verticalAlign: 'bottom', textAlign: 'right'}}>
-                            <span name={item.itemId} onClick={this.handleOnRemove}>Remove </span><span>Edit</span>
+                            <span name={item.itemID} onClick={this.handleOnRemove}>Remove </span><span>Edit</span>
                         </div>
                         
                     </div>)}
