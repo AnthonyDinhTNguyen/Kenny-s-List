@@ -68,7 +68,7 @@ export default class AddItem extends React.Component {
         else if(user == null){
             alert("your session has expired please log in again");
         }
-        else if(file ==''||title==''||desc==''||cond==''){
+        else if(file ==''||title==''||desc==''||condi==''){
             alert('Missing an input');
             console.log("missing an input");
         }
