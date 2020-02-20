@@ -2,11 +2,11 @@ import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import { listUserBidsTables, getItemTable } from '../../../graphql/queries';
-/*import {connect} from 'react-redux';
+import {connect} from 'react-redux';
 import styled from 'styled-components';
-import BidCartItem from '../../BidCartItem/BidCartItem';*/
+import BidCartItem from '../../BidCartItem/BidCartItem';
 
-export default class CheckoutPage extends React.Component {
+/*export default class CheckoutPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {biddingItems: []};
@@ -52,9 +52,9 @@ export default class CheckoutPage extends React.Component {
             <p>Hello world</p>
         </div>);
     }
-}
+}*/
 
-/*const CheckoutPage = (props) => {
+const CheckoutPage = (props) => {
     return (
         <CheckoutPageContainer>
             <CheckoutHeaderContainer>
@@ -124,4 +124,3 @@ export const HeaderBlockContainer = styled.div`
     width: 12%;
   }
 `;
-*/
