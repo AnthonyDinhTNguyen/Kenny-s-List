@@ -107,38 +107,60 @@ export default class AddItem extends React.Component {
   //images will be validated server side as well
     render() {
         return (
-            <div className="container" style={{paddingTop: '6rem'}}>
+            <div className="formContainer" style={{paddingTop: '6rem'}}>
                 
                 <form onSubmit = {this.handleSubmit}>
-                    <label>
-                        Image:
-                        <input type="file" accept='image/png' onChange={this.handleFile}/>
-                    </label>
-                    <label>
-                        Title:
-                        <input type="text" value = {this.state.value} onChange={this.handleName} />
-                    </label>
-                    <label>
-                        Description of Item:
-                        <input type="text" value = {this.state.desc} onChange={this.handleDesc} />
-                    </label>
-                    <label>
-                        Category:
-                        <select id="category" value = {this.state.category} onChange={this.handleCategory}>
-                            <option value="Other">Other</option>
-                            <option value="Electronics">Electronics</option>
-                            <option value="Clothing">Clothing</option>
-                            <option value="Home">Home</option>
-                        </select>
-                    </label>
-                    <label>
-                        Condition:
-                        <select id="condition" value = {"New"} onChange={this.handleCondition}>
-                            <option value="New">New</option>
-                            <option value="Used">Used</option>
-                        </select>
-                    </label>
-                    <input type="submit" value = "Submit" />
+                    <div className = "row">
+                        <div className = "col-25">
+                            <label for="fileName">Image:</label>
+                        </div>
+                        <div className = "col-75">
+                            <input id = "fileName" type="file" accept='image/png' onChange={this.handleFile}/>
+                        </div>
+                    </div>
+                    <div className = "row">
+                        <div className = "col-25">
+                            <label for="title">Title:</label>
+                        </div>
+                        <div className = "col-75">
+                            <input id ="title" type="text" value = {this.state.value} onChange={this.handleName} />
+                        </div>
+                    </div>
+                    <div className = "row">
+                        <div className = "col-25">
+                            <label for="desc">Description of Item:</label>
+                        </div>
+                        <div className = "col-75">
+                            <textarea id="desc" type="text" value = {this.state.desc} onChange={this.handleDesc} />
+                        </div>
+                    </div>
+                    <div className = "row">
+                        <div className = "col-25">
+                            <label for ="category">Category:</label>
+                        </div>
+                        <div className = "col-75">
+                            <select id="category" value = {this.state.category} onChange={this.handleCategory}>
+                                <option value="Other">Other</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Home">Home</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className = "row">
+                        <div className = "col-25">
+                            <label for = "condition">Condition:</label>
+                        </div>
+                        <div className = "col-75">
+                            <select id="condition" value = {"New"} onChange={this.handleCondition}>
+                                <option value="New">New</option>
+                                <option value="Used">Used</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className ="row">
+                        <input type="submit" value = "Submit" />
+                    </div>
                 </form>
                 
             </div>
