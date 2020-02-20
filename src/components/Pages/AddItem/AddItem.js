@@ -13,6 +13,7 @@ export default class AddItem extends React.Component {
         this.handleFile = this.handleFile.bind(this);
         this.handleDesc = this.handleDesc.bind(this);
         this.handleCategory = this.handleCategory.bind(this);
+        this.checkSellable = this.checkSellable.bind(this);
     }
     handleCategory(event){
         this.setState({category: event.target.value});
@@ -43,7 +44,8 @@ export default class AddItem extends React.Component {
         const cate = this.state.category;
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
-        const sellable = (await this.checkSellable(user));
+        const sellable =await this.checkSellable(user);
+        console.log(sellable);
         const time = new Date().toISOString();
         if(sellable ==false){
             alert('You can only sell 5 items at a time. Please Delete Some Items or wait');
@@ -70,16 +72,18 @@ export default class AddItem extends React.Component {
         let itemList = [];
         let currentUser = uname;
 
-        await API.graphql(graphqlOperation(listItemTables, {filter:{itemOwner:{eq:currentUser}}})).then((evt) => {
+        await (API.graphql(graphqlOperation(listItemTables, {filter:{itemOwner:{eq:currentUser}}})).then((evt) => {
             if(evt.data.listItemTables.items!= null){
                 evt.data.listItemTables.items.map((itemDB,i) =>{itemList.push(itemDB);});
             }
-        });
+        }));
         console.log(itemList);
-        if(itemList.length <=5){
+        if(itemList.length <5){
+            console.log("returning True");
             return true;
         }
         else{
+            console.log("returning False");
             return false;
         }
       }
