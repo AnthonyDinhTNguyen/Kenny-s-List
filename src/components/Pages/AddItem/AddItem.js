@@ -4,6 +4,7 @@ import { getItemTable,listItemTables } from '../../../graphql/queries';
 import { updateItemTable,createItemTable } from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
+import './AddItem.css'
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
@@ -64,7 +65,7 @@ export default class AddItem extends React.Component {
             ).then(r=>
             {API.graphql(graphqlOperation(createItemTable, 
                 {input: {itemID: uID.toString(), description: desc,itemOwner:user, 
-                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))]}})).then(e=>{alert('Successful Upload');this.setState({value: '', file:'',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
+                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))]}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
                     ).catch(err => console.log(err));
         }
       }
@@ -107,7 +108,7 @@ export default class AddItem extends React.Component {
                     </label>
                     <label>
                         Category:
-                        <select id="category" onChange={this.handleCategory}>
+                        <select id="category" value = {this.state.category} onChange={this.handleCategory}>
                             <option value="Other">Other</option>
                             <option value="Electronics">Electronics</option>
                             <option value="Clothing">Clothing</option>
