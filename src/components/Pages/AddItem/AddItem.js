@@ -78,7 +78,7 @@ export default class AddItem extends React.Component {
             }
         }));
         console.log(itemList);
-        if(itemList.length <=5){
+        if(itemList.length <5){
             console.log("returning True");
             return true;
         }
