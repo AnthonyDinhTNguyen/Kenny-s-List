@@ -28,8 +28,9 @@ export default class CheckoutPage extends React.Component {
 
             console.log("It worked!");
             let itemIds = [];
+            console.log(evt.data.listUserBidsTables.items);
             evt.data.listUserBidsTables.items.forEach(tuple => {
-                itemIds.push(tuple.productID);
+                itemIds.push(tuple.ProductID);
             });
 
             console.log(itemIds);
