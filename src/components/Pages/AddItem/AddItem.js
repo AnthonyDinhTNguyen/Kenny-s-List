@@ -65,7 +65,7 @@ export default class AddItem extends React.Component {
             ).then(r=>
             {API.graphql(graphqlOperation(createItemTable, 
                 {input: {itemID: uID.toString(), description: desc,itemOwner:user, 
-                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))]}})).then(e=>{alert('Successful Upload');this.setState({value: '', file:'',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
+                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))]}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
                     ).catch(err => console.log(err));
         }
       }
@@ -96,7 +96,7 @@ export default class AddItem extends React.Component {
                 <form onSubmit = {this.handleSubmit}>
                     <label>
                         Image:
-                        <input type="file" value = {this.state.file} accept='image/png' onChange={this.handleFile}/>
+                        <input type="file" accept='image/png' onChange={this.handleFile}/>
                     </label>
                     <label>
                         Title:
