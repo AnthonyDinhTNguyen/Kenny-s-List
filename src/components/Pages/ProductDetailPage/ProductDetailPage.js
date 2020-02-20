@@ -5,8 +5,6 @@ import ProductSlider from "../../ProductSlider/ProductSlider";
 
 const ProductDetail = (props) => {
 
-    console.log(props);
-
     return (
         <div className="container" style={{padding: '6rem 0'}}>
             <div className="card">
@@ -21,8 +19,8 @@ const ProductDetail = (props) => {
 
 const mapStateToProps = (state, props) =>  {
 
-    const product = state.shop.products.find(product => product.id === +props.match.params.id);
-
+    const product = state.items.items.find(product => product.itemID === props.match.params.id);
+    console.log(product);
     return {
         product
     }

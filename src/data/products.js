@@ -25,7 +25,10 @@ export const product = [{
     "price": 1000,
     "id": 2,
     "description": "Supreme Size M"
-},
+},]
 
+// const mapStateToProps = state => {
+//     return {products: filterByOrderArr,items : state.items.items}
+// });
 
-]
+// export default connect(mapStateToProps);

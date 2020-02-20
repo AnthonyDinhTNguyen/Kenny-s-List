@@ -31,11 +31,8 @@ Amplify.configure({
 
 const ProductDetail = (props) => {
     const {
-        title,
         condition,
-        price,
-        description,
-        id
+        itemID, highestBidder, images, name, description
     } = props.product;
 
 
@@ -137,10 +134,10 @@ const ProductDetail = (props) => {
             setErrorValidation('');
             clearState();
             await axios.post('https://l4px6d2via.execute-api.us-east-1.amazonaws.com/default/postLatestUserBid',
-                {BidAmt: value, ProductID: `${id}`, Username: `${username}`}
+                {BidAmt: value, ProductID: `${itemID}`, Username: `${username}`}
             );
             await axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
-                {Username: `${username}`, ProductID: id, BidAmt: value, Status: `Bidding`}
+                {Username: `${username}`, ProductID: itemID, BidAmt: value, Status: `Bidding`}
             );
 
         }
@@ -150,11 +147,11 @@ const ProductDetail = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios.get
-            (`https://9mu1bkcave.execute-api.us-east-1.amazonaws.com/default/FetchUserBidFunc?ProductID=${id}`,);
+            (`https://9mu1bkcave.execute-api.us-east-1.amazonaws.com/default/FetchUserBidFunc?ProductID=${itemID}`,);
             setBidHistory(result.data);
         };
         fetchData();
-    }, [id]);
+    }, [itemID]);
 
     const onCart = async () => {
         props.dispatch(addProductToCart(props.product));
@@ -163,25 +160,24 @@ const ProductDetail = (props) => {
 
 
     if(expTime === 0){
-        let status;
         const [winner,setWinner] = useState('');
         useEffect(() => {
             const fetchData = async () => {
                 const result = await axios.get
-                (`https://9mu1bkcave.execute-api.us-east-1.amazonaws.com/default/FetchUserBidFunc?ProductID=${id}`,);
+                (`https://9mu1bkcave.execute-api.us-east-1.amazonaws.com/default/FetchUserBidFunc?ProductID=${itemID}`,);
                 setWinner(result.data.Username);
             };
             fetchData();
-        }, [id]);
+        }, [itemID]);
 
         if(username === winner){
             console.log("won");
             axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
-                {Username: `${username}`, ProductID: id, BidAmt: value, Status: `Won`});
+                {Username: `${username}`, ProductID: itemID, BidAmt: value, Status: `Won`});
         }else{
             console.log("Lost");
             axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
-                {Usernme: `${username}`, ProductID: id, BidAmt: value, Status: `Lost`});
+                {Usernme: `${username}`, ProductID: itemID, BidAmt: value, Status: `Lost`});
         }
 
     }
@@ -189,11 +185,11 @@ const ProductDetail = (props) => {
     return (
         <aside className="col-sm-7">
             <article className="card-body p-5">
-                <h3 className="title mb-3">{title}</h3>
+                <h3 className="title mb-3">{name}</h3>
 
                 <p className="price-detail-wrap">
                 <span className="price h3 text-warning">
-                    <span className="currency">$</span><span className="num">{formatMoney(price)} (Market Value)</span>
+                    <span className="currency">$</span><span className="num">{formatMoney(132)} (Market Value)</span>
                 </span>
                 </p>
 
@@ -208,7 +204,7 @@ const ProductDetail = (props) => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <h6><strong>Your bid:</strong></h6>
-                        <input id={id} name="input-field" className="form-control" type="number" value={value}
+                        <input id={itemID} name="input-field" className="form-control" type="number" value={value}
                         placeholder="Your Price"  onChange={handleChange} />
                     </div>
                     {errorValidation.length > 0 ? (<div style={{color: 'red'}}>{errorValidation}</div>):(<div></div>)}

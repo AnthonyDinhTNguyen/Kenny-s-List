@@ -1,7 +1,7 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { listItemTables } from '../../../graphql/queries';
-import { deleteItemTables } from '../../../graphql/mutations';
+import { deleteItemTable } from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import { NavLink } from 'react-router-dom';
 
