@@ -8,13 +8,14 @@ import './AddItem.css'
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
-        this.state = {value: '', file:'',desc: '',category: 'Other'};
+        this.state = {value: '', file:'',desc: '',category: 'Other',cond:true};
         this.handleName = this.handleName.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFile = this.handleFile.bind(this);
         this.handleDesc = this.handleDesc.bind(this);
         this.handleCategory = this.handleCategory.bind(this);
         this.checkSellable = this.checkSellable.bind(this);
+        this.handleCondition = this.handleCondition.bind(this);
     }
     handleCategory(event){
         this.setState({category: event.target.value});
@@ -36,6 +37,17 @@ export default class AddItem extends React.Component {
         }
         console.log(this.state.desc);
     }
+    handleCondition(event){
+        if(event.target.value == "Used"){
+            this.setState({cond:false});
+        }
+        else if(event.target.value == "New"){
+            this.setState({cond:true});
+        }
+        else{
+            alert("invalid condition input");
+        }
+    }
     
     async handleSubmit(event) {
         event.preventDefault();
@@ -52,7 +64,10 @@ export default class AddItem extends React.Component {
             alert('You can only sell 5 items at a time. Please Delete Some Items or wait');
             console.log('adding too many items');
         }
-        else if(file ==''||title==''||desc==''||user==null){
+        else if(user == null){
+            alert("your session has expired please log in again");
+        }
+        else if(file ==''||title==''||desc==''||cond==''){
             alert('Missing an input');
             console.log("missing an input");
         }
@@ -65,7 +80,7 @@ export default class AddItem extends React.Component {
             ).then(r=>
             {API.graphql(graphqlOperation(createItemTable, 
                 {input: {itemID: uID.toString(), description: desc,itemOwner:user, 
-                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))]}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
+                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))]}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other',cond:true});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
                     ).catch(err => console.log(err));
         }
       }
@@ -113,6 +128,13 @@ export default class AddItem extends React.Component {
                             <option value="Electronics">Electronics</option>
                             <option value="Clothing">Clothing</option>
                             <option value="Home">Home</option>
+                        </select>
+                    </label>
+                    <label>
+                        Condition:
+                        <select id="condition" value = {"New"} onChange={this.handleCondition}>
+                            <option value="New">New</option>
+                            <option value="Used">Used</option>
                         </select>
                     </label>
                     <input type="submit" value = "Submit" />
