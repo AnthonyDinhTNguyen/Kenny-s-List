@@ -72,16 +72,18 @@ export default class AddItem extends React.Component {
         let itemList = [];
         let currentUser = uname;
 
-        await API.graphql(graphqlOperation(listItemTables, {filter:{itemOwner:{eq:currentUser}}})).then((evt) => {
+        await (API.graphql(graphqlOperation(listItemTables, {filter:{itemOwner:{eq:currentUser}}})).then((evt) => {
             if(evt.data.listItemTables.items!= null){
                 evt.data.listItemTables.items.map((itemDB,i) =>{itemList.push(itemDB);});
             }
-        });
+        }));
         console.log(itemList);
         if(itemList.length <=5){
+            console.log("returning True");
             return true;
         }
         else{
+            console.log("returning False");
             return false;
         }
       }
