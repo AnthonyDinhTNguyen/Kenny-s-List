@@ -4,7 +4,6 @@ import { listItemTables } from '../../../graphql/queries';
 import { deleteItemTable } from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import { NavLink } from 'react-router-dom';
-
 export default class Profile extends React.Component {
     constructor(props){
         super(props);
@@ -34,10 +33,13 @@ export default class Profile extends React.Component {
         console.log(event.target);
         console.log(itemId);
         if (confirm("Are you sure that you want to remove this item listing?")) {
-            await API.graphql(graphqlOperation(deleteItemTables, {input:{itemId}})).then((evt) => {
+            await API.graphql(graphqlOperation(deleteItemTable, {input:{itemID: itemId}})).then((evt) => {
                 location.reload();
             });
-        } 
+        }
+        Storage.remove(itemId,{level:'protected'})
+        .then(result=>console.log(result))
+        .catch(err => console.log(err)); 
     }
 
     render() {
