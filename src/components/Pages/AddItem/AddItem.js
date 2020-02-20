@@ -55,6 +55,7 @@ export default class AddItem extends React.Component {
         const title = this.state.value;
         const desc = this.state.desc;
         const cate = this.state.category;
+        const condi = this.state.cond;
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
         const sellable =await this.checkSellable(user);
@@ -80,7 +81,7 @@ export default class AddItem extends React.Component {
             ).then(r=>
             {API.graphql(graphqlOperation(createItemTable, 
                 {input: {itemID: uID.toString(), description: desc,itemOwner:user, 
-                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))]}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other',cond:true});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
+                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other',cond:true});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
                     ).catch(err => console.log(err));
         }
       }
