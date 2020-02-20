@@ -1,4 +1,5 @@
 import React from 'react';
+import {Auth, Storage } from 'aws-amplify';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import { listUserBidsTables, getItemTable } from '../../../graphql/queries';
 /*import {connect} from 'react-redux';
@@ -24,6 +25,8 @@ export default class CheckoutPage extends React.Component {
         this.setState({biddingItems: []});
 
         await API.graphql(graphqlOperation(listUserBidsTables, {filter:{Username:{eq:currentUser}}})).then((evt) => {
+
+            console.log("It worked!");
             let itemIds = [];
             evt.data.listUserBidsTables.items.forEach(tuple => {
                 itemIds.push(tuple.itemID);
