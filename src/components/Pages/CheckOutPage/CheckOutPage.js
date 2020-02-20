@@ -1,9 +1,54 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import API, { graphqlOperation } from '@aws-amplify/api';
+import { listUserBidsTables, getItemTable } from '../../../graphql/queries';
+/*import {connect} from 'react-redux';
 import styled from 'styled-components';
-import BidCartItem from '../../BidCartItem/BidCartItem';
+import BidCartItem from '../../BidCartItem/BidCartItem';*/
 
-const CheckoutPage = (props) => {
+export default class CheckoutPage extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {biddingItems: []};
+    }
+
+    async componentDidMount(){
+        let currentUser = "";
+        try {
+            let response = await Auth.currentAuthenticatedUser();
+            currentUser = response.username;
+          } catch(err) {
+              console.log("ERROR: Failed to retrieve username.");
+        }
+
+        //Clear state
+        this.setState({biddingItems: []});
+
+        await API.graphql(graphqlOperation(listUserBidsTables, {filter:{itemOwner:{eq:currentUser}}})).then((evt) => {
+            let itemIds = [];
+            evt.data.listUserBidsTables.items.forEach(tuple => {
+                itemIds.push(tuple.itemID);
+            });
+
+            itemIds.forEach(element => {
+                API.graphql(graphqlOperation(getItemTable, {input:{itemID: element}})).then((evt) => {
+                    let temp = this.state.biddingItems;
+                    temp.push(evt.data.getItemTable);
+                    this.setState({biddingItems: temp});
+                }); 
+            });
+        });
+
+        console.log(this.state.biddingItems);
+    }
+
+    render() {
+        return (<div>
+            <p>Hello world</p>
+        </div>);
+    }
+}
+
+/*const CheckoutPage = (props) => {
     return (
         <CheckoutPageContainer>
             <CheckoutHeaderContainer>
@@ -29,6 +74,7 @@ const CheckoutPage = (props) => {
         </CheckoutPageContainer>
 );
 };
+
 const mapStateToProps = state => {
 
     console.log(state, 'state has changed');
@@ -72,4 +118,4 @@ export const HeaderBlockContainer = styled.div`
     width: 12%;
   }
 `;
-
+*/
