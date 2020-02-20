@@ -4,7 +4,7 @@ import { listItemTables } from '../../../graphql/queries';
 import { deleteItemTable } from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import { NavLink } from 'react-router-dom';
-
+import {Storage} from 'aws-amplify'
 export default class Profile extends React.Component {
     constructor(props){
         super(props);
@@ -37,7 +37,10 @@ export default class Profile extends React.Component {
             await API.graphql(graphqlOperation(deleteItemTable, {input:{itemID: itemId}})).then((evt) => {
                 location.reload();
             });
-        } 
+        }
+        Storage.remove(itemId,{level:'protected'})
+        .then(result=>console.log(result))
+        .catch(err => console.log(err)); 
     }
 
     render() {
