@@ -1,7 +1,6 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
-import { getItemTable,listItemTables } from '../../../graphql/queries';
-
+import { getItemTable,listItemTables, getKennysListUserTable} from '../../../graphql/queries';
 import {createItemTable,createLatestUserBidTable, createUserBidsTable } from '../../../graphql/mutations';
 
 import API, { graphqlOperation } from '@aws-amplify/api';
