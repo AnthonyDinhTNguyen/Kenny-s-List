@@ -8,7 +8,7 @@ import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import CheckoutForm from "./CheckoutForm"
 import {Auth} from 'aws-amplify';
-import {getKennysListUserTable} from '../../graphql/queries';
+import {getKennysListUserTable,getItemTable} from '../../graphql/queries';
 import API, { graphqlOperation } from '@aws-amplify/api';
 export default class BidCartItem2 extends React.Component {
     constructor(props){
@@ -25,7 +25,8 @@ export default class BidCartItem2 extends React.Component {
       let amount = "500";
       amount = (parseFloat(this.props.currentBid)*100).toString();
       console.log(amount);
-      let user = (await Auth.currentAuthenticatedUser()).username;
+      let user = (await API.graphql(graphqlOperation(getItemTable, {itemID: this.props.id}))).data.getItemTable.itemOwner;
+      //let user = (await Auth.currentAuthenticatedUser()).username;
       let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
       console.log(response);
       let accountID = response.data.getKennysListUserTable.accountID;
