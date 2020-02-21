@@ -127,16 +127,14 @@ const ProductDetail = (props) => {
                         Username: username,
                         BidAmt : value,
                         Status: "Bidding"
-                    }}))
+                    }}));
 
             await API.graphql(graphqlOperation(updateLatestUserBidTable,
                 {input:{
                         lubtProductID: itemID,
                         Username: username,
                         BidAmt: value
-                    }}))
-
-
+                    }}));
 
         }
         clearState();
