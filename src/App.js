@@ -126,7 +126,8 @@ class App extends Component {
 
   render() {    
     if (this.state.user == null) {
-      return <Login/>;
+      Auth.federatedSignIn();
+      return (<div></div>);
     } else { 
       return (
         <Router>
@@ -187,16 +188,6 @@ class App extends Component {
          This is Test2.
        </div>
      );
-  }
-
-
-  function Login() {
-    window.onload = function() {
-      Auth.federatedSignIn();
-    }
-    return (
-      <div></div>
-    );
   }
 
 export default App;
