@@ -25,6 +25,8 @@ export const onCreateItemTable = /* GraphQL */ `
       name
       postTime
       condition
+      marketPrice
+      startingBid
     }
   }
 `;
@@ -52,6 +54,8 @@ export const onUpdateItemTable = /* GraphQL */ `
       name
       postTime
       condition
+      marketPrice
+      startingBid
     }
   }
 `;
@@ -79,6 +83,8 @@ export const onDeleteItemTable = /* GraphQL */ `
       name
       postTime
       condition
+      marketPrice
+      startingBid
     }
   }
 `;

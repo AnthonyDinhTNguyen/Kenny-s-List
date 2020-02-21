@@ -1,7 +1,7 @@
 export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
 export const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
 export const UPDATE_USERNAME = 'UPDATE_USERNAME';
-
+export const ADD_ITEMS = 'ADD_ITEMS';
 
 export const addProductToCart = product => {
     return {
@@ -16,21 +16,27 @@ export const updateUsername = username => {
     }
 }
 
-export const ADD_BRAND_TO_FILTER = 'ADD_BRAND_TO_FILTER';
-export const REMOVE_BRAND_FROM_FILTER = 'REMOVE_BRAND_FROM_FILTER';
-
-export const addBrandToFilter = brand => {
+export const addItems = (items) => {
     return {
-        type: ADD_BRAND_TO_FILTER,
-        brand
+        type: ADD_ITEMS,
+        items
     }
 };
 
+export const ADD_CATEGORY_TO_FILTER = 'ADD_BRAND_TO_FILTER';
+export const REMOVE_CATEGORY_FROM_FILTER = 'REMOVE_BRAND_FROM_FILTER';
 
-export const removeBrandFromFilter = brand => {
+export const addCategoryToFilter = category => {
+    return {
+        type: ADD_CATEGORY_TO_FILTER,
+        category
+    }
+};
+
+export const removeCategoryFromFilter = category => {
     return  {
-        type: REMOVE_BRAND_FROM_FILTER,
-        brand
+        type: REMOVE_CATEGORY_FROM_FILTER,
+        category
     }
 };
 
@@ -81,4 +87,11 @@ export const goPage = (n) => {
         currentPage: n
     }
 };
+
+export const countItem = (n) => {
+    return {
+        type: COUNT_ITEM,
+        totalItemsCount: n
+    }
+}
 

@@ -8,7 +8,7 @@ import './AddItem.css'
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
-        this.state = {value: '', file:'',desc: '',category: 'Other',cond:true};
+        this.state = {value: '', file:'',desc: '',category: 'Other',cond:true,startingBid:0,marketPrice:0};
         this.handleName = this.handleName.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -16,6 +16,8 @@ export default class AddItem extends React.Component {
         this.handleCategory = this.handleCategory.bind(this);
         this.checkSellable = this.checkSellable.bind(this);
         this.handleCondition = this.handleCondition.bind(this);
+        this.handleStartingBid = this.handleStartingBid.bind(this);
+        this.handleMarketPrice = this.handleMarketPrice.bind(this);
     }
     handleCategory(event){
         this.setState({category: event.target.value});
@@ -48,6 +50,16 @@ export default class AddItem extends React.Component {
             alert("invalid condition input");
         }
     }
+    handleStartingBid(event){
+        if(event.target.value >=0.0){
+            this.setState({startingBid:event.target.value});
+        }
+    }
+    handleMarketPrice(event){
+        if(event.target.value >=0.0){
+            this.setState({startingBid:event.target.value});
+        }
+    }
     
     async handleSubmit(event) {
         event.preventDefault();
@@ -56,6 +68,8 @@ export default class AddItem extends React.Component {
         const desc = this.state.desc;
         const cate = this.state.category;
         const condi = this.state.cond;
+        const startBid = this.state.startingBid;
+        const markPrice = this.state.marketPrice;
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
         const sellable =await this.checkSellable(user);
@@ -68,7 +82,7 @@ export default class AddItem extends React.Component {
         else if(user == null){
             alert("your session has expired please log in again");
         }
-        else if(file ==''||title==''||desc==''||condi==''){
+        else if(file ==''||title==''||desc==''){
             alert('Missing an input');
             console.log("missing an input");
         }
@@ -81,7 +95,7 @@ export default class AddItem extends React.Component {
             ).then(r=>
             {API.graphql(graphqlOperation(createItemTable, 
                 {input: {itemID: uID.toString(), description: desc,itemOwner:user, 
-                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other',cond:true});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
+                    name: title, postTime: time, category: cate, startingBid: startBid, marketPrice: markPrice, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
                     ).catch(err => console.log(err));
         }
       }
@@ -128,6 +142,22 @@ export default class AddItem extends React.Component {
                     </div>
                     <div className = "row">
                         <div className = "col-25">
+                            <label for="startingBid">Starting Bid</label>
+                        </div>
+                        <div className = "col-75">
+                            <input type="number" step = "0.01" min = "0"  id="startingBid" value = {this.state.startingBid} onChange = {this.handleStartingBid}/>
+                        </div>
+                    </div>
+                    <div className = "row">
+                        <div className = "col-25">
+                            <label for="marketPrice">Market Price</label>
+                        </div>
+                        <div className = "col-75">
+                            <input type="number" step = "0.01" min = "0"  id="marketPrice" value = {this.state.marketPrice} onChange = {this.handleMarketPrice}/>
+                        </div>
+                    </div>
+                    <div className = "row">
+                        <div className = "col-25">
                             <label for="desc">Description of Item:</label>
                         </div>
                         <div className = "col-75">
@@ -152,7 +182,7 @@ export default class AddItem extends React.Component {
                             <label for = "condition">Condition:</label>
                         </div>
                         <div className = "col-75">
-                            <select id="condition" value = {"New"} onChange={this.handleCondition}>
+                            <select id="condition" onChange={this.handleCondition}>
                                 <option value="New">New</option>
                                 <option value="Used">Used</option>
                             </select>

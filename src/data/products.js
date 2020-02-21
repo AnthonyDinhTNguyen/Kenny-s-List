@@ -25,7 +25,4 @@ export const product = [{
     "price": 1000,
     "id": 2,
     "description": "Supreme Size M"
-},
-
-
-]
+},]

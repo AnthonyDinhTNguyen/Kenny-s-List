@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Product from "../../Product/Product";
-
 import {categoryFilter} from "../../Pipes/categoryFilter";
 import {orderByFilter} from "../../Pipes/orderByFilter";
 import {paginationPipe} from "../../Pipes/paginationFilter";
@@ -42,16 +41,16 @@ class ProductList extends Component {
         return (
             <div className="col-lg-9">
                 <div className="row">
-                    {paginationPipe(this.props.products, this.state).map(product =>{
+                    {paginationPipe(this.props.items, this.state).map(product =>{
                         let classes = `${this.state.colValue} col-md-6 mb-4`;
-                        return (<div key={product.id} className={classes}>
-                            <Product key={product.id} product={product} />
+                        return (<div key={product.itemID} className={classes}>
+                            <Product product={product} />
                         </div>)
                     })}
                 </div>
                 <div className="d-flex justify-content-end">
                     <Pagination
-                        totalItemsCount={this.props.products.length}
+                        totalItemsCount={this.props.items.length}
                         currentPage={this.state.currentPage}
                         perPage={this.state.perPage}
                         pagesToShow={this.state.pagesToShow}
@@ -66,13 +65,14 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = state => {
+
     const categories = state.categoryFilter;
     const orderBy = state.orderBy;
 
-    const filterByCategoryArr = categoryFilter(state.shop.products, categories);
+    const filterByCategoryArr = categoryFilter(state.items.items, categories);
     const filterByOrderArr = orderByFilter(filterByCategoryArr, orderBy);
 
-    return {products: filterByOrderArr}
+    return {items: filterByOrderArr}
 };
 
 export default connect(mapStateToProps, null)(ProductList);
