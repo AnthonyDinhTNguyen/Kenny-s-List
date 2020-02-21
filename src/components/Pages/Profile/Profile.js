@@ -65,7 +65,8 @@ export default class Profile extends React.Component {
         }
         if (this.state.redirect === true) {
             this.setState({redirect: false});
-            return (<Redirect to="/profile"></Redirect>);
+            console.log("Redirecting!");
+            return (<Redirect to="/"></Redirect>);
         }
 
         return (
