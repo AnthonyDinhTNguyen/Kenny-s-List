@@ -121,7 +121,7 @@ export default class AddItem extends React.Component {
   //images will be validated server side as well
     render() {
         return (
-            <div className="formContainer" style={{paddingTop: '6rem'}}>
+            <div className="formContainer">
                 
                 <form onSubmit = {this.handleSubmit}>
                     <div className = "row">
