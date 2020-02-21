@@ -5,6 +5,7 @@ import { deleteItemTable } from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import { NavLink,Redirect } from 'react-router-dom';
 import axios from "axios";
+import {loadStripe} from '@stripe/stripe-js';
 export default class Profile extends React.Component {
     constructor(props){
         super(props);
@@ -14,33 +15,23 @@ export default class Profile extends React.Component {
     }
 
     async stripeAccount(){
-       /* const shit = Math.random()
-        .toString(36)
-        .slice(2);
-        
-      let parameters = {
-        client_id: 'ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g',
-        state: req.session.state,
-      };
-    
-      parameters = Object.assign(parameters, {
-        redirect_uri: 'https://www.google.com',
-        'stripe_user[business_type]': 'individual',
-        'stripe_user[business_name]': undefined,
-        'stripe_user[first_name]': undefined,
-        'stripe_user[last_name]': undefined,
-        'stripe_user[email]': undefined,
-        'stripe_user[country]': undefined
-      });
-      console.log('Starting Express flow:', parameters);
-      // Redirect to Stripe to start the Express onboarding flow
-      https://connect.stripe.com/connect/default/oauth/test&client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g
-      +
-      '?' + querystring.stringify(parameters)*/
-        
-        const link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g";
-        window.open(link);
-        this.setState({stripeLink:link});
+
+        // const link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g";
+        // window.open(link);
+        // this.setState({stripeLink:link});
+        let url = "https://in8hc6wee5.execute-api.us-east-1.amazonaws.com/stripe/stripe-payment";
+        let amount = "500";
+        let test = (parseFloat(this.props.yourBid)*100).toString();
+        console.log(test);
+        let accountID = "acct_1GEXPGKzFt6viajs";
+        let postThis = url+"?amount="+amount+"&accountID="+accountID;
+        const stripePromise = loadStripe("pk_test_NedNuvs9YOl1WOhanD0xfJtX00q2eAowF8");
+        let dataJSON = await axios.get(postThis);
+        console.log(dataJSON);
+        console.log(dataJSON.data.body.clientSecret+"bidcart");
+        this.setState({clientID:dataJSON.data.body.clientSecret});
+        this.setState({stripeP:stripePromise})
+        this.setState({stripe:true});
     }
     async componentDidMount(){
         let currentUser = "";
