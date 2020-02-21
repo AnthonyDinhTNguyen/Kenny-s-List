@@ -68,7 +68,7 @@ const ProductDetail = (props) => {
         console.log("Get item table is " + getItemTable);
 
         const fetchData = async () => {
-            await (API.graphql(graphqlOperation(getItemTable, {itemID: "f392jf093j9aijfslijdfkz"})).then(e => {
+            await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
                 // 604800 = seven days in seconds

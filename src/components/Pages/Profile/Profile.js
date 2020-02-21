@@ -15,7 +15,10 @@ export default class Profile extends React.Component {
     }
 
     async stripeAccount(){
-
+        let user = (await Auth.currentAuthenticatedUser()).username;
+        if (user == null){
+            await Auth.signOut().catch(err=>console.log(err));
+        }
         const link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g";
         window.open(link);
         this.setState({stripeLink:link});
