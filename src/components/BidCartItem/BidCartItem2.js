@@ -23,13 +23,6 @@ export default class BidCartItem2 extends React.Component {
       this.setState({stripeP:stripePromise})
     }
     render() {
-      if(this.state.stripe){
-        return (
-          <Elements stripe={this.state.stripeP}>
-            <CheckoutForm />
-          </Elements>
-        );
-      }
         return (
             <CheckoutItemContainer>
                 <ImageContainer>
@@ -46,6 +39,16 @@ export default class BidCartItem2 extends React.Component {
                 <ButtonContainer>
                     <button onClick = {this.startStripe}>Pay</button>
                 </ButtonContainer>
+
+                {(this.state.stripe) ? (<div style={{position: "fixed", top: 0, width: "100%", height: "100%", zIndex: 1, backgroundColor: "rgba(0,0,0,0.25)"}}>
+                  <div style={{backgroundColor: "white", border: "2px solid black", height: "50%", width: "50%", margin: "0 auto", marginTop: 150, padding: "10px 20px 10px 20px"}}>
+                    <Elements stripe={this.state.stripeP}>
+                      <CheckoutForm />
+                    </Elements>
+                    <button>Close</button>
+                  </div>
+                </div>) : <br />}
+
             </CheckoutItemContainer>
         );
     }
