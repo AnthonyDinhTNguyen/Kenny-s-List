@@ -5,39 +5,15 @@ import { getItemTable } from '../../graphql/queries';
 import {addProductToCart,updateUsername} from "../../actions";
 import axios from 'axios';
 import API, { graphqlOperation } from '@aws-amplify/api'
-import PubSub from '@aws-amplify/pubsub';
-import Amplify, { Auth, Hub } from 'aws-amplify';
-import awsconfig from '../../aws-exports';
-
-API.configure(awsconfig);
-PubSub.configure(awsconfig);
-
-Amplify.configure({
-    Auth: {
-      IdentityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
-      region: 'us-east-1',
-      userPoolId: 'us-east-1_buFSrhliB',
-      userPoolWebClientId: '1qkrcfqgqv63hk594qi92q5hqi',
-      mandatorySignIn: true,
-      oauth: {
-        domain: 'kennyslist.auth.us-east-1.amazoncognito.com',
-        scope: ['phone','email','profile','openid','aws.cognito.signin.user.admin'],
-        redirectSignIn: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
-        redirectSignOut: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
-        responseType: 'token'
-      }
-    }
-    });
 
 const ProductDetail = (props) => {
     const {
         condition,
-        itemID, highestBidder, images, name, description
+        itemID, startingBid, name, description,marketPrice
     } = props.product;
 
-
     const [value, setValue] = useState('');
-    const [BidHistory, setBidHistory] = useState({});
+    const [BidHistory, setBidHistory] = useState({'BidAmt': startingBid});
     const [username, serUsername] = useState('');
     const [error, setError] = useState(null);
     const [expTime, setExpTime] = useState(1000);
@@ -81,6 +57,11 @@ const ProductDetail = (props) => {
                 setExpTime(time);
             }).catch(e => {console.log("Failed to retrieve data");}));
 
+            await (API.graphql(graphqlOperation(getItemTable, {itemID: `{itemID}`})).then(e => {
+                console.log(e.data.getItemTable.start)
+
+            }).catch(e => {console.log("Failed to retrieve data");}));
+
         };
         fetchData();
     }, []);
@@ -116,20 +97,24 @@ const ProductDetail = (props) => {
         setValue('');
     };
     const handleChange = e => {
+        e.preventDefault();
         setValue(e.target.value);
       };
 
     const  handleSubmit = async event => {
-        event.preventDefault();
-        const bidhistory = {'BidAmt': value};
 
-        if(value.length === 0){
+        event.preventDefault();
+        console.log("asf", value);
+        console.log("asasas", BidHistory.BidAmt);
+        if(value.trim() === ""){
             setErrorValidation('Bid Value cannot be NULL');
         }
         else if(value <= BidHistory.BidAmt){
             setErrorValidation(`Bid Value must be greater than $${BidHistory.BidAmt}`);
         }
         else {
+
+            const bidhistory = {'BidAmt': value};
             setBidHistory(bidhistory);
             setErrorValidation('');
             clearState();
@@ -189,14 +174,14 @@ const ProductDetail = (props) => {
 
                 <p className="price-detail-wrap">
                 <span className="price h3 text-warning">
-                    <span className="currency">$</span><span className="num">{formatMoney(132)} (Market Value)</span>
+                    <span className="currency">$</span><span className="num">{formatMoney(marketPrice)} (Market Value)</span>
                 </span>
                 </p>
 
                 <h6 className="mb-3"><strong>Condition:</strong> {condition}</h6>
                 <h6 className="mb-3">
                 <strong >Base Bid: $</strong>
-                        {BidHistory.BidAmt != null ?( <span>{BidHistory.BidAmt}</span>):(<span>0</span>)}
+                        <span>{BidHistory.BidAmt}</span>
                 </h6>
                 <h6 className="mb-3">
                 <strong>Time Left: </strong><span>{expTimeFormatted()}</span>
@@ -205,7 +190,7 @@ const ProductDetail = (props) => {
                     <div>
                         <h6><strong>Your bid:</strong></h6>
                         <input id={itemID} name="input-field" className="form-control" type="number" value={value}
-                        placeholder="Your Price"  onChange={handleChange} />
+                        placeholder="Your Bid"  onChange={handleChange} />
                     </div>
                     {errorValidation.length > 0 ? (<div style={{color: 'red'}}>{errorValidation}</div>):(<div></div>)}
 
