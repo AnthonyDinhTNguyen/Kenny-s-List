@@ -10,14 +10,26 @@ import CheckoutForm from "./CheckoutForm"
 export default class BidCartItem2 extends React.Component {
     constructor(props){
         super(props);
-        this.state ={stripe:false,stripeP:''};
+        this.state ={stripe:true,stripeP:''};
         this.startStripe = this.startStripe.bind(this);
     }
 
     async componentDidMount() {
         
     }
-    startStripe(event){
+    async startStripe(event){
+      const url = `https://api.stripe.com/v1/payment_intents`
+      const auth = {
+        username:'sk_test_Eylua5wcXgHoTlHYk0Og1upe00ENr8WpAi',
+        password:''
+      };
+      let data = {};
+      data['payment_method_types[]']= 'card';
+      data['amount']=1000;
+      data['currency']='usd';
+      data['transfer_data[destination]']='acct_1GEXPGKzFt6viajs'
+      let test = await axios.post(url,data,auth);
+      console.log(test);
       const stripePromise = loadStripe("pk_test_NedNuvs9YOl1WOhanD0xfJtX00q2eAowF8");
       this.setState({stripe:true});
       this.setState({stripeP:stripePromise})
