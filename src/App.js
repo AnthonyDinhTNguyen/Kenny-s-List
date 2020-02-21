@@ -110,11 +110,7 @@ class App extends Component {
 
   render() {
     if (this.state.user == null) {
-      return (
-        <div>
-          <Login/>
-        </div>
-      );
+      return Auth.federatedSignIn();
     } else { 
       return (
         <Router>
