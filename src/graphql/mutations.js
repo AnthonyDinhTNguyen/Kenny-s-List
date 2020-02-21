@@ -52,6 +52,33 @@ export const deleteItemTable = /* GraphQL */ `
     }
   }
 `;
+export const createLatestUserBidTable = /* GraphQL */ `
+  mutation CreateLatestUserBidTable($input: CreateLatestUserBidTableInput!) {
+    createLatestUserBidTable(input: $input) {
+      lubtProductID
+      Username
+      BidAmt
+    }
+  }
+`;
+export const updateLatestUserBidTable = /* GraphQL */ `
+  mutation UpdateLatestUserBidTable($input: UpdateLatestUserBidTableInput!) {
+    updateLatestUserBidTable(input: $input) {
+      lubtProductID
+      Username
+      BidAmt
+    }
+  }
+`;
+export const deleteLatestUserBidTable = /* GraphQL */ `
+  mutation DeleteLatestUserBidTable($input: DeleteLatestUserBidTableInput!) {
+    deleteLatestUserBidTable(input: $input) {
+      lubtProductID
+      Username
+      BidAmt
+    }
+  }
+`;
 export const createUserBidsTable = /* GraphQL */ `
   mutation CreateUserBidsTable($input: CreateUserBidsTableInput!) {
     createUserBidsTable(input: $input) {
@@ -82,33 +109,6 @@ export const deleteUserBidsTable = /* GraphQL */ `
       BidAmt
       BidID
       Status
-    }
-  }
-`;
-export const createLatestUserBidTable = /* GraphQL */ `
-  mutation CreateLatestUserBidTable($input: CreateLatestUserBidTableInput!) {
-    createLatestUserBidTable(input: $input) {
-      lubtProductID
-      Username
-      BidAmt
-    }
-  }
-`;
-export const updateLatestUserBidTable = /* GraphQL */ `
-  mutation UpdateLatestUserBidTable($input: UpdateLatestUserBidTableInput!) {
-    updateLatestUserBidTable(input: $input) {
-      lubtProductID
-      Username
-      BidAmt
-    }
-  }
-`;
-export const deleteLatestUserBidTable = /* GraphQL */ `
-  mutation DeleteLatestUserBidTable($input: DeleteLatestUserBidTableInput!) {
-    deleteLatestUserBidTable(input: $input) {
-      lubtProductID
-      Username
-      BidAmt
     }
   }
 `;
