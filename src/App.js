@@ -111,7 +111,7 @@ class App extends Component {
   }
 
   render() {    
-    if (this.state.user == null) {
+    if (this.state.user != null) {
       return <Login/>;
     } else { 
       return (
@@ -177,9 +177,9 @@ class App extends Component {
             <div className="col-lg-2"></div>
             <div className="col-lg-8">
               <div className="row">
-                <StaticProduct img="https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public/macbook.jpg"/>
-                <StaticProduct />
-                <StaticProduct />
+                <StaticProduct img="https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public/macbookpro.jpeg"/>
+                <StaticProduct img="https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public/samsung.jpg"/>
+                <StaticProduct img="https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public/nintendoswitch.jpg"/>
               </div>
             </div>
             <div className="col-lg-2"></div>
