@@ -110,12 +110,18 @@ class App extends Component {
 
   render() {
     if (this.state.user == null) {
-      return Auth.federatedSignIn();
+      return <div><Login/></div>;
     } else { 
       return (
         <Router>
           <div id="routeDiv">
             <Switch>
+              <Route path="/test">
+                <Test1 />
+              </Route>
+              <Route path="/test2">
+                <Test2 />
+              </Route>
               <Route path="/">
                 <Main />
               </ Route>
@@ -148,6 +154,38 @@ class App extends Component {
             </React.Fragment>
             </Router>
         </Provider>
+    );
+  }
+
+  function Test1() {
+     return (
+       <div>
+         This is Test1.
+       </div>
+     );
+  }
+  
+  function Test2() {
+     return (
+       <div>
+         This is Test2.
+       </div>
+     );
+  }
+
+
+  function Login() {
+    return (
+      <div className="app">
+        <div className="app-header">
+          <h1>Welcome to KennysList</h1>
+        </div>
+        <div className="app">
+          <header className="app-header">
+            <button id="SignInButton" onClick={() => Auth.federatedSignIn()}>Sign In</button>
+        </header>
+      </div>    
+    </div>
     );
   }
 
