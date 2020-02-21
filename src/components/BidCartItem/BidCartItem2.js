@@ -8,7 +8,10 @@ import styled from 'styled-components';
 export default class BidCartItem2 extends React.Component {
     constructor(props){
         super(props);
-        this.state = {biddingItems: []};
+    }
+
+    async componentDidMount() {
+        
     }
 
     render() {
@@ -18,12 +21,16 @@ export default class BidCartItem2 extends React.Component {
                     <img src={this.props.img} />
                 </ImageContainer>
                 <TextContainer>
-                    <Link to={`/products/${this.props.id}`}>{this.props.title}</Link>
+                    <Link to={`/products/{this.props.id}`}>{this.props.title}</Link>
                 </TextContainer>
                 <StatusContainer>
                     Bidding
                 </StatusContainer>
-                <TextContainer>$69 ;)</TextContainer>
+                <TextContainer>${this.props.yourBid}</TextContainer>
+                <TextContainer>$420</TextContainer>
+                <ButtonContainer>
+                    <StripePayment price={69} />
+                </ButtonContainer>
             </CheckoutItemContainer>
         );
     }
