@@ -57,7 +57,7 @@ export default class AddItem extends React.Component {
     }
     handleMarketPrice(event){
         if(event.target.value >=0.0){
-            this.setState({startingBid:event.target.value});
+            this.setState({marketPrice:event.target.value});
         }
     }
     
