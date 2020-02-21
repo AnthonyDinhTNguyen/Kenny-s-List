@@ -8,7 +8,7 @@ import axios from "axios";
 export default class Profile extends React.Component {
     constructor(props){
         super(props);
-        this.state = {reload: false, selling: [], stripeLink:''};
+        this.state = {reload: false, selling: [{name: "Macbook Pro 2019 Core i5 8GB RAM 256GB SSD", itemID: "d54bcb48-19b2-46a8-a3c5-14ec0ac117d4", images: ["https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/protected/us-east-1%3Ab50e563f-bfe8-4d47-a48e-da014df6a343/d54bcb48-19b2-46a8-a3c5-14ec0ac117d4"]}], stripeLink:''};
         this.handleOnRemove = this.handleOnRemove.bind(this);
         this.stripeAccount = this.stripeAccount.bind(this);
     }
@@ -42,7 +42,6 @@ export default class Profile extends React.Component {
         console.log(itemId);
         if (confirm("Are you sure that you want to remove this item listing?")) {
             await API.graphql(graphqlOperation(deleteItemTable, {input:{itemID: itemId}})).then((evt) => {
-                location.reload();
                 this.setState({reload: true});
             });
         }
@@ -62,6 +61,11 @@ export default class Profile extends React.Component {
                 <Redirect to = {this.state.stripeLink}></Redirect>
             )
         }
+        if (this.state.redirect === true) {
+            this.setState({redirect: false});
+            <Redirect to="/profile"></Redirect>
+        }
+
         return (
             <div className="container" style={{paddingTop: '6rem', width: '70%'}}>
                 <button onClick={this.stripeAccount}>Create Stripe Account</button>
@@ -70,16 +74,16 @@ export default class Profile extends React.Component {
                         <h5>Selling</h5>
                     </div>
                     {this.state.selling.map(item => <div style={{paddingTop: 15, paddingBottom: 15, borderBottom: '1px solid black'}}>
-                        <div style={{display: 'inline-block', width: "15%"}}>
-                            <img style={{objectFit: 'cover', height: 80, marginRight: 15}} src={item.images[0]}></img>
+                        <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                            <img style={{objectFit: 'cover', height: 80, width: 120, marginRight: 15}} src={item.images[0]}></img>
                         </div>
-                        <div style={{display: 'inline-block', width: "60%", verticalAlign: 'top'}}>
-                            <NavLink to={{pathname: "/products/" + item.itemID}} style={{verticalAlign: 'top', fontSize: 18}}>{item.name}</NavLink>
+                        <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                            <div style={{verticalAlign: 'top'}}>
+                                <NavLink to={{pathname: "/products/" + item.itemID}} style={{verticalAlign: 'top', fontSize: 18}}>{item.name}</NavLink>
+                            </div>
+                            <br/>
+                            <span name={item.itemID} onClick={this.handleOnRemove} style={{fontSize: 16, color: "#007bff", cursor: "pointer"}}>Remove</span>
                         </div>
-                        <div style={{display: 'inline-block', width: "20%", verticalAlign: 'bottom', textAlign: 'right'}}>
-                            <span name={item.itemID} onClick={this.handleOnRemove} style={{color: "#007bff", cursor: "pointer"}}>Remove</span>
-                        </div>
-                        
                     </div>)}
                     {emptyMessage}
                 </div>
