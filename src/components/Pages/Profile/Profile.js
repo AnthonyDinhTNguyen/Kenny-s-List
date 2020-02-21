@@ -9,8 +9,12 @@ export default class Profile extends React.Component {
         super(props);
         this.state = {selling: []};
         this.handleOnRemove = this.handleOnRemove.bind(this);
+        this.stripeAccount = this.stripeAccount.bind(this);
     }
 
+    stripeAccount(){
+        return false;
+    }
     async componentDidMount(){
         let currentUser = "";
         try {
@@ -51,7 +55,7 @@ export default class Profile extends React.Component {
 
         return (
             <div className="container" style={{paddingTop: '6rem', width: '100%'}}>
-                <button onClick={stripeAccount}>Create Stripe Account</button>
+                <button onClick={this.stripeAccount}>Create Stripe Account</button>
                 <div style={{display: 'inline-block', width: '30%', backgroundColor: '#f2f2f2', marginRight: 10}}>
                     <div style={{}}>Orders</div>
                     <div style={{}}>Selling</div>

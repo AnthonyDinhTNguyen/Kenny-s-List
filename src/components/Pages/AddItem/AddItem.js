@@ -8,7 +8,7 @@ import './AddItem.css'
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
-        this.state = {value: '', file:'',desc: '',category: 'Other',cond:true,startingBid:0,marketPrice:0};
+        this.state = {value: '', file:'',desc: '',category: 'Other',cond:'New',startingBid:0,marketPrice:0};
         this.handleName = this.handleName.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -40,15 +40,7 @@ export default class AddItem extends React.Component {
         console.log(this.state.desc);
     }
     handleCondition(event){
-        if(event.target.value == "Used"){
-            this.setState({cond:false});
-        }
-        else if(event.target.value == "New"){
-            this.setState({cond:true});
-        }
-        else{
-            alert("invalid condition input");
-        }
+        this.setState({cond: event.target.value});
     }
     handleStartingBid(event){
         if(event.target.value >=0.0){
@@ -95,7 +87,7 @@ export default class AddItem extends React.Component {
             ).then(r=>
             {API.graphql(graphqlOperation(createItemTable, 
                 {input: {itemID: uID.toString(), description: desc,itemOwner:user, 
-                    name: title, postTime: time, category: cate, startingBid: startBid, marketPrice: markPrice, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
+                    name: title, postTime: time, category: cate, startingBid: startBid, marketPrice: markPrice, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other',cond:"New"});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
                     ).catch(err => console.log(err));
         }
       }
