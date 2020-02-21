@@ -4,16 +4,19 @@ import { listItemTables } from '../../../graphql/queries';
 import { deleteItemTable } from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import { NavLink } from 'react-router-dom';
+import axios from "axios";
 export default class Profile extends React.Component {
     constructor(props){
         super(props);
-        this.state = {selling: []};
+        this.state = {selling: [], stripeLink:''};
         this.handleOnRemove = this.handleOnRemove.bind(this);
         this.stripeAccount = this.stripeAccount.bind(this);
     }
 
     stripeAccount(){
-        return false;
+        const link = await axios.get
+            (`https://vhwckrva1j.execute-api.us-east-1.amazonaws.com/default/FetchBidsForCheckout?Username=${users}&ProductID=${id}`,);
+        this.setState({stripeLink:link});
     }
     async componentDidMount(){
         let currentUser = "";
@@ -52,7 +55,11 @@ export default class Profile extends React.Component {
         if (this.state.selling.length <= 0) {
             emptyMessage = (<div style={{paddingTop: 15, fontSize: 18, textAlign: 'center'}}>You have no items for sale</div>);
         }
-
+        if(this.state.stripeLink !=""){
+            return(
+                <Redirect to = {this.state.stripeLink}></Redirect>
+            )
+        }
         return (
             <div className="container" style={{paddingTop: '6rem', width: '100%'}}>
                 <button onClick={this.stripeAccount}>Create Stripe Account</button>
