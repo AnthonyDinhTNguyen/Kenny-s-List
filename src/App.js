@@ -188,15 +188,15 @@ class App extends Component {
             <div className="col-lg-2"></div>
           </div>
 
-          <div style={{width: "100%", backgroundColor: "red", marginBottom: 20}}>
-            <h5>Great deals at great prices!</h5>
+          <div style={{width: "100%", backgroundColor: "#3366ff", marginBottom: 20, textAlign: "center", color: "white", padding: 15}}>
+            <h3>Great products at great prices!</h3>
           </div>
 
           <div className="row">
             <div className="col-lg-2"></div>
             <div className="col-lg-8">
               <div className="row">
-                <StaticProduct img={baseURL + "vans.jpeg"} name="Vans Old Skool"/>
+                <StaticProduct img={baseURL + "/vans.jpeg"} name="Vans Old Skool"/>
                 <StaticProduct img={baseURL + "/hoodie.jpeg"} name="NASA Hoodie (Unisex)"/>
                 <StaticProduct img={baseURL + "/tshirt.jpeg"} name="Men's T-Shirt"/>
               </div>
@@ -204,8 +204,8 @@ class App extends Component {
             <div className="col-lg-2"></div>
           </div>
 
-          <div style={{width: "100%", backgroundColor: "red", marginBottom: 20}}>
-            <h5>Great deals at great prices!</h5>
+          <div style={{width: "100%", backgroundColor: "#3366ff", marginBottom: 20, textAlign: "center", color: "white", padding: 15}}>
+            <h3>Buy and sell items hassle-free!</h3>
           </div>
 
           <div className="row">
