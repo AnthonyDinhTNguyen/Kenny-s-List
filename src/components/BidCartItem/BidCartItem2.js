@@ -11,7 +11,7 @@ import {Auth} from 'aws-amplify';
 export default class BidCartItem2 extends React.Component {
     constructor(props){
         super(props);
-        this.state ={stripe:false,stripeP:'',clientID=''};
+        this.state ={stripe:false,stripeP:'',clientID:''};
         this.startStripe = this.startStripe.bind(this);
     }
 
