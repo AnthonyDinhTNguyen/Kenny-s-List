@@ -22,7 +22,7 @@ const CARD_ELEMENT_OPTIONS = {
 
 function CardSection() {
   return (
-    <label>
+    <label style={{width: "100%"}}>
       Card details
       <CardElement options={CARD_ELEMENT_OPTIONS} />
     </label>
