@@ -3,7 +3,8 @@ import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
 
 import CardSection from './CardSection';
 
-export default function CheckoutForm() {
+export default function CheckoutForm(props) {
+    console.log(props.clientID+"prps");
   const stripe = useStripe();
   const elements = useElements();
 
