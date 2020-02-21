@@ -111,7 +111,7 @@ class App extends Component {
   }
 
   render() {    
-    if (this.state.user != null) {
+    if (this.state.user == null) {
       return <Login/>;
     } else { 
       return (
@@ -155,6 +155,9 @@ class App extends Component {
   }
 
   function Login() {
+
+    let baseURL = "https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public";
+
     return (
       <div className="app">
 
@@ -177,9 +180,9 @@ class App extends Component {
             <div className="col-lg-2"></div>
             <div className="col-lg-8">
               <div className="row">
-                <StaticProduct img="https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public/macbookpro.jpeg"/>
-                <StaticProduct img="https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public/samsung.jpg"/>
-                <StaticProduct img="https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public/nintendoswitch.jpg"/>
+                <StaticProduct img={baseURL + "/macbookpro.jpeg"} name="MacBook Pro 13-inch"/>
+                <StaticProduct img={baseURL + "/samsung.jpg"} name="Samsung Galaxy S10"/>
+                <StaticProduct img={baseURL + "/nintendoswitch.jpg"} name="Nintendo Switch"/>
               </div>
             </div>
             <div className="col-lg-2"></div>
@@ -193,9 +196,9 @@ class App extends Component {
             <div className="col-lg-2"></div>
             <div className="col-lg-8">
               <div className="row">
-                <StaticProduct img="https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public/macbook.jpg"/>
-                <StaticProduct />
-                <StaticProduct />
+                <StaticProduct img={baseURL + "vans.jpeg"} name="Vans Old Skool"/>
+                <StaticProduct img={baseURL + "/hoodie.jpeg"} name="NASA Hoodie (Unisex)"/>
+                <StaticProduct img={baseURL + "/tshirt.jpeg"} name="Men's T-Shirt"/>
               </div>
             </div>
             <div className="col-lg-2"></div>
@@ -209,9 +212,9 @@ class App extends Component {
             <div className="col-lg-2"></div>
             <div className="col-lg-8">
               <div className="row">
-                <StaticProduct img="https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public/macbook.jpg"/>
-                <StaticProduct />
-                <StaticProduct />
+                <StaticProduct img={baseURL + "/funkopop.jpg"} name="Funko POP! Animation: Avatar"/>
+                <StaticProduct img={baseURL + "/hydroflask.jpg"} name="Hydro Flask Wide Mouth Water Bottle"/>
+                <StaticProduct img={baseURL + "/squishmallow.jpg"} name="Sawyer Squishmallow"/>
               </div>
             </div>
             <div className="col-lg-2"></div>

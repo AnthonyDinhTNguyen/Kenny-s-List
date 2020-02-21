@@ -10,10 +10,8 @@ const Product = (props) => {
                 </a>
                 <div className="card-body product__text">
                     <h4 className="card-title product__title">
-                        <a>Name</a>
+                        <a>{props.name}</a>
                     </h4>
-                    <h5 className="product__price">$69</h5>
-                    <p className="card-text product__description">Hello world</p>
                 </div>
             </div>
         </div>
