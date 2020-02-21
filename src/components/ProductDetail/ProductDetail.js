@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {connect, useSelector, useDispatch} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
 import { getItemTable } from '../../graphql/queries';
+import { createUserBidsTable, createLatestUserBidTable } from '../../graphql/mutations';
 import {addProductToCart,updateUsername} from "../../actions";
 import axios from 'axios';
 import API, { graphqlOperation } from '@aws-amplify/api'
@@ -9,11 +10,11 @@ import API, { graphqlOperation } from '@aws-amplify/api'
 const ProductDetail = (props) => {
     const {
         condition,
-        itemID, startingBid, name, description,marketPrice
+        itemID, name, description,marketPrice
     } = props.product;
 
     const [value, setValue] = useState('');
-    const [BidHistory, setBidHistory] = useState({'BidAmt': startingBid});
+    const [BidHistory, setBidHistory] = useState(null);
     const [username, serUsername] = useState('');
     const [error, setError] = useState(null);
     const [expTime, setExpTime] = useState(1000);
@@ -99,33 +100,41 @@ const ProductDetail = (props) => {
     const handleChange = e => {
         e.preventDefault();
         setValue(e.target.value);
+        // const bidhistory = {e.target.value};
+        setBidHistory(e.target.value);
       };
 
     const  handleSubmit = async event => {
-
         event.preventDefault();
-        console.log("asf", value);
-        console.log("asasas", BidHistory.BidAmt);
-        if(value.trim() === ""){
-            setErrorValidation('Bid Value cannot be NULL');
-        }
-        else if(value <= BidHistory.BidAmt){
-            setErrorValidation(`Bid Value must be greater than $${BidHistory.BidAmt}`);
-        }
-        else {
 
-            const bidhistory = {'BidAmt': value};
-            setBidHistory(bidhistory);
+        // setBidHistory(bidhistory);
+
+        clearState();
+        // if(value.trim() === ""){
+        //     setErrorValidation('Bid Value cannot be NULL');
+        // }
+        // else if(value <= BidHistory.BidAmt){
+        //     setErrorValidation(`Bid Value must be greater than $${BidHistory.BidAmt}`);
+        // }
+        // else {
+
             setErrorValidation('');
-            clearState();
-            await axios.post('https://l4px6d2via.execute-api.us-east-1.amazonaws.com/default/postLatestUserBid',
-                {BidAmt: value, ProductID: `${itemID}`, Username: `${username}`}
-            );
-            await axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
-                {Username: `${username}`, ProductID: itemID, BidAmt: value, Status: `Bidding`}
-            );
+            // {await API.graphql(graphqlOperation(createUserBidsTable,
+            //     {input:{
+            //             ProductID : itemID,
+            //             Username: `Leroy`,
+            //             BidAmt : BidHistory,
+            //             Status: `Bidding`
+            //         }}))}
 
-        }
+            {await API.graphql(graphqlOperation(createLatestUserBidTable,
+                {input:{
+                        lubtProductID: itemID.toString(),
+                        Username: `Leroy`,
+                        BidAmt: 132.123
+                    }}))}
+
+        // }
 
     };
 
@@ -146,24 +155,24 @@ const ProductDetail = (props) => {
 
     if(expTime === 0){
         const [winner,setWinner] = useState('');
-        useEffect(() => {
-            const fetchData = async () => {
-                const result = await axios.get
-                (`https://9mu1bkcave.execute-api.us-east-1.amazonaws.com/default/FetchUserBidFunc?ProductID=${itemID}`,);
-                setWinner(result.data.Username);
-            };
-            fetchData();
-        }, [itemID]);
+        // useEffect(() => {
+        //     const fetchData = async () => {
+        //         const result = await axios.get
+        //         (`https://9mu1bkcave.execute-api.us-east-1.amazonaws.com/default/FetchUserBidFunc?ProductID=${itemID}`,);
+        //         setWinner(result.data.Username);
+        //     };
+        //     fetchData();
+        // }, [itemID]);
 
-        if(username === winner){
-            console.log("won");
-            axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
-                {Username: `${username}`, ProductID: itemID, BidAmt: value, Status: `Won`});
-        }else{
-            console.log("Lost");
-            axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
-                {Usernme: `${username}`, ProductID: itemID, BidAmt: value, Status: `Lost`});
-        }
+        // if(username === winner){
+        //     console.log("won");
+        //     axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
+        //         {Username: `${username}`, ProductID: itemID, BidAmt: value, Status: `Won`});
+        // }else{
+        //     console.log("Lost");
+        //     axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
+        //         {Usernme: `${username}`, ProductID: itemID, BidAmt: value, Status: `Lost`});
+        // }
 
     }
 
@@ -181,7 +190,7 @@ const ProductDetail = (props) => {
                 <h6 className="mb-3"><strong>Condition:</strong> {condition}</h6>
                 <h6 className="mb-3">
                 <strong >Base Bid: $</strong>
-                        <span>{BidHistory.BidAmt}</span>
+                        {/*<span>{BidHistory.BidAmt}</span>*/}
                 </h6>
                 <h6 className="mb-3">
                 <strong>Time Left: </strong><span>{expTimeFormatted()}</span>
