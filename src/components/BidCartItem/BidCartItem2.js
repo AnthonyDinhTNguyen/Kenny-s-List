@@ -21,12 +21,14 @@ export default class BidCartItem2 extends React.Component {
     async startStripe(event){
       let url = "https://in8hc6wee5.execute-api.us-east-1.amazonaws.com/stripe/stripe-payment";
       let amount = "500";
-      let test = (parseFloat(this.props.currentBid)*100).toString();
-      console.log(test);
+      amount = (parseFloat(this.props.currentBid)*100).toString();
+      console.log(amount);
+
       let accountID = "acct_1GEXPGKzFt6viajs";
       let postThis = url+"?amount="+amount+"&accountID="+accountID;
       const stripePromise = loadStripe("pk_test_NedNuvs9YOl1WOhanD0xfJtX00q2eAowF8");
       let dataJSON = await axios.get(postThis);
+      console.log(dataJSON);
       console.log(dataJSON.data.body.clientSecret+"bidcart");
       this.setState({clientID:dataJSON.data.body.clientSecret});
       this.setState({stripeP:stripePromise})
