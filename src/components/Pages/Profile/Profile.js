@@ -19,9 +19,9 @@ export default class Profile extends React.Component {
         if (user == null){
             await Auth.signOut().catch(err=>console.log(err));
         }
-        const link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g";
+        let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g?state="+user;
         window.open(link);
-        this.setState({stripeLink:link});
+        //this.setState({stripeLink:link});
         // let url = "https://in8hc6wee5.execute-api.us-east-1.amazonaws.com/stripe/stripe-payment";
         // let amount = "500";
         // let test = (parseFloat(this.props.yourBid)*100).toString();
