@@ -120,6 +120,7 @@ const ProductDetail = (props) => {
             setBidHistory(value);
             setErrorValidation('');
 
+            console.log("username", username);
             await API.graphql(graphqlOperation(updateUserBidsTable,
                 {input:{
                         ProductID : itemID,
