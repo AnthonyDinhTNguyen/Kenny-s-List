@@ -2,7 +2,12 @@ import React, {useState, useEffect} from 'react';
 import {connect, useSelector, useDispatch} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
 import { getItemTable,getLatestUserBidTable } from '../../graphql/queries';
-import { createUserBidsTable, updateLatestUserBidTable, updateUserBidsTable } from '../../graphql/mutations';
+import {
+    createLatestUserBidTable,
+    createUserBidsTable,
+    updateLatestUserBidTable,
+    updateUserBidsTable
+} from '../../graphql/mutations';
 import {addProductToCart,updateUsername} from "../../actions";
 import axios from 'axios';
 import API, { graphqlOperation } from '@aws-amplify/api'
@@ -15,7 +20,7 @@ const ProductDetail = (props) => {
 
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState(null);
-    const [username, serUsername] = useState("Leroy");
+    const [username, serUsername] = useState('');
     const [error, setError] = useState(null);
     const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
@@ -104,8 +109,6 @@ const ProductDetail = (props) => {
     const  handleSubmit = async event => {
         event.preventDefault();
 
-        console.log("dsaf", value);
-        console.log("dsaf", BidHistory);
 
         if(value.trim() === ""){
             setErrorValidation('Bid Value cannot be NULL');
@@ -116,7 +119,6 @@ const ProductDetail = (props) => {
         else {
             setBidHistory(value);
             setErrorValidation('');
-            console.log("dsaf");
 
             await API.graphql(graphqlOperation(updateUserBidsTable,
                 {input:{
@@ -132,6 +134,8 @@ const ProductDetail = (props) => {
                         Username: username,
                         BidAmt: value
                     }}))
+
+
 
         }
         clearState();

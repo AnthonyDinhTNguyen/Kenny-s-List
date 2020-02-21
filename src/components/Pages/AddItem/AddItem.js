@@ -2,7 +2,7 @@ import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable,listItemTables } from '../../../graphql/queries';
 
-import { updateItemTable,createItemTable,updateUserBidsTable, createUserBidsTable,getLatestUserBidTable,updateLatestUserBidTable } from '../../../graphql/mutations';
+import { updateItemTable,createItemTable,createLatestUserBidTable, createUserBidsTable,getLatestUserBidTable,updateLatestUserBidTable } from '../../../graphql/mutations';
 
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
@@ -110,7 +110,7 @@ export default class AddItem extends React.Component {
 
             API.graphql(graphqlOperation(createLatestUserBidTable,
                 {input:{
-                    lubtProductID: itemIDStore,
+                        lubtProductID: itemIDStore,
                         BidAmt: startBid,
                         Username: `${user}, (seller)`,
                     }}))
