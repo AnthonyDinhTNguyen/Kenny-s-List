@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {connect, useSelector, useDispatch} from 'react-redux';
+import {connect} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
 import { getItemTable,getLatestUserBidTable } from '../../graphql/queries';
-import { createUserBidsTable, updateLatestUserBidTable, updateUserBidsTable } from '../../graphql/mutations';
+import {
+    updateLatestUserBidTable,
+    updateUserBidsTable
+} from '../../graphql/mutations';
 import {addProductToCart,updateUsername} from "../../actions";
-import axios from 'axios';
 import API, { graphqlOperation } from '@aws-amplify/api'
+import { Auth } from 'aws-amplify';
 
 const ProductDetail = (props) => {
     const {
@@ -15,8 +18,8 @@ const ProductDetail = (props) => {
 
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState(null);
-    const [username, serUsername] = useState("Leroy");
-    const [error, setError] = useState(null);
+    const [username, setUsername] = useState('');
+
     const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
 
@@ -42,20 +45,21 @@ const ProductDetail = (props) => {
     };
 
     useEffect(() => {
-        //get current online username
         try {
-            setError(null);
-
             Auth.currentAuthenticatedUser({
                 bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
             }).then(user => {
-                serUsername(user.username);
+                setUsername(user.username);
                 console.log(`Load additional settings for user: ${user.username}`);
-            }).catch(err => setError(err));
+                // TBD
+            })
         }
         catch (e) {
-            setError(e);
+            console.log("failed to get username");
         }
+    }, []);
+
+    useEffect(() => {
 
         // Fetch the item data from the server and set the expiration time accordingly.
         if (!expTime)
@@ -104,8 +108,6 @@ const ProductDetail = (props) => {
     const  handleSubmit = async event => {
         event.preventDefault();
 
-        console.log("dsaf", value);
-        console.log("dsaf", BidHistory);
 
         if(value.trim() === ""){
             setErrorValidation('Bid Value cannot be NULL');
@@ -116,7 +118,8 @@ const ProductDetail = (props) => {
         else {
             setBidHistory(value);
             setErrorValidation('');
-            console.log("dsaf");
+
+            console.log("username submitted bid", username);
 
             await API.graphql(graphqlOperation(updateUserBidsTable,
                 {input:{
@@ -124,14 +127,14 @@ const ProductDetail = (props) => {
                         Username: username,
                         BidAmt : value,
                         Status: "Bidding"
-                    }}))
+                    }}));
 
             await API.graphql(graphqlOperation(updateLatestUserBidTable,
                 {input:{
                         lubtProductID: itemID,
                         Username: username,
                         BidAmt: value
-                    }}))
+                    }}));
 
         }
         clearState();

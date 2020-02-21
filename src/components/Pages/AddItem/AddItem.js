@@ -2,7 +2,7 @@ import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable,listItemTables } from '../../../graphql/queries';
 
-import { updateItemTable,createItemTable,updateUserBidsTable, createUserBidsTable,getLatestUserBidTable,updateLatestUserBidTable } from '../../../graphql/mutations';
+import {createItemTable,createLatestUserBidTable, createUserBidsTable } from '../../../graphql/mutations';
 
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
@@ -99,7 +99,7 @@ export default class AddItem extends React.Component {
             {
                 API.graphql(graphqlOperation(createItemTable,
                 {input: {itemID: itemIDStore, description: desc,itemOwner:user,
-                    name: title, postTime: time, category: cate, startingBid: formatMoney(startBid), marketPrice: formatMoney(markPrice), images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
+                    name: title, postTime: time, category: cate, startingBid: startBid, marketPrice: markPrice, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
 
             // API.graphql(graphqlOperation(createItemTable,
             //     {input: {itemID: uID.toString(), description: desc,itemOwner:user,
@@ -110,7 +110,7 @@ export default class AddItem extends React.Component {
 
             API.graphql(graphqlOperation(createLatestUserBidTable,
                 {input:{
-                    lubtProductID: itemIDStore,
+                        lubtProductID: itemIDStore,
                         BidAmt: startBid,
                         Username: `${user}, (seller)`,
                     }}))
