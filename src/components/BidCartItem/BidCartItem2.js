@@ -19,16 +19,19 @@ export default class BidCartItem2 extends React.Component {
     }
     async startStripe(event){
       const url = `https://api.stripe.com/v1/payment_intents`
-      const auth = {
+      /*const auth = {
         username:'sk_test_Eylua5wcXgHoTlHYk0Og1upe00ENr8WpAi',
         password:''
-      };
+      };*/
       let data = {};
       data['payment_method_types[]']= 'card';
       data['amount']=1000;
       data['currency']='usd';
       data['transfer_data[destination]']='acct_1GEXPGKzFt6viajs'
-      let test = await axios.post(url,data,auth);
+      let test = await axios.post(url,data,{auth:{
+        username:'sk_test_Eylua5wcXgHoTlHYk0Og1upe00ENr8WpAi',
+        password:''
+      }});
       console.log(test);
       const stripePromise = loadStripe("pk_test_NedNuvs9YOl1WOhanD0xfJtX00q2eAowF8");
       this.setState({stripe:true});
