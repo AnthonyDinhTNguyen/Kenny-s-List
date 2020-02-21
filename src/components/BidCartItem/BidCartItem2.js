@@ -8,7 +8,7 @@ import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import CheckoutForm from "./CheckoutForm"
 import {Auth} from 'aws-amplify';
-import {get} from '../../graphql/queries';
+import {getKennysListUserTable} from '../../graphql/queries';
 import API, { graphqlOperation } from '@aws-amplify/api';
 export default class BidCartItem2 extends React.Component {
     constructor(props){
