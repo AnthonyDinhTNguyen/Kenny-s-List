@@ -115,9 +115,7 @@ const ProductDetail = (props) => {
             setBidHistory(value);
             setErrorValidation('');
 
-            console.log("username", username);
-            console.log("username", itemID);
-            console.log("username", value);
+            console.log("user submitted bid", username);
 
             await API.graphql(graphqlOperation(updateUserBidsTable,
                 {input:{
