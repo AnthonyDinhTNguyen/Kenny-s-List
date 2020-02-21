@@ -180,17 +180,19 @@ class App extends Component {
 
   function Login() {
     return (
-      <div id="login-page" className="app">
-        <div id="login-page" className="app-header">
-          <div className="App">
-            <header className="App-header">
-              <button id="SignInButton" onClick={() => Auth.federatedSignIn()}
-                    >Sign In
-              </button>
-            </header>
+      <div className="app">
+        <div className="app-header">
+          <div className="app-logo">
+            <img src="https://amplify-platenbowl-test-154226-deployment.s3.amazonaws.com/assets/PBLogo.png" style={imgStyle} />
           </div>
+          <h1>Welcome to KennysList</h1>
         </div>
-      </div>
+        <div className="App">
+          <header className="App-header">
+            <button id="SignInButton" onClick={() => Auth.federatedSignIn()}>Sign In</button>
+        </header>
+      </div>    
+    </div>;
     );
   }
 
