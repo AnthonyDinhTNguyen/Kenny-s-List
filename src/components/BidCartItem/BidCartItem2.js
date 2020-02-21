@@ -30,9 +30,14 @@ export default class BidCartItem2 extends React.Component {
       let dataJSON = await axios.get(postThis);
       console.log(dataJSON);
       console.log(dataJSON.data.body.clientSecret+"bidcart");
-      this.setState({clientID:dataJSON.data.body.clientSecret});
-      this.setState({stripeP:stripePromise})
-      this.setState({stripe:true});
+      if(dataJSON.status==200){
+        this.setState({clientID:dataJSON.data.body.clientSecret});
+        this.setState({stripeP:stripePromise})
+        this.setState({stripe:true});
+      }
+      else{
+        alert("stripe is busy pleaes try again");
+      }
     }
     render() {
         return (
@@ -47,7 +52,6 @@ export default class BidCartItem2 extends React.Component {
                     Bidding
                 </StatusContainer>
                 <TextContainer>${this.props.currentBid}</TextContainer>
-                <TextContainer>$420</TextContainer>
                 <ButtonContainer>
                     <button onClick = {this.startStripe}>Pay</button>
                 </ButtonContainer>
