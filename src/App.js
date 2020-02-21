@@ -92,7 +92,7 @@ class App extends Component {
     }
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
       const res = await checkUser();
       console.log("User is " + JSON.stringify(res));
       Auth.currentSession().then(data => console.log(data)).catch(err => console.log(err));
@@ -107,8 +107,6 @@ class App extends Component {
       });
       AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
   }
-
-
 
   render() {    
     if (this.state.user == null) {
@@ -177,11 +175,18 @@ class App extends Component {
 
 
   function Login() {
-    window.onload = function() {
-      Auth.federatedSignIn();
-    }
     return (
-      <div></div>
+      <div id="login-page" className="app">
+        <div id="login-page" className="app-header">
+          <div className="App">
+            <header className="App-header">
+              <button id="SignInButton" onClick={() => Auth.federatedSignIn()}
+                    >Sign In
+              </button>
+            </header>
+          </div>
+        </div>
+      </div>
     );
   }
 
