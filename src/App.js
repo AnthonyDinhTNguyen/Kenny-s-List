@@ -6,7 +6,7 @@ import rootReducer from './reducers';
 
 // import Hub
 import Amplify, { Auth, Hub,Storage } from 'aws-amplify';
-import API, {graphqlOperation} from '@aws-amplify/api'
+import API from '@aws-amplify/api'
 import PubSub from '@aws-amplify/pubsub';
 import {
   BrowserRouter as Router,
