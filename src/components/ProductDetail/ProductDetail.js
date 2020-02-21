@@ -121,6 +121,9 @@ const ProductDetail = (props) => {
             setErrorValidation('');
 
             console.log("username", username);
+            console.log("username", itemID);
+            console.log("username", value);
+
             await API.graphql(graphqlOperation(updateUserBidsTable,
                 {input:{
                         ProductID : itemID,
