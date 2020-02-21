@@ -16,7 +16,7 @@ const Header = () => {
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to={"/profile"}><i className="fa fa-user mr-2"
-                                                                          aria-hidden="true" />Profile</NavLink>
+                                                                          aria-hidden="true" />Selling</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to={"/cart"}><i className="fa fa-shopping-cart mr-2"

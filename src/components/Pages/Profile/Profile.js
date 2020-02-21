@@ -8,7 +8,7 @@ import axios from "axios";
 export default class Profile extends React.Component {
     constructor(props){
         super(props);
-        this.state = {selling: [], stripeLink:''};
+        this.state = {reload: false, selling: [], stripeLink:''};
         this.handleOnRemove = this.handleOnRemove.bind(this);
         this.stripeAccount = this.stripeAccount.bind(this);
     }
@@ -45,6 +45,7 @@ export default class Profile extends React.Component {
         if (confirm("Are you sure that you want to remove this item listing?")) {
             await API.graphql(graphqlOperation(deleteItemTable, {input:{itemID: itemId}})).then((evt) => {
                 location.reload();
+                this.setState({reload: true});
             });
         }
         Storage.remove(itemId,{level:'protected'})
@@ -64,14 +65,9 @@ export default class Profile extends React.Component {
             )
         }
         return (
-            <div className="container" style={{paddingTop: '6rem', width: '100%'}}>
+            <div className="container" style={{paddingTop: '6rem', width: '70%'}}>
                 <button onClick={this.stripeAccount}>Create Stripe Account</button>
-                <div style={{display: 'inline-block', width: '30%', backgroundColor: '#f2f2f2', marginRight: 10}}>
-                    <div style={{}}>Orders</div>
-                    <div style={{}}>Selling</div>
-                </div>
-
-                <div style={{display: 'inline-block', width: '65%'}}>
+                <div>
                     <div style={{borderBottom: '2px solid black'}}>
                         <h5>Selling</h5>
                     </div>
@@ -83,7 +79,7 @@ export default class Profile extends React.Component {
                             <NavLink to={{pathname: "/products/" + item.itemID}} style={{verticalAlign: 'top', fontSize: 18}}>{item.name}</NavLink>
                         </div>
                         <div style={{display: 'inline-block', width: "20%", verticalAlign: 'bottom', textAlign: 'right'}}>
-                            <span name={item.itemID} onClick={this.handleOnRemove}>Remove </span><span>Edit</span>
+                            <span name={item.itemID} onClick={this.handleOnRemove} style={{color: "#007bff", cursor: "pointer"}}>Remove</span>
                         </div>
                         
                     </div>)}
