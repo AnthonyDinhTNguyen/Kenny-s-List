@@ -154,14 +154,25 @@ class App extends Component {
   function Login() {
     return (
       <div className="app">
-        <header className="app-header">
-          <h1>Welcome to KennysList</h1>
-          <button id="SignInButton" onClick={() => Auth.federatedSignIn()}
-                >Sign In or Sign Up
-          </button>
-        </header>
+
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+          <div className="container">
+            <a class="navbar-brand">KennysList</a>
+            <div>
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <a style={{cursor: "pointer"}} onClick={() => Auth.federatedSignIn()} className="nav-link" to={"/additem"}><i className="fa fa-plus mr-2" aria-hidden="true" />Register / Sign In</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <Footer/>
       </div>
     );
   }
 
 export default App;
+
+
