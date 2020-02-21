@@ -11,6 +11,7 @@ import {
 import {addProductToCart,updateUsername} from "../../actions";
 import axios from 'axios';
 import API, { graphqlOperation } from '@aws-amplify/api'
+import {Auth} from "aws-amplify";
 
 const ProductDetail = (props) => {
     const {
@@ -20,7 +21,7 @@ const ProductDetail = (props) => {
 
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState(null);
-    const [username, serUsername] = useState('');
+    const [username, setUsername] = useState('');
     const [error, setError] = useState(null);
     const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
@@ -45,22 +46,16 @@ const ProductDetail = (props) => {
 
         return formattedTime;
     };
+    useEffect(async() => {
+        try {
+            let response = await Auth.currentAuthenticatedUser();
+            setUsername(response.username);
+        } catch(err) {
+            console.log("ERROR: Failed to retrieve username.");
+        }
+    });
 
     useEffect(() => {
-        //get current online username
-        try {
-            setError(null);
-
-            Auth.currentAuthenticatedUser({
-                bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-            }).then(user => {
-                serUsername(user.username);
-                console.log(`Load additional settings for user: ${user.username}`);
-            }).catch(err => setError(err));
-        }
-        catch (e) {
-            setError(e);
-        }
 
         // Fetch the item data from the server and set the expiration time accordingly.
         if (!expTime)
