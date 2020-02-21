@@ -27,7 +27,7 @@ export default class BidCartItem2 extends React.Component {
       console.log(amount);
       let user = (await Auth.currentAuthenticatedUser()).username;
       let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
-      let accountID = response.getKennysListUserTable.username;
+      let accountID = response.getKennysListUserTable.accountID;
       let postThis = url+"?amount="+amount+"&accountID="+accountID;
       const stripePromise = loadStripe("pk_test_NedNuvs9YOl1WOhanD0xfJtX00q2eAowF8");
       let dataJSON = await axios.get(postThis);
