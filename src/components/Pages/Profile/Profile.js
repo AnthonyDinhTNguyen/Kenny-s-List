@@ -13,7 +13,7 @@ export default class Profile extends React.Component {
         this.stripeAccount = this.stripeAccount.bind(this);
     }
 
-    stripeAccount(){
+    async stripeAccount(){
         const link = await axios.get
             (`https://vhwckrva1j.execute-api.us-east-1.amazonaws.com/default/FetchBidsForCheckout?Username=${users}&ProductID=${id}`,);
         this.setState({stripeLink:link});
