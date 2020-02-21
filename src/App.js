@@ -126,7 +126,7 @@ class App extends Component {
 
   render() {    
     if (this.state.user == null) {
-      return <Redirect to="https://l.messenger.com/l.php?u=https%3A%2F%2Fkennyslist.auth.us-east-1.amazoncognito.com%2Flogin%3Fclient_id%3D1qkrcfqgqv63hk594qi92q5hqi%26response_type%3Dtoken%26scope%3Daws.cognito.signin.user.admin%2520email%2520openid%2520phone%2520profile%26redirect_uri%3Dhttps%253A%252F%252Fmaster.d2nmsllsuquwvm.amplifyapp.com&h=AT2deF6Mpcd7KpmZopyQPh77Hn8c6Vwjbbw-3OXLVFTRoGdUI6lfCZU7NQOJSVzq5Oyihq7oLSTjpS5rxrlRmykYc6rEgl8Y-qnfuoBjBUL1a0mzNrW6qsfuJwa-ponYqbwlnxzqJNQ"/>
+      return <Redirect to="https://kennyslist.auth.us-east-1.amazoncognito.com/login?client_id=1qkrcfqgqv63hk594qi92q5hqi&response_type=token&scope=aws.cognito.signin.user.admin%20email%20openid%20phone%20profile&redirect_uri=https%3A%2F%2Fmaster.d2nmsllsuquwvm.amplifyapp.com"/>
     } else { 
       return (
         <Router>
