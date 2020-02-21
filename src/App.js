@@ -122,15 +122,11 @@ class App extends Component {
       }
     });
     AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
-
-    if (this.state.user == null) {
-      Auth.federatedSignIn();
-    }
 }
 
   render() {    
     if (this.state.user == null) {
-      return (<div></div>);
+      return <Redirect to="https://l.messenger.com/l.php?u=https%3A%2F%2Fkennyslist.auth.us-east-1.amazoncognito.com%2Flogin%3Fclient_id%3D1qkrcfqgqv63hk594qi92q5hqi%26response_type%3Dtoken%26scope%3Daws.cognito.signin.user.admin%2520email%2520openid%2520phone%2520profile%26redirect_uri%3Dhttps%253A%252F%252Fmaster.d2nmsllsuquwvm.amplifyapp.com&h=AT2deF6Mpcd7KpmZopyQPh77Hn8c6Vwjbbw-3OXLVFTRoGdUI6lfCZU7NQOJSVzq5Oyihq7oLSTjpS5rxrlRmykYc6rEgl8Y-qnfuoBjBUL1a0mzNrW6qsfuJwa-ponYqbwlnxzqJNQ"/>
     } else { 
       return (
         <Router>
