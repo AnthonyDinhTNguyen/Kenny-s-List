@@ -24,8 +24,8 @@ export default class AddItem extends React.Component {
     /*componentDidMount(){
         API.graphql(graphqlOperation(createLatestUserBidTable, {input:{lubtProductID:"asdf"}})).then((evt) => {
             console.log("itworked");
-        }).catch(e=>console.log(e));*/
-    }
+        }).catch(e=>console.log(e));
+    }*/
     handleCategory(event){
         this.setState({category: event.target.value});
         console.log(event.target.value);
