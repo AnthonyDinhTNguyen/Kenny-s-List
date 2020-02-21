@@ -69,7 +69,7 @@ export default class AddItem extends React.Component {
         const cate = this.state.category;
         const condi = this.state.cond;
         const startBid = this.state.startingBid;
-        const markPrice = this.state.markPrice;
+        const markPrice = this.state.marketPrice;
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
         const sellable =await this.checkSellable(user);
