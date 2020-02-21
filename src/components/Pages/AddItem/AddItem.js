@@ -94,7 +94,7 @@ export default class AddItem extends React.Component {
                 // {input: {itemID: itemIDStore, description: desc,itemOwner:user,
                 //     name: title, postTime: time, category: cate, startingBid: formatMoney(startBid), marketPrice: formatMoney(markPrice), images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
 
-            {API.graphql(graphqlOperation(createItemTable, 
+            API.graphql(graphqlOperation(createItemTable,
                 {input: {itemID: uID.toString(), description: desc,itemOwner:user, 
                     name: title, postTime: time, category: cate, startingBid: startBid, marketPrice: markPrice, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
 
