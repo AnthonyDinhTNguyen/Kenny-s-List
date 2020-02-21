@@ -11,6 +11,7 @@ import {
 import {addProductToCart,updateUsername} from "../../actions";
 import axios from 'axios';
 import API, { graphqlOperation } from '@aws-amplify/api'
+import Auth from "@aws-amplify/auth/lib/Auth";
 
 const ProductDetail = (props) => {
     const {
@@ -45,6 +46,7 @@ const ProductDetail = (props) => {
 
         return formattedTime;
     };
+
     useEffect(() => {
         try {
             setError(null);
