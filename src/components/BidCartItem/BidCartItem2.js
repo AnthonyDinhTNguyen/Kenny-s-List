@@ -10,7 +10,7 @@ import CheckoutForm from "./CheckoutForm"
 export default class BidCartItem2 extends React.Component {
     constructor(props){
         super(props);
-        this.state ={stripe:true,stripeP:''};
+        this.state ={stripe:false,stripeP:''};
         this.startStripe = this.startStripe.bind(this);
     }
 
