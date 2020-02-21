@@ -92,7 +92,7 @@ class App extends Component {
     }
   }
 
-  async componentDidMount() {
+  async componentWillMount() {
       const res = await checkUser();
       console.log("User is " + JSON.stringify(res));
       Auth.currentSession().then(data => console.log(data)).catch(err => console.log(err));

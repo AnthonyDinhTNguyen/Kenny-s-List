@@ -1,7 +1,9 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable,listItemTables } from '../../../graphql/queries';
-import { updateItemTable,createItemTable, createLatestUserBidTable, createUserBidsTable} from '../../../graphql/mutations';
+
+import { updateItemTable,createItemTable,updateUserBidsTable, createUserBidsTable,getLatestUserBidTable,updateLatestUserBidTable } from '../../../graphql/mutations';
+
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
 import './AddItem.css'
@@ -22,7 +24,7 @@ export default class AddItem extends React.Component {
         this.handleMarketPrice = this.handleMarketPrice.bind(this);
     }
     /*componentDidMount(){
-        API.graphql(graphqlOperation(updateLatestUserBidTable, {input:{lubtProductID:"4eab80f3-ad1b-4e9d-872c-6ff3c68483ab",Username:"changedit"}})).then((evt) => {
+        API.graphql(graphqlOperation(updateUserBidsTable, {input:{ProductID:"2",Username:"testing",BidAmt:"1"}})).then((evt) => {
             console.log("itworked");
         }).catch(e=>console.log(e));
     }*/
