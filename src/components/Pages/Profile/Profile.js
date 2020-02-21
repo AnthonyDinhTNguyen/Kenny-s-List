@@ -8,7 +8,7 @@ import axios from "axios";
 export default class Profile extends React.Component {
     constructor(props){
         super(props);
-        this.state = {reload: false, selling: [{name: "Macbook Pro 2019 Core i5 8GB RAM 256GB SSD", itemID: "d54bcb48-19b2-46a8-a3c5-14ec0ac117d4", images: ["https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/protected/us-east-1%3Ab50e563f-bfe8-4d47-a48e-da014df6a343/d54bcb48-19b2-46a8-a3c5-14ec0ac117d4"]}], stripeLink:''};
+        this.state = {selling: [], stripeLink:''};
         this.handleOnRemove = this.handleOnRemove.bind(this);
         this.stripeAccount = this.stripeAccount.bind(this);
     }
@@ -44,7 +44,7 @@ export default class Profile extends React.Component {
         console.log(itemId);
         if (confirm("Are you sure that you want to remove this item listing?")) {
             await API.graphql(graphqlOperation(deleteItemTable, {input:{itemID: itemId}})).then((evt) => {
-                this.setState({reload: true});
+                location.reload();
             });
         }
         Storage.remove(itemId,{level:'protected'})
@@ -62,10 +62,6 @@ export default class Profile extends React.Component {
             return(
                 <Redirect to = {this.state.stripeLink}></Redirect>
             )
-        }
-        if (this.state.reload === true) {
-            console.log("Redirecting!");
-            return (<Redirect to="/products/1"></Redirect>);
         }
 
         return (
