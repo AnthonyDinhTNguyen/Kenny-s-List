@@ -1,24 +1,23 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import './CategoryFilter.css';
-import {categories} from "../../data/categories";
-import {addBrandToFilter, removeBrandFromFilter} from "../../actions";
+import {addCategoryToFilter, removeCategoryFromFilter} from "../../actions";
 
 
-const BrandFilter = (props) => {
+const CategoryFilter = (props) => {
 
-    const {dispatch, brandItemsCount} = props;
+    const {dispatch, catergoriesCount, categories} = props;
+
     const handleSelectBox = (e) => {
         const name = e.target.name;
         const value = e.target.checked;
 
         if(e.target.checked) {
-            dispatch(addBrandToFilter(name));
+            dispatch(addCategoryToFilter(name));
         } else {
-            dispatch(removeBrandFromFilter(name));
+            dispatch(removeCategoryFromFilter(name));
         }
     };
-
 
         return (
             <div className="card mb-3">
@@ -28,7 +27,7 @@ const BrandFilter = (props) => {
                 <ul className="list-group flex-row flex-wrap">
                     {categories.map(category => (
                         <li key={category} className="list-group-item flex-50">
-                            <label className="custom-checkbox text-capitalize"> {category} ({brandItemsCount[category]})
+                            <label className="custom-checkbox text-capitalize">{category} ({catergoriesCount[category]})
                                 <input type="checkbox"
                                        name={category}
                                        className="custom-checkbox__input" onInput={handleSelectBox}/>
@@ -44,17 +43,15 @@ const BrandFilter = (props) => {
 
 const mapStateToProps = (state) => {
 
-    const brandItemsCount = {};
+    const catergoriesCount = {};
 
-    state.shop.products.forEach(p => {
-        brandItemsCount[p.category] = brandItemsCount[p.category] + 1 || 1;
+    state.items.items.forEach(p => {
+        catergoriesCount[p.category] = catergoriesCount[p.category] + 1 || 1;
     });
-
-
     return {
-        brandItemsCount
+        catergoriesCount
     }
 
 };
 
-export default connect(mapStateToProps)(BrandFilter);
+export default connect(mapStateToProps)(CategoryFilter);

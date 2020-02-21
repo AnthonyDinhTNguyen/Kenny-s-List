@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import ReactDOM from 'react-dom';
 import {useDispatch} from 'react-redux';
 import FilterBar from "../../Containers/FilterBar/FilterBar";
 import ProductList from "../../Containers/ProductList/ProductList";

@@ -1,15 +1,19 @@
 import React, {Component} from 'react';
 import OrderFilter from "../../OrderFilter/OrderFilter";
 import CategoryFilter from "../../CategoryFilter/CategoryFilter";
+import {connect} from 'react-redux';
+
+
 
 class FilterBar extends Component {
+
     render() {
+        const categoryArray = this.props.items.map(item => item.category);
+        const categories = Array.from(new Set(categoryArray));
         return (
             <div className="col-lg-3">
                 <div className="row">
-                    <div className="col-12">
-                        <CategoryFilter/>
-                    </div>
+                    <CategoryFilter categories={categories}/>
                     <div className="col-12">
                         <OrderFilter/>
                     </div>
@@ -19,4 +23,10 @@ class FilterBar extends Component {
     }
 }
 
-export default FilterBar;
+const mapStateToProps = state => {
+
+    return {items : state.items.items};
+
+};
+
+export default connect(mapStateToProps, null)(FilterBar);

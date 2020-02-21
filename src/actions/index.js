@@ -23,21 +23,20 @@ export const addItems = (items) => {
     }
 };
 
-export const ADD_BRAND_TO_FILTER = 'ADD_BRAND_TO_FILTER';
-export const REMOVE_BRAND_FROM_FILTER = 'REMOVE_BRAND_FROM_FILTER';
+export const ADD_CATEGORY_TO_FILTER = 'ADD_BRAND_TO_FILTER';
+export const REMOVE_CATEGORY_FROM_FILTER = 'REMOVE_BRAND_FROM_FILTER';
 
-export const addBrandToFilter = brand => {
+export const addCategoryToFilter = category => {
     return {
-        type: ADD_BRAND_TO_FILTER,
-        brand
+        type: ADD_CATEGORY_TO_FILTER,
+        category
     }
 };
 
-
-export const removeBrandFromFilter = brand => {
+export const removeCategoryFromFilter = category => {
     return  {
-        type: REMOVE_BRAND_FROM_FILTER,
-        brand
+        type: REMOVE_CATEGORY_FROM_FILTER,
+        category
     }
 };
 

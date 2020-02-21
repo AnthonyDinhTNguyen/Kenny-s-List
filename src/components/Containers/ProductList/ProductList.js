@@ -72,8 +72,7 @@ const mapStateToProps = state => {
     const filterByCategoryArr = categoryFilter(state.items.items, categories);
     const filterByOrderArr = orderByFilter(filterByCategoryArr, orderBy);
 
-
-    return {products: filterByOrderArr,items : state.items.items}
+    return {items: filterByOrderArr}
 };
 
 export default connect(mapStateToProps, null)(ProductList);
