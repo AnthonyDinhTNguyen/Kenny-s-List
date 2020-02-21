@@ -122,11 +122,14 @@ class App extends Component {
       }
     });
     AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
+
+    if (this.state.user == null) {
+      Auth.federatedSignIn();
+    }
 }
 
   render() {    
     if (this.state.user == null) {
-      Auth.federatedSignIn();
       return (<div></div>);
     } else { 
       return (
