@@ -92,7 +92,7 @@ class App extends Component {
     }
   }
 
-  async componentDidMount() {
+  async componentWillMount() {
       const res = await checkUser();
       console.log("User is " + JSON.stringify(res));
       Auth.currentSession().then(data => console.log(data)).catch(err => console.log(err));
@@ -108,9 +108,9 @@ class App extends Component {
       AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
   }
 
-  render() {
+  render() {    
     if (this.state.user == null) {
-      return <div><Login/></div>;
+      return Auth.federatedSignIn();
     } else { 
       return (
         <Router>
