@@ -10,7 +10,7 @@ import './Product.css';
 const Product = (props) => {
 
     const {
-        itemID, highestBidder, images, name, description
+        itemID, images, name, description,marketPrice
     } = props.product;
 
     const imageRef = React.createRef();
@@ -27,7 +27,7 @@ const Product = (props) => {
                 <h4 className="card-title product__title">
                     <Link to={`/products/${itemID}`}>{name}</Link>
                 </h4>
-                {/*<h5 className="product__price">${formatMoney(highestBidder)}</h5>*/}
+                <h5 className="product__price">${formatMoney(marketPrice)}</h5>
                 <p className="card-text product__description">{description}</p>
             </div>
         </div>

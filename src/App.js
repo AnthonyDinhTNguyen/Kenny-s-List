@@ -109,7 +109,7 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.user == null) {
+    if (this.state.user != null) {
       return Auth.federatedSignIn();
     } else { 
       return (
