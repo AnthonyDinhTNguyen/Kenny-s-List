@@ -100,3 +100,30 @@ export const listUserBidsTables = /* GraphQL */ `
     }
   }
 `;
+export const getKennysListUserTable = /* GraphQL */ `
+  query GetKennysListUserTable($username: String!) {
+    getKennysListUserTable(username: $username) {
+      username
+      accountID
+    }
+  }
+`;
+export const listKennysListUserTables = /* GraphQL */ `
+  query ListKennysListUserTables(
+    $filter: TableKennysListUserTableFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listKennysListUserTables(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        username
+        accountID
+      }
+      nextToken
+    }
+  }
+`;

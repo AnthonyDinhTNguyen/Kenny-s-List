@@ -112,3 +112,27 @@ export const deleteUserBidsTable = /* GraphQL */ `
     }
   }
 `;
+export const createKennysListUserTable = /* GraphQL */ `
+  mutation CreateKennysListUserTable($input: CreateKennysListUserTableInput!) {
+    createKennysListUserTable(input: $input) {
+      username
+      accountID
+    }
+  }
+`;
+export const updateKennysListUserTable = /* GraphQL */ `
+  mutation UpdateKennysListUserTable($input: UpdateKennysListUserTableInput!) {
+    updateKennysListUserTable(input: $input) {
+      username
+      accountID
+    }
+  }
+`;
+export const deleteKennysListUserTable = /* GraphQL */ `
+  mutation DeleteKennysListUserTable($input: DeleteKennysListUserTableInput!) {
+    deleteKennysListUserTable(input: $input) {
+      username
+      accountID
+    }
+  }
+`;

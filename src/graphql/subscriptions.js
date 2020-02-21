@@ -208,3 +208,36 @@ export const onDeleteUserBidsTable = /* GraphQL */ `
     }
   }
 `;
+export const onCreateKennysListUserTable = /* GraphQL */ `
+  subscription OnCreateKennysListUserTable(
+    $username: String
+    $accountID: String
+  ) {
+    onCreateKennysListUserTable(username: $username, accountID: $accountID) {
+      username
+      accountID
+    }
+  }
+`;
+export const onUpdateKennysListUserTable = /* GraphQL */ `
+  subscription OnUpdateKennysListUserTable(
+    $username: String
+    $accountID: String
+  ) {
+    onUpdateKennysListUserTable(username: $username, accountID: $accountID) {
+      username
+      accountID
+    }
+  }
+`;
+export const onDeleteKennysListUserTable = /* GraphQL */ `
+  subscription OnDeleteKennysListUserTable(
+    $username: String
+    $accountID: String
+  ) {
+    onDeleteKennysListUserTable(username: $username, accountID: $accountID) {
+      username
+      accountID
+    }
+  }
+`;
