@@ -1,17 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {connect, useSelector, useDispatch} from 'react-redux';
+import {connect} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
 import { getItemTable,getLatestUserBidTable } from '../../graphql/queries';
 import {
-    createLatestUserBidTable,
-    createUserBidsTable,
     updateLatestUserBidTable,
     updateUserBidsTable
 } from '../../graphql/mutations';
 import {addProductToCart,updateUsername} from "../../actions";
-import axios from 'axios';
 import API, { graphqlOperation } from '@aws-amplify/api'
-import Auth from "@aws-amplify/auth/lib/Auth";
+import { Auth } from 'aws-amplify';
 
 const ProductDetail = (props) => {
     const {
