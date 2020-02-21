@@ -6,6 +6,7 @@ import CardSection from './CardSection';
 
 export default function CheckoutForm(props) {
     console.log(props.clientInfo+"prps");
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -35,9 +36,9 @@ export default function CheckoutForm(props) {
     } else {
       // The payment has been processed!
       if (result.paymentIntent.status === 'succeeded') {
-        await API.graphql(graphqlOperation(deleteItemTable, {input:{itemID: this.props.prodID}})).then((evt) => {
+        await API.graphql(graphqlOperation(deleteItemTable, {input:{itemID: props.prodID}})).then((evt) => {
         });
-        await API.graphql(graphqlOperation(deleteUserBidsTable, {input:{ProductID: this.props.prodID}})).then((evt) => {
+        await API.graphql(graphqlOperation(deleteUserBidsTable, {input:{ProductID: props.prodID}})).then((evt) => {
         });
         if(!alert('Alert For your User!')){window.location.reload();}
         // Show a success message to your customer
