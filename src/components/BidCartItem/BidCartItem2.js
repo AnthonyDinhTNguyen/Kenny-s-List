@@ -6,7 +6,7 @@ import axios from "axios";
 import styled from 'styled-components';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-
+import CheckoutForm from "./CheckoutForm"
 export default class BidCartItem2 extends React.Component {
     constructor(props){
         super(props);
