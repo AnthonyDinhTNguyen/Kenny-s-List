@@ -71,3 +71,32 @@ export const listUserBidsTables = /* GraphQL */ `
     }
   }
 `;
+export const getLatestUserBidTable = /* GraphQL */ `
+  query GetLatestUserBidTable($lubtProductID: String!) {
+    getLatestUserBidTable(lubtProductID: $lubtProductID) {
+      lubtProductID
+      Username
+      BidAmt
+    }
+  }
+`;
+export const listLatestUserBidTables = /* GraphQL */ `
+  query ListLatestUserBidTables(
+    $filter: TableLatestUserBidTableFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listLatestUserBidTables(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        lubtProductID
+        Username
+        BidAmt
+      }
+      nextToken
+    }
+  }
+`;
