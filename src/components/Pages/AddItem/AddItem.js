@@ -8,7 +8,7 @@ import './AddItem.css'
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
-        this.state = {value: '', file:'',desc: '',category: 'Other',cond:true};
+        this.state = {value: '', file:'',desc: '',category: 'Other',cond:true,startingBid:0};
         this.handleName = this.handleName.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -16,6 +16,7 @@ export default class AddItem extends React.Component {
         this.handleCategory = this.handleCategory.bind(this);
         this.checkSellable = this.checkSellable.bind(this);
         this.handleCondition = this.handleCondition.bind(this);
+        this.handleStartingBid = this.handleStartingBid.bind(this);
     }
     handleCategory(event){
         this.setState({category: event.target.value});
@@ -48,6 +49,11 @@ export default class AddItem extends React.Component {
             alert("invalid condition input");
         }
     }
+    handleStartingBid(event){
+        if(event.target.value >=0.0){
+            this.setState({startingBid:event.target.value});
+        }
+    }
     
     async handleSubmit(event) {
         event.preventDefault();
@@ -56,6 +62,7 @@ export default class AddItem extends React.Component {
         const desc = this.state.desc;
         const cate = this.state.category;
         const condi = this.state.cond;
+        const startBid = this.state.startingBid;
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
         const sellable =await this.checkSellable(user);
@@ -81,7 +88,7 @@ export default class AddItem extends React.Component {
             ).then(r=>
             {API.graphql(graphqlOperation(createItemTable, 
                 {input: {itemID: uID.toString(), description: desc,itemOwner:user, 
-                    name: title, postTime: time, category: cate, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
+                    name: title, postTime: time, category: cate, startingBid: startBid, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
                     ).catch(err => console.log(err));
         }
       }
@@ -124,6 +131,14 @@ export default class AddItem extends React.Component {
                         </div>
                         <div className = "col-75">
                             <input id ="title" type="text" value = {this.state.value} onChange={this.handleName} />
+                        </div>
+                    </div>
+                    <div className = "row">
+                        <div className = "col-25">
+                            <label for="startingBid">Starting Bid</label>
+                        </div>
+                        <div className = "col-75">
+                            <input type="number" step = "0.01" min = "0"  id="startingBid" value = {this.state.startingBid} onChange = {this.handleStartingBid}/>
                         </div>
                     </div>
                     <div className = "row">
