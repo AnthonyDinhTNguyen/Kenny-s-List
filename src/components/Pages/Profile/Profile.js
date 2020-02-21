@@ -14,33 +14,6 @@ export default class Profile extends React.Component {
     }
 
     async stripeAccount(){
-       /* const shit = Math.random()
-        .toString(36)
-        .slice(2);
-        
-      let parameters = {
-        client_id: 'ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g',
-        state: req.session.state,
-      };
-    
-      parameters = Object.assign(parameters, {
-        redirect_uri: 'https://www.google.com',
-        'stripe_user[business_type]': 'individual',
-        'stripe_user[business_name]': undefined,
-        'stripe_user[first_name]': undefined,
-        'stripe_user[last_name]': undefined,
-        'stripe_user[email]': undefined,
-        'stripe_user[country]': undefined
-      });
-      console.log('Starting Express flow:', parameters);
-      // Redirect to Stripe to start the Express onboarding flow
-      https://connect.stripe.com/connect/default/oauth/test&client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g
-      +
-      '?' + querystring.stringify(parameters)*/
-        
-        const link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g";
-        window.open(link);
-        this.setState({stripeLink:link});
     }
     async componentDidMount(){
         let currentUser = "";
