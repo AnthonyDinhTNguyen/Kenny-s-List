@@ -175,7 +175,12 @@ class App extends Component {
 
 
   function Login() {
-    return Auth.federatedSignIn();
+    window.onload = function() {
+      Auth.federatedSignIn();
+    }
+    return (
+      <div></div>
+    );
   }
 
 export default App;
