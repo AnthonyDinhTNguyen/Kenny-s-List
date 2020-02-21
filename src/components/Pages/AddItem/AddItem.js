@@ -1,7 +1,7 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable,listItemTables } from '../../../graphql/queries';
-import { updateItemTable,createItemTable } from '../../../graphql/mutations';
+import { updateItemTable,createItemTable, createLatestUserBidTable } from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
 import './AddItem.css'
@@ -81,17 +81,26 @@ export default class AddItem extends React.Component {
             console.log("missing an input");
         }
         else{
+            const itemIDStore = uID.toString();
             Storage.put(uID, file, {
                 level: 'protected',
                 contentType: 'image/png'
             })
             .then (result => {Storage.get(uID, {level: 'protected'}
             ).then(r=>
-            {API.graphql(graphqlOperation(createItemTable, 
-                {input: {itemID: uID.toString(), description: desc,itemOwner:user, 
+            {
+                API.graphql(graphqlOperation(createItemTable,
+                {input: {itemID: itemIDStore, description: desc,itemOwner:user,
                     name: title, postTime: time, category: cate, startingBid: formatMoney(startBid), marketPrice: formatMoney(markPrice), images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
 
                     ).catch(err => console.log(err));
+
+            // {API.graphql(graphqlOperation(createLatestUserBidTable,
+            //     {input:{
+            //         lubtProductID: itemIDStore,
+            //             BidAmt: startBid,
+            //             Username: 'Leroy',
+            //         }}))}
         }
       }
       async checkSellable(uname){
