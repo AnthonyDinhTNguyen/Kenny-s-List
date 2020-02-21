@@ -65,7 +65,7 @@ export default class Profile extends React.Component {
         }
         if (this.state.redirect === true) {
             this.setState({redirect: false});
-            <Redirect to="/profile"></Redirect>
+            return (<Redirect to="/profile"></Redirect>);
         }
 
         return (
@@ -77,7 +77,7 @@ export default class Profile extends React.Component {
                     </div>
                     {this.state.selling.map(item => <div style={{paddingTop: 15, paddingBottom: 15, borderBottom: '1px solid black'}}>
                         <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
-                            <img style={{objectFit: 'cover', height: 80, width: 120, marginRight: 15}} src={item.images[0]}></img>
+                            <img style={{marginRight: 15}} height="80" src={item.images[0]}></img>
                         </div>
                         <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                             <div style={{verticalAlign: 'top'}}>
