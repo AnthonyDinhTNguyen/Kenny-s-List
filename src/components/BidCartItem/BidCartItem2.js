@@ -44,8 +44,8 @@ export default class BidCartItem2 extends React.Component {
       const stripePromise = loadStripe("pk_test_NedNuvs9YOl1WOhanD0xfJtX00q2eAowF8");
       let logThis = await axios.get(postThis);
       console.log(logThis);
-      this.setState({stripe:true});
       this.setState({stripeP:stripePromise})
+      this.setState({stripe:true});
     }
     render() {
         return (

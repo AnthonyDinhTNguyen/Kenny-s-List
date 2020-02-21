@@ -14,8 +14,6 @@ export default class Profile extends React.Component {
     }
 
     async stripeAccount(){
-        let logthis = await axios.get("https://in8hc6wee5.execute-api.us-east-1.amazonaws.com/stripe/create-stripe-token?code=a&username=dick");
-        console.log(logthis);
     }
     async componentDidMount(){
         let currentUser = "";
