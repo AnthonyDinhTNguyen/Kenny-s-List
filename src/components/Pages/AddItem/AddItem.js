@@ -146,13 +146,16 @@ export default class AddItem extends React.Component {
         }
         let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+user;
         window.open(link);
+        location.reload();
     }
 
     async componentDidMount() {
         let user = (await Auth.currentAuthenticatedUser()).username;
         let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
-        //let accountID = response.data.getKennysListUserTable.accountID;
-        if (response === null) {
+        console.log("Hey!");
+        console.log(response);
+        if (response !== null) {
+            console.log("Account already created!");
             this.setState({accountCreated: true});
         }
     }
