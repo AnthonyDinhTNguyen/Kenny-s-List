@@ -102,20 +102,33 @@ const ProductDetail = (props) => {
     };
     const handleChange = e => {
         e.preventDefault();
+        console.log
         setValue(e.target.value);
       };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            await (API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
+                setBidHistory(e.data.getLatestUserBidTable.BidAmt);
+            }).catch(e => {console.log("Failed to retrieve data");}));
+        };
+        fetchData();
+    }, []);
+
     const  handleSubmit = async event => {
         event.preventDefault();
-
+        clearState();
 
         if(value.trim() === ""){
-            setErrorValidation('Bid Value cannot be NULL');
+            setErrorValidation('Bid Value is invalid');
+            return;
         }
-        else if(value === BidHistory){
+
+        if(value === BidHistory){
             setErrorValidation(`Bid Value must be greater than $${BidHistory}`);
+            return;
         }
-        else {
+
             setBidHistory(value);
             setErrorValidation('');
 
@@ -136,21 +149,9 @@ const ProductDetail = (props) => {
                         BidAmt: value
                     }}));
 
-        }
-        clearState();
+
+
     };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            await (API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
-                setBidHistory(e.data.getLatestUserBidTable.BidAmt);
-            }).catch(e => {console.log("Failed to retrieve data");}));
-        };
-        fetchData();
-    }, []);
-
-
-
 
     if(expTime === 0){
         const [winner,setWinner] = useState('');
@@ -216,7 +217,7 @@ const ProductDetail = (props) => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <h6><strong>Your bid:</strong></h6>
-                        <input id={itemID} name="input-field" className="form-control" type="number" value={value}
+                        <input id={itemID} name="input-field" className="form-control" type="number" value={value} min={BidHistory}
                         placeholder="Your Bid"  onChange={handleChange} />
                     </div>
                     {errorValidation.length > 0 ? (<div style={{color: 'red'}}>{errorValidation}</div>):(<div></div>)}
