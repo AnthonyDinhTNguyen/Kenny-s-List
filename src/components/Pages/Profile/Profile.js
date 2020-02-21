@@ -81,7 +81,6 @@ export default class Profile extends React.Component {
 
         return (
             <div className="container" style={{paddingTop: '6rem', width: '60%'}}>
-                <button onClick={this.stripeAccount}>Create Stripe Account</button>
                 <div>
                     <div style={{borderBottom: '2px solid black'}}>
                         <h5>Selling</h5>

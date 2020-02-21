@@ -12,7 +12,7 @@ import {formatMoney} from "../../Pipes/priceFormatter";
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
-        this.state = {value: '', file:'',desc: '',category: 'Other',cond:'New',startingBid:0,marketPrice:0};
+        this.state = {value: '', file:'',desc: '',category: 'Other',cond:'New',startingBid:0,marketPrice:0, accountCreated: false};
         this.handleName = this.handleName.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -23,11 +23,6 @@ export default class AddItem extends React.Component {
         this.handleStartingBid = this.handleStartingBid.bind(this);
         this.handleMarketPrice = this.handleMarketPrice.bind(this);
     }
-    /*componentDidMount(){
-        API.graphql(graphqlOperation(updateUserBidsTable, {input:{ProductID:"2",Username:"testing",BidAmt:"1"}})).then((evt) => {
-            console.log("itworked");
-        }).catch(e=>console.log(e));
-    }*/
     handleCategory(event){
         this.setState({category: event.target.value});
         console.log(event.target.value);
@@ -143,10 +138,31 @@ export default class AddItem extends React.Component {
             return false;
         }
       }
+
+      async stripeAccount(){
+        let user = (await Auth.currentAuthenticatedUser()).username;
+        if (user == null){
+            await Auth.signOut().catch(err=>console.log(err));
+        }
+        let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+user;
+        window.open(link);
+    }
+
+    async componentDidMount() {
+        let user = (await Auth.currentAuthenticatedUser()).username;
+        let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
+        //let accountID = response.data.getKennysListUserTable.accountID;
+        if (response === null) {
+            this.setState({accountCreated: true});
+        }
+    }
+
   //images will be validated server side as well
     render() {
         return (
             <div className="formContainer">
+
+                <button onClick={this.stripeAccount}>Create Stripe Account</button>
 
                 <form onSubmit = {this.handleSubmit}>
                     <div className = "row">
