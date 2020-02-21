@@ -184,8 +184,8 @@ class App extends Component {
         <div className="app-header">
           <h1>Welcome to KennysList</h1>
         </div>
-        <div className="App">
-          <header className="App-header">
+        <div className="app">
+          <header className="app-header">
             <button id="SignInButton" onClick={() => Auth.federatedSignIn()}>Sign In</button>
         </header>
       </div>    
