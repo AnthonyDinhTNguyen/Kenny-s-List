@@ -21,6 +21,8 @@ import ProductDetail from "./components/Pages/ProductDetailPage/ProductDetailPag
 import AddItem from "./components/Pages/AddItem/AddItem";
 import CheckOutPage from "./components/Pages/CheckOutPage/CheckOutPage";
 import Profile from "./components/Pages/Profile/Profile";
+import CreateAccount from "./components/Pages/CreateAccount/CreateAccount";
+import StaticProduct from "./components/Product/StaticProduct";
 
 export const  store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 import awsconfig from "./aws-exports";
@@ -143,6 +145,7 @@ class App extends Component {
                     <Route exact path={'/additem'} component={AddItem}/>
                     <Route exact path={'/cart'} component={CheckOutPage}/>
                     <Route exact path={'/profile'} component={Profile}/>
+                    <Route exact path={'/stripecreation'} component={CreateAccount}/>
                 </Switch>
                 <Footer/>
             </React.Fragment>
@@ -167,6 +170,54 @@ class App extends Component {
             </div>
           </div>
         </nav>
+
+        <div style={{paddingTop: 80}}>
+
+          <div className="row">
+            <div className="col-lg-2"></div>
+            <div className="col-lg-8">
+              <div className="row">
+                <StaticProduct img="https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public/macbook.jpg"/>
+                <StaticProduct />
+                <StaticProduct />
+              </div>
+            </div>
+            <div className="col-lg-2"></div>
+          </div>
+
+          <div style={{width: "100%", backgroundColor: "red", marginBottom: 20}}>
+            <h5>Great deals at great prices!</h5>
+          </div>
+
+          <div className="row">
+            <div className="col-lg-2"></div>
+            <div className="col-lg-8">
+              <div className="row">
+                <StaticProduct img="https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public/macbook.jpg"/>
+                <StaticProduct />
+                <StaticProduct />
+              </div>
+            </div>
+            <div className="col-lg-2"></div>
+          </div>
+
+          <div style={{width: "100%", backgroundColor: "red", marginBottom: 20}}>
+            <h5>Great deals at great prices!</h5>
+          </div>
+
+          <div className="row">
+            <div className="col-lg-2"></div>
+            <div className="col-lg-8">
+              <div className="row">
+                <StaticProduct img="https://kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist.s3.amazonaws.com/public/macbook.jpg"/>
+                <StaticProduct />
+                <StaticProduct />
+              </div>
+            </div>
+            <div className="col-lg-2"></div>
+          </div>
+
+        </div>
 
         <Footer/>
       </div>
