@@ -111,7 +111,7 @@ class App extends Component {
 
 
   render() {    
-    if (this.state.user != null) {
+    if (this.state.user == null) {
       return <Redirect to="https://kennyslist.auth.us-east-1.amazoncognito.com/login?client_id=1qkrcfqgqv63hk594qi92q5hqi&response_type=token&scope=aws.cognito.signin.user.admin%20email%20openid%20phone%20profile&redirect_uri=https%3A%2F%2Fmaster.d2nmsllsuquwvm.amplifyapp.com"/>
 
     } else { 
