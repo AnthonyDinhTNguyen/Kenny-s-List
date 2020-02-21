@@ -48,21 +48,19 @@ const ProductDetail = (props) => {
     };
 
     useEffect(() => {
-        async function fetchUsername() {
-            try {
-                await Auth.currentAuthenticatedUser({
-                    bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-                }).then(user => {
-                    setUsername(user.username);
-                    console.log(`Load additional settings for user: ${user.username}`);
-                })
-            }
-            catch (e) {
-                console.log("ERROR: Failed to retrieve username.");
-            }
+        try {
+            Auth.currentAuthenticatedUser({
+                bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+            }).then(user => {
+                setUsername(user.username);
+                console.log(`Load additional settings for user: ${user.username}`);
+                // TBD
+            })
         }
-        fetchUsername();
-    },[]);
+        catch (e) {
+            console.log("failed to get username");
+        }
+    }, []);
 
     useEffect(() => {
 
