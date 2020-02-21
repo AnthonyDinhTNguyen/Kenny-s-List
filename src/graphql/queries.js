@@ -13,6 +13,8 @@ export const getItemTable = /* GraphQL */ `
       name
       postTime
       condition
+      marketPrice
+      startingBid
     }
   }
 `;
@@ -33,6 +35,8 @@ export const listItemTables = /* GraphQL */ `
         name
         postTime
         condition
+        marketPrice
+        startingBid
       }
       nextToken
     }
