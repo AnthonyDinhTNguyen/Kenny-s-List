@@ -126,7 +126,7 @@ class App extends Component {
 
   render() {    
     if (this.state.user == null) {
-      return <Redirect to="https://kennyslist.auth.us-east-1.amazoncognito.com/login?client_id=1qkrcfqgqv63hk594qi92q5hqi&response_type=token&scope=aws.cognito.signin.user.admin%20email%20openid%20phone%20profile&redirect_uri=https%3A%2F%2Fmaster.d2nmsllsuquwvm.amplifyapp.com"/>
+      return <Login/>;
     } else { 
       return (
         <Router>
@@ -187,6 +187,16 @@ class App extends Component {
          This is Test2.
        </div>
      );
+  }
+
+
+  function Login() {
+    window.onload = function() {
+      Auth.federatedSignIn();
+    }
+    return (
+      <div></div>
+    );
   }
 
 export default App;
