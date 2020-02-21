@@ -1,6 +1,6 @@
 import React from 'react';
 import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
-import {deleteItemTable,deleteUserBidsTable} from '../../../graphql/mutations';
+import {deleteItemTable,deleteUserBidsTable} from '../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import CardSection from './CardSection';
 
