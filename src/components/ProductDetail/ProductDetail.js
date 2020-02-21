@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {connect, useSelector, useDispatch} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
-import { getItemTable } from '../../graphql/queries';
-import { createUserBidsTable, createLatestUserBidTable } from '../../graphql/mutations';
+import { getItemTable,getLatestUserBidTable } from '../../graphql/queries';
+import { createUserBidsTable, updateLatestUserBidTable, updateUserBidsTable } from '../../graphql/mutations';
 import {addProductToCart,updateUsername} from "../../actions";
 import axios from 'axios';
 import API, { graphqlOperation } from '@aws-amplify/api'
@@ -15,7 +15,7 @@ const ProductDetail = (props) => {
 
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState(null);
-    const [username, serUsername] = useState('');
+    const [username, serUsername] = useState("Leroy");
     const [error, setError] = useState(null);
     const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
@@ -41,8 +41,23 @@ const ProductDetail = (props) => {
         return formattedTime;
     };
 
-    // Fetch the item data from the server and set the expiration time accordingly.
     useEffect(() => {
+        //get current online username
+        try {
+            setError(null);
+
+            Auth.currentAuthenticatedUser({
+                bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+            }).then(user => {
+                serUsername(user.username);
+                console.log(`Load additional settings for user: ${user.username}`);
+            }).catch(err => setError(err));
+        }
+        catch (e) {
+            setError(e);
+        }
+
+        // Fetch the item data from the server and set the expiration time accordingly.
         if (!expTime)
             return;
 
@@ -77,22 +92,6 @@ const ProductDetail = (props) => {
         return () => clearInterval(interval);
     }, [expTime]);
 
-    useEffect(() => {
-        try {
-            setError(null);
-
-            Auth.currentAuthenticatedUser({
-                bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-            }).then(user => {
-                serUsername(user.username);
-                console.log(`Load additional settings for user: ${user.username}`);
-            }).catch(err => setError(err));
-        }
-        catch (e) {
-            setError(e);
-        }
-    }, []);
-
 
     const clearState = () => {
         setValue('');
@@ -100,81 +99,97 @@ const ProductDetail = (props) => {
     const handleChange = e => {
         e.preventDefault();
         setValue(e.target.value);
-        // const bidhistory = {e.target.value};
-        setBidHistory(e.target.value);
       };
 
     const  handleSubmit = async event => {
         event.preventDefault();
 
-        // setBidHistory(bidhistory);
+        console.log("dsaf", value);
+        console.log("dsaf", BidHistory);
 
-        clearState();
-        // if(value.trim() === ""){
-        //     setErrorValidation('Bid Value cannot be NULL');
-        // }
-        // else if(value <= BidHistory.BidAmt){
-        //     setErrorValidation(`Bid Value must be greater than $${BidHistory.BidAmt}`);
-        // }
-        // else {
-
+        if(value.trim() === ""){
+            setErrorValidation('Bid Value cannot be NULL');
+        }
+        else if(value === BidHistory){
+            setErrorValidation(`Bid Value must be greater than $${BidHistory}`);
+        }
+        else {
+            setBidHistory(value);
             setErrorValidation('');
-            // {await API.graphql(graphqlOperation(createUserBidsTable,
-            //     {input:{
-            //             ProductID : itemID,
-            //             Username: `Leroy`,
-            //             BidAmt : BidHistory,
-            //             Status: `Bidding`
-            //         }}))}
+            console.log("dsaf");
 
-            {await API.graphql(graphqlOperation(createLatestUserBidTable,
+            await API.graphql(graphqlOperation(updateUserBidsTable,
                 {input:{
-                        lubtProductID: itemID.toString(),
-                        Username: `Leroy`,
-                        BidAmt: 132.123
-                    }}))}
+                        ProductID : itemID,
+                        Username: username,
+                        BidAmt : value,
+                        Status: "Bidding"
+                    }}))
 
-        // }
+            await API.graphql(graphqlOperation(updateLatestUserBidTable,
+                {input:{
+                        lubtProductID: itemID,
+                        Username: username,
+                        BidAmt: value
+                    }}))
 
+        }
+        clearState();
     };
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get
-            (`https://9mu1bkcave.execute-api.us-east-1.amazonaws.com/default/FetchUserBidFunc?ProductID=${itemID}`,);
-            setBidHistory(result.data);
+            await (API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
+                setBidHistory(e.data.getLatestUserBidTable.BidAmt);
+            }).catch(e => {console.log("Failed to retrieve data");}));
         };
         fetchData();
-    }, [itemID]);
+    }, []);
+
+
+
+
+    if(expTime === 0){
+        const [winner,setWinner] = useState('');
+
+        useEffect(() => {
+            const fetchData = async () => {
+                await (API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
+                    setWinner(e.data.getLatestUserBidTable.Username);
+                }).catch(e => {console.log("Failed to retrieve data");}));
+            };
+            fetchData();
+        }, []);
+
+        if(username === winner){
+            console.log("won");
+                API.graphql(graphqlOperation(updateUserBidsTable,
+                    {
+                        input: {
+                            ProductID: itemID,
+                            Username: username,
+                            Status: "Won"
+                        }
+                    }))
+            }
+        else{
+            console.log("Lost");
+            API.graphql(graphqlOperation(updateUserBidsTable,
+                {
+                    input: {
+                        ProductID: itemID,
+                        Username: username,
+                        Status: "Lost"
+                    }
+                }))
+        }
+
+    };
 
     const onCart = async () => {
         props.dispatch(addProductToCart(props.product));
         props.dispatch(updateUsername(username));
     };
-
-
-    if(expTime === 0){
-        const [winner,setWinner] = useState('');
-        // useEffect(() => {
-        //     const fetchData = async () => {
-        //         const result = await axios.get
-        //         (`https://9mu1bkcave.execute-api.us-east-1.amazonaws.com/default/FetchUserBidFunc?ProductID=${itemID}`,);
-        //         setWinner(result.data.Username);
-        //     };
-        //     fetchData();
-        // }, [itemID]);
-
-        // if(username === winner){
-        //     console.log("won");
-        //     axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
-        //         {Username: `${username}`, ProductID: itemID, BidAmt: value, Status: `Won`});
-        // }else{
-        //     console.log("Lost");
-        //     axios.post('https://emui48mq2j.execute-api.us-east-1.amazonaws.com/default/serverlessApp',
-        //         {Usernme: `${username}`, ProductID: itemID, BidAmt: value, Status: `Lost`});
-        // }
-
-    }
 
     return (
         <aside className="col-sm-7">
@@ -190,7 +205,7 @@ const ProductDetail = (props) => {
                 <h6 className="mb-3"><strong>Condition:</strong> {condition}</h6>
                 <h6 className="mb-3">
                 <strong >Base Bid: $</strong>
-                        {/*<span>{BidHistory.BidAmt}</span>*/}
+                        <span>{BidHistory}</span>
                 </h6>
                 <h6 className="mb-3">
                 <strong>Time Left: </strong><span>{expTimeFormatted()}</span>

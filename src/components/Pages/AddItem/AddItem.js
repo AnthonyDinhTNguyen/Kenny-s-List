@@ -1,7 +1,7 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable,listItemTables } from '../../../graphql/queries';
-import { updateItemTable,createItemTable, createLatestUserBidTable,getLatestUserBidTable,updateLatestUserBidTable } from '../../../graphql/mutations';
+import { updateItemTable,createItemTable, createLatestUserBidTable, createUserBidsTable} from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
 import './AddItem.css'
@@ -45,7 +45,7 @@ export default class AddItem extends React.Component {
             this.setState({desc: event.target.value});
         }
         console.log(this.state.desc);
-    }
+    }y
     handleCondition(event){
         this.setState({cond: event.target.value});
     }
@@ -59,7 +59,7 @@ export default class AddItem extends React.Component {
             this.setState({marketPrice:event.target.value});
         }
     }
-    
+
     async handleSubmit(event) {
         event.preventDefault();
         const file = this.state.file;
@@ -95,23 +95,31 @@ export default class AddItem extends React.Component {
             ).then(r=>
 
             {
-                // API.graphql(graphqlOperation(createItemTable,
-                // {input: {itemID: itemIDStore, description: desc,itemOwner:user,
-                //     name: title, postTime: time, category: cate, startingBid: formatMoney(startBid), marketPrice: formatMoney(markPrice), images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
+                API.graphql(graphqlOperation(createItemTable,
+                {input: {itemID: itemIDStore, description: desc,itemOwner:user,
+                    name: title, postTime: time, category: cate, startingBid: formatMoney(startBid), marketPrice: formatMoney(markPrice), images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
 
-            API.graphql(graphqlOperation(createItemTable,
-                {input: {itemID: uID.toString(), description: desc,itemOwner:user, 
-                    name: title, postTime: time, category: cate, startingBid: startBid, marketPrice: markPrice, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
+            // API.graphql(graphqlOperation(createItemTable,
+            //     {input: {itemID: uID.toString(), description: desc,itemOwner:user,
+            //         name: title, postTime: time, category: cate, startingBid: startBid, marketPrice: markPrice, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
 
 
                     ).catch(err => console.log(err));
 
-            // {API.graphql(graphqlOperation(createLatestUserBidTable,
-            //     {input:{
-            //         lubtProductID: itemIDStore,
-            //             BidAmt: startBid,
-            //             Username: 'Leroy',
-            //         }}))}
+            API.graphql(graphqlOperation(createLatestUserBidTable,
+                {input:{
+                    lubtProductID: itemIDStore,
+                        BidAmt: startBid,
+                        Username: `${user}, (seller)`,
+                    }}))
+
+            API.graphql(graphqlOperation(createUserBidsTable,
+                {input:{
+                        ProductID: itemIDStore,
+                        Username: `${user}, (seller)`
+                    }}))
+
+
         }
       }
       async checkSellable(uname){
@@ -137,7 +145,7 @@ export default class AddItem extends React.Component {
     render() {
         return (
             <div className="formContainer">
-                
+
                 <form onSubmit = {this.handleSubmit}>
                     <div className = "row">
                         <div className = "col-25">
@@ -207,7 +215,7 @@ export default class AddItem extends React.Component {
                         <input type="submit" value = "Submit" />
                     </div>
                 </form>
-                
+
             </div>
         )
     }
