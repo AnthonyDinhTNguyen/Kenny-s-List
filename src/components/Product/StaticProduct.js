@@ -9,9 +9,9 @@ const Product = (props) => {
                     <img className="card-img-top product__img" src={props.img}/>
                 </a>
                 <div className="card-body product__text">
-                    <h3 className="card-title product__title">
+                    <h5 className="product__price">
                         {props.name}
-                    </h3>
+                    </h5>
                 </div>
             </div>
         </div>

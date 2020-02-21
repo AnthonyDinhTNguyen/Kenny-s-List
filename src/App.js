@@ -76,7 +76,7 @@ class App extends Component {
 
   constructor() {
     super();
-    this.state = {user: null};
+    this.state = {user: null, dummy: false};
     
     Hub.listen('auth', (data) => {
         const { payload } = data;
@@ -108,6 +108,7 @@ class App extends Component {
         }
       });
       AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
+      this.setState({dummy: !this.state.dummy});
   }
 
   render() {    
