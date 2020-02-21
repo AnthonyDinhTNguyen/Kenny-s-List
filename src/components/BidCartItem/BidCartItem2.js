@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import CheckoutForm from "./CheckoutForm"
+import {Auth} from 'aws-amplify';
 export default class BidCartItem2 extends React.Component {
     constructor(props){
         super(props);
@@ -18,11 +19,11 @@ export default class BidCartItem2 extends React.Component {
         
     }
     async startStripe(event){
-      const url = `https://api.stripe.com/v1/payment_intents`
-      /*const auth = {
+/*       const url = `https://api.stripe.com/v1/payment_intents`
+      const auth = {
         username:'sk_test_Eylua5wcXgHoTlHYk0Og1upe00ENr8WpAi',
         password:''
-      };*/
+      };
       let data = {};
       data['payment_method_types[]']= 'card';
       data['amount']=1000;
@@ -32,8 +33,17 @@ export default class BidCartItem2 extends React.Component {
         username:'sk_test_Eylua5wcXgHoTlHYk0Og1upe00ENr8WpAi',
         password:''
       }});
+      console.log(test); */
+      let url = "https://in8hc6wee5.execute-api.us-east-1.amazonaws.com/stripe/stripe-payment";
+      let amount = "500";
+      let test = this.props.yourBid.toString();
       console.log(test);
+      let accountID = "acct_1GEXPGKzFt6viajs";
+      let postThis = url+"?amount="+amount+"&accountID="+accountID;
+      console.log(postThis);
       const stripePromise = loadStripe("pk_test_NedNuvs9YOl1WOhanD0xfJtX00q2eAowF8");
+      let logThis = await axios.get(postThis);
+      console.log(logThis);
       this.setState({stripe:true});
       this.setState({stripeP:stripePromise})
     }
