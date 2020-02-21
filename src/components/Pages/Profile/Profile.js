@@ -63,10 +63,10 @@ export default class Profile extends React.Component {
                 <Redirect to = {this.state.stripeLink}></Redirect>
             )
         }
-        if (this.state.redirect === true) {
-            this.setState({redirect: false});
+        if (this.state.reload === true) {
+            this.setState({reload: false});
             console.log("Redirecting!");
-            return (<Redirect to="/"></Redirect>);
+            return (<Redirect to="/profile"></Redirect>);
         }
 
         return (
