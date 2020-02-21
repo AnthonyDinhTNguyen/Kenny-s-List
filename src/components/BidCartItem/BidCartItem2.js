@@ -4,17 +4,32 @@ import {Link} from 'react-router-dom';
 import StripePayment from '../StripePayment/StripePayment';
 import axios from "axios";
 import styled from 'styled-components';
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
 
 export default class BidCartItem2 extends React.Component {
     constructor(props){
         super(props);
+        this.state ={stripe:false,stripeP:''};
+        this.startStripe = this.startStripe.bind(this);
     }
 
     async componentDidMount() {
         
     }
-
+    startStripe(event){
+      const stripePromise = loadStripe("pk_test_NedNuvs9YOl1WOhanD0xfJtX00q2eAowF8");
+      this.setState({stripe:true});
+      this.setState({stripeP:stripePromise})
+    }
     render() {
+      if(this.state.stripe){
+        return (
+          <Elements stripe={this.state.stripeP}>
+            <CheckoutForm />
+          </Elements>
+        );
+      }
         return (
             <CheckoutItemContainer>
                 <ImageContainer>
@@ -29,7 +44,7 @@ export default class BidCartItem2 extends React.Component {
                 <TextContainer>${this.props.yourBid}</TextContainer>
                 <TextContainer>$420</TextContainer>
                 <ButtonContainer>
-                    <StripePayment price={69} />
+                    <button onClick = {this.startStripe}>Pay</button>
                 </ButtonContainer>
             </CheckoutItemContainer>
         );

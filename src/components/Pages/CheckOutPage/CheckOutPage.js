@@ -5,7 +5,6 @@ import { listUserBidsTables, getItemTable } from '../../../graphql/queries';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import BidCartItem2 from '../../BidCartItem/BidCartItem2';
-
 export default class CheckoutPage extends React.Component {
     constructor(props){
         super(props);
