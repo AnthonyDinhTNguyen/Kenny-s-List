@@ -162,8 +162,6 @@ export default class AddItem extends React.Component {
         return (
             <div className="formContainer">
 
-                <button onClick={this.stripeAccount}>Create Stripe Account</button>
-
                 <form onSubmit = {this.handleSubmit}>
                     <div className = "row">
                         <div className = "col-25">
@@ -230,7 +228,7 @@ export default class AddItem extends React.Component {
                         </div>
                     </div>
                     <div className ="row">
-                        <input type="submit" value = "Submit" />
+                        {this.state.accountCreated ? <input type="submit" value = "Submit" /> : <button onClick={this.stripeAccount}>Create Stripe Account</button>}
                     </div>
                 </form>
 
