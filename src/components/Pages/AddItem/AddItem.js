@@ -21,6 +21,11 @@ export default class AddItem extends React.Component {
         this.handleStartingBid = this.handleStartingBid.bind(this);
         this.handleMarketPrice = this.handleMarketPrice.bind(this);
     }
+    componentDidMount(){
+        API.graphql(graphqlOperation(createLatestUserBidTable, {input:{lubtProductID:"asdf"}})).then((evt) => {
+            console.log("itworked");
+        }).catch(e=>console.log("shit"));
+    }
     handleCategory(event){
         this.setState({category: event.target.value});
         console.log(event.target.value);
