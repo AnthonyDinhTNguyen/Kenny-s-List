@@ -14,8 +14,9 @@ export default class Profile extends React.Component {
     }
 
     async stripeAccount(){
-        const link = await axios.get
-            (`https://vhwckrva1j.execute-api.us-east-1.amazonaws.com/default/FetchBidsForCheckout?Username=${users}&ProductID=${id}`,);
+        //const link = await axios.get
+        //    (`https://vhwckrva1j.execute-api.us-east-1.amazonaws.com/default/FetchBidsForCheckout?Username=${users}&ProductID=${id}`,);
+        const link = "google.com";
         this.setState({stripeLink:link});
     }
     async componentDidMount(){
