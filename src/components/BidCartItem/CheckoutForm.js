@@ -19,11 +19,11 @@ export default function CheckoutForm(props) {
       return;
     }
 
-    const result = await stripe.confirmCardPayment('pi_1GEZA6BgVCjUVOCKCLlDVna7_secret_a7SZTL6pyOztmatVPjoUiSNgw', {
+    const result = await stripe.confirmCardPayment(props.clientInfo, {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
-          name: 'Jenny Rosen',
+          name: 'Test',
         },
       }
     });
