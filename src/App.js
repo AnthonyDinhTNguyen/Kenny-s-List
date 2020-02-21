@@ -92,7 +92,7 @@ class App extends Component {
     }
   }
 
-  async componentDidMount() {
+  async componentWillMount() {
       const res = await checkUser();
       console.log("User is " + JSON.stringify(res));
       Auth.currentSession().then(data => console.log(data)).catch(err => console.log(err));
@@ -108,14 +108,36 @@ class App extends Component {
       AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
   }
 
-  render() {
+  async componentDidMount() {
+    const res = await checkUser();
+    console.log("User is " + JSON.stringify(res));
+    Auth.currentSession().then(data => console.log(data)).catch(err => console.log(err));
+    this.setState({user: res});
+    const result = await Auth.currentSession();
+    AWS.config.region ='us-east=1';
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
+      Logins: {
+          'cognito-idp.us-east-1.amazonaws.com/us-east-1_buFSrhliB': result.getIdToken().getJwtToken()
+      }
+    });
+    AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
+}
+
+  render() {    
     if (this.state.user == null) {
-      return Auth.federatedSignIn();
+      return <Login/>;
     } else { 
       return (
         <Router>
           <div id="routeDiv">
             <Switch>
+              <Route path="/test">
+                <Test1 />
+              </Route>
+              <Route path="/test2">
+                <Test2 />
+              </Route>
               <Route path="/">
                 <Main />
               </ Route>
@@ -148,6 +170,32 @@ class App extends Component {
             </React.Fragment>
             </Router>
         </Provider>
+    );
+  }
+
+  function Test1() {
+     return (
+       <div>
+         This is Test1.
+       </div>
+     );
+  }
+  
+  function Test2() {
+     return (
+       <div>
+         This is Test2.
+       </div>
+     );
+  }
+
+
+  function Login() {
+    window.onload = function() {
+      Auth.federatedSignIn();
+    }
+    return (
+      <div></div>
     );
   }
 
