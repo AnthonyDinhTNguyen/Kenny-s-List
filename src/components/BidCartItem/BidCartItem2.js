@@ -8,6 +8,8 @@ import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import CheckoutForm from "./CheckoutForm"
 import {Auth} from 'aws-amplify';
+import {get} from '../../graphql/queries';
+import API, { graphqlOperation } from '@aws-amplify/api';
 export default class BidCartItem2 extends React.Component {
     constructor(props){
         super(props);
@@ -23,8 +25,8 @@ export default class BidCartItem2 extends React.Component {
       let amount = "500";
       amount = (parseFloat(this.props.currentBid)*100).toString();
       console.log(amount);
-
-      let accountID = "acct_1GEXPGKzFt6viajs";
+      let user = (await Auth.currentAuthenticatedUser()).username;
+      let accountID = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
       let postThis = url+"?amount="+amount+"&accountID="+accountID;
       const stripePromise = loadStripe("pk_test_NedNuvs9YOl1WOhanD0xfJtX00q2eAowF8");
       let dataJSON = await axios.get(postThis);
