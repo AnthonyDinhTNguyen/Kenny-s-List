@@ -3,7 +3,7 @@ import {Auth, Storage } from 'aws-amplify';
 import { listItemTables } from '../../../graphql/queries';
 import { deleteItemTable } from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
-import { NavLink } from 'react-router-dom';
+import { NavLink,Redirect } from 'react-router-dom';
 import axios from "axios";
 export default class Profile extends React.Component {
     constructor(props){
