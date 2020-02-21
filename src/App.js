@@ -92,7 +92,7 @@ class App extends Component {
     }
   }
 
-  async componentDidMount() {
+  async componentWillMount() {
       const res = await checkUser();
       console.log("User is " + JSON.stringify(res));
       Auth.currentSession().then(data => console.log(data)).catch(err => console.log(err));
@@ -108,14 +108,23 @@ class App extends Component {
       AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
   }
 
-  render() {
+
+
+  render() {    
     if (this.state.user != null) {
-      return Auth.federatedSignIn();
+      return <Redirect to="https://kennyslist.auth.us-east-1.amazoncognito.com/login?client_id=1qkrcfqgqv63hk594qi92q5hqi&response_type=token&scope=aws.cognito.signin.user.admin%20email%20openid%20phone%20profile&redirect_uri=https%3A%2F%2Fmaster.d2nmsllsuquwvm.amplifyapp.com"/>
+
     } else { 
       return (
         <Router>
           <div id="routeDiv">
             <Switch>
+              <Route path="/test">
+                <Test1 />
+              </Route>
+              <Route path="/test2">
+                <Test2 />
+              </Route>
               <Route path="/">
                 <Main />
               </ Route>
@@ -149,6 +158,22 @@ class App extends Component {
             </Router>
         </Provider>
     );
+  }
+
+  function Test1() {
+     return (
+       <div>
+         This is Test1.
+       </div>
+     );
+  }
+  
+  function Test2() {
+     return (
+       <div>
+         This is Test2.
+       </div>
+     );
   }
 
 export default App;
