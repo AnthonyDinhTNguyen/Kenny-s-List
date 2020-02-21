@@ -11,7 +11,6 @@ import {
 import {addProductToCart,updateUsername} from "../../actions";
 import axios from 'axios';
 import API, { graphqlOperation } from '@aws-amplify/api'
-import {Auth} from "aws-amplify";
 
 const ProductDetail = (props) => {
     const {
@@ -46,12 +45,18 @@ const ProductDetail = (props) => {
 
         return formattedTime;
     };
-    useEffect(async() => {
+    useEffect(() => {
         try {
-            let response = await Auth.currentAuthenticatedUser();
-            setUsername(response.username);
-        } catch(err) {
-            console.log("ERROR: Failed to retrieve username.");
+            setError(null);
+            Auth.currentAuthenticatedUser({
+                bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+            }).then(user => {
+                setUsername(user.username);
+                console.log(`Load additional settings for user: ${user.username}`);
+            }).catch(err => setError(err));
+        }
+        catch (e) {
+            setError(e);
         }
     });
 
@@ -115,7 +120,7 @@ const ProductDetail = (props) => {
             setBidHistory(value);
             setErrorValidation('');
 
-            console.log("user submitted bid", username);
+            console.log("username submitted bid", username);
 
             await API.graphql(graphqlOperation(updateUserBidsTable,
                 {input:{
