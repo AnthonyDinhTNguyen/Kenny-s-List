@@ -23,25 +23,31 @@ export default class CheckoutPage extends React.Component {
 
         //Clear state
         this.setState({biddingItems: []});
-
         await API.graphql(graphqlOperation(listUserBidsTables, {filter:{Username:{eq:currentUser}}})).then((evt) => {
 
             console.log("It worked!");
-            let itemIds = [];
             console.log(evt.data.listUserBidsTables.items);
+
+            let itemIds = [];
+            let yourBids = [];
+
             evt.data.listUserBidsTables.items.forEach(tuple => {
                 itemIds.push(tuple.ProductID);
+                yourBids.push(tuple.BidAmt);
             });
 
             console.log(itemIds);
+            console.log(yourBids);
 
-            itemIds.forEach(element => {
-                API.graphql(graphqlOperation(getItemTable, {itemID: element})).then((evt) => {
+            for (let i = 0; i < itemIds.length; i++) {
+                API.graphql(graphqlOperation(getItemTable, {itemID: itemIds[i]})).then((evt) => {
                     let temp = this.state.biddingItems;
-                    temp.push(evt.data.getItemTable);
+                    let temp2 = evt.data.getItemTable;
+                    temp2.yourBid = yourBids[i];
+                    temp.push(temp2);
                     this.setState({biddingItems: temp});
                 }); 
-            });
+            }
         });
 
         console.log(this.state.biddingItems);
@@ -54,20 +60,23 @@ export default class CheckoutPage extends React.Component {
                             <span>Product</span>
                         </HeaderBlockContainer>
                         <HeaderBlockContainer>
-                            <span>Description</span>
+                            <span>Title</span>
                         </HeaderBlockContainer>
                         <HeaderBlockContainer>
                             <span>Status</span>
                         </HeaderBlockContainer>
                         <HeaderBlockContainer>
-                            <span>Price</span>
+                            <span>Your Bid</span>
+                        </HeaderBlockContainer>
+                        <HeaderBlockContainer>
+                            <span>Current Bid</span>
                         </HeaderBlockContainer>
                         <HeaderBlockContainer>
                             <span>Checkout</span>
                         </HeaderBlockContainer>
                     </CheckoutHeaderContainer>
                     {this.state.biddingItems.length !== 0 ? this.state.biddingItems.map(cart => (
-                        <BidCartItem2 img={cart.images[0]} id={cart.itemID} title={cart.name}/>
+                        <BidCartItem2 img={cart.images[0]} id={cart.itemID} title={cart.name} yourBid={cart.yourBid} />
                         )) : <h1 className="display-4 mt-5 text-center">There is no bid in your BidCart</h1> }
         </CheckoutPageContainer>);
     }
