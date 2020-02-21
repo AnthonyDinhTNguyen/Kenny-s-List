@@ -20,8 +20,10 @@ export default class BidCartItem2 extends React.Component {
     }
     async startStripe(event){
       let url = "https://in8hc6wee5.execute-api.us-east-1.amazonaws.com/stripe/stripe-payment";
-      let amount = (parseFloat(this.props.yourBid)*100).toString();
+      let amount = "500";
+      amount = (parseFloat(this.props.currentBid)*100).toString();
       console.log(amount);
+
       let accountID = "acct_1GEXPGKzFt6viajs";
       let postThis = url+"?amount="+amount+"&accountID="+accountID;
       const stripePromise = loadStripe("pk_test_NedNuvs9YOl1WOhanD0xfJtX00q2eAowF8");
@@ -44,12 +46,12 @@ export default class BidCartItem2 extends React.Component {
                     <img src={this.props.img} />
                 </ImageContainer>
                 <TextContainer>
-                    <Link to={`/products/{this.props.id}`}>{this.props.title}</Link>
+                    <Link to={"/products/" + this.props.id}>{this.props.title}</Link>
                 </TextContainer>
                 <StatusContainer>
                     Bidding
                 </StatusContainer>
-                <TextContainer>${this.props.yourBid}</TextContainer>
+                <TextContainer>${this.props.currentBid}</TextContainer>
                 <ButtonContainer>
                     <button onClick = {this.startStripe}>Pay</button>
                 </ButtonContainer>

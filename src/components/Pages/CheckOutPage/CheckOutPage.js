@@ -28,21 +28,21 @@ export default class CheckoutPage extends React.Component {
             console.log(evt.data.listUserBidsTables.items);
 
             let itemIds = [];
-            let yourBids = [];
+            let currentBids = [];
 
             evt.data.listUserBidsTables.items.forEach(tuple => {
                 itemIds.push(tuple.ProductID);
-                yourBids.push(tuple.BidAmt);
+                currentBids.push(tuple.BidAmt);
             });
 
             console.log(itemIds);
-            console.log(yourBids);
+            console.log(currentBids);
 
             for (let i = 0; i < itemIds.length; i++) {
                 API.graphql(graphqlOperation(getItemTable, {itemID: itemIds[i]})).then((evt) => {
                     let temp = this.state.biddingItems;
                     let temp2 = evt.data.getItemTable;
-                    temp2.yourBid = yourBids[i];
+                    temp2.currentBid = currentBids[i];
                     temp.push(temp2);
                     this.setState({biddingItems: temp});
                 }); 
@@ -65,9 +65,6 @@ export default class CheckoutPage extends React.Component {
                             <span>Status</span>
                         </HeaderBlockContainer>
                         <HeaderBlockContainer>
-                            <span>Your Bid</span>
-                        </HeaderBlockContainer>
-                        <HeaderBlockContainer>
                             <span>Current Bid</span>
                         </HeaderBlockContainer>
                         <HeaderBlockContainer>
@@ -75,7 +72,7 @@ export default class CheckoutPage extends React.Component {
                         </HeaderBlockContainer>
                     </CheckoutHeaderContainer>
                     {this.state.biddingItems.length !== 0 ? this.state.biddingItems.map(cart => (
-                        <BidCartItem2 img={cart.images[0]} id={cart.itemID} title={cart.name} yourBid={cart.yourBid} />
+                        <BidCartItem2 img={cart.images[0]} id={cart.itemID} title={cart.name} currentBid={cart.currentBid} />
                         )) : <h1 className="display-4 mt-5 text-center">There is no bid in your BidCart</h1> }
         </CheckoutPageContainer>);
     }
