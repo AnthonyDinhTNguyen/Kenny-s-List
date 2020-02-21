@@ -1,7 +1,7 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable,listItemTables } from '../../../graphql/queries';
-import { updateItemTable,createItemTable, createLatestUserBidTable } from '../../../graphql/mutations';
+import { updateItemTable,createItemTable, createLatestUserBidTable,getLatestUserBidTable } from '../../../graphql/mutations';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
 import './AddItem.css'
@@ -21,10 +21,10 @@ export default class AddItem extends React.Component {
         this.handleStartingBid = this.handleStartingBid.bind(this);
         this.handleMarketPrice = this.handleMarketPrice.bind(this);
     }
-    componentDidMount(){
+    /*componentDidMount(){
         API.graphql(graphqlOperation(createLatestUserBidTable, {input:{lubtProductID:"asdf"}})).then((evt) => {
             console.log("itworked");
-        }).catch(e=>console.log("shit"));
+        }).catch(e=>console.log(e));*/
     }
     handleCategory(event){
         this.setState({category: event.target.value});
