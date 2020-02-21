@@ -22,7 +22,7 @@ export default class AddItem extends React.Component {
         this.handleMarketPrice = this.handleMarketPrice.bind(this);
     }
     /*componentDidMount(){
-        API.graphql(graphqlOperation(createLatestUserBidTable, {input:{lubtProductID:"asdf"}})).then((evt) => {
+        API.graphql(graphqlOperation(updateItemTable, {input:{itemID:"1",description:"changedit"}})).then((evt) => {
             console.log("itworked");
         }).catch(e=>console.log(e));
     }*/
