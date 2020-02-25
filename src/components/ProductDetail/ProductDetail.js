@@ -1,4 +1,4 @@
-rimport React, {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
 import { getItemTable,getLatestUserBidTable } from '../../graphql/queries';
