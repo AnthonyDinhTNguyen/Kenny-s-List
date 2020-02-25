@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+rimport React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
 import { getItemTable,getLatestUserBidTable } from '../../graphql/queries';
@@ -16,7 +16,7 @@ const ProductDetail = (props) => {
         itemID, name, description,marketPrice
     } = props.product;
 
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(null);
     const [BidHistory, setBidHistory] = useState(null);
     const [username, setUsername] = useState('');
 
@@ -120,11 +120,12 @@ const ProductDetail = (props) => {
         clearState();
 
         if(value.trim() === ""){
-            setErrorValidation('Bid Value is invalid');
+            setErrorValidation('Bid Value cannot be NULL');
             return;
         }
 
-        if(value === BidHistory){
+        const count = parseInt(value, 10);
+        if(count <= BidHistory){
             setErrorValidation(`Bid Value must be greater than $${BidHistory}`);
             return;
         }
