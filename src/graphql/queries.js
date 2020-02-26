@@ -71,35 +71,6 @@ export const listLatestUserBidTables = /* GraphQL */ `
     }
   }
 `;
-export const getUserBidsTable = /* GraphQL */ `
-  query GetUserBidsTable($ProductID: String!) {
-    getUserBidsTable(ProductID: $ProductID) {
-      ProductID
-      Username
-      BidAmt
-      BidID
-      Status
-    }
-  }
-`;
-export const listUserBidsTables = /* GraphQL */ `
-  query ListUserBidsTables(
-    $filter: TableUserBidsTableFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUserBidsTables(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        ProductID
-        Username
-        BidAmt
-        BidID
-        Status
-      }
-      nextToken
-    }
-  }
-`;
 export const getKennysListUserTable = /* GraphQL */ `
   query GetKennysListUserTable($username: String!) {
     getKennysListUserTable(username: $username) {
@@ -122,6 +93,35 @@ export const listKennysListUserTables = /* GraphQL */ `
       items {
         username
         accountID
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserBidsTable = /* GraphQL */ `
+  query GetUserBidsTable($Username: String!, $ProductID: String!) {
+    getUserBidsTable(Username: $Username, ProductID: $ProductID) {
+      ProductID
+      Username
+      BidAmt
+      BidID
+      Status
+    }
+  }
+`;
+export const listUserBidsTables = /* GraphQL */ `
+  query ListUserBidsTables(
+    $filter: TableUserBidsTableFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserBidsTables(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        ProductID
+        Username
+        BidAmt
+        BidID
+        Status
       }
       nextToken
     }

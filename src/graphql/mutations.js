@@ -79,6 +79,30 @@ export const deleteLatestUserBidTable = /* GraphQL */ `
     }
   }
 `;
+export const createKennysListUserTable = /* GraphQL */ `
+  mutation CreateKennysListUserTable($input: CreateKennysListUserTableInput!) {
+    createKennysListUserTable(input: $input) {
+      username
+      accountID
+    }
+  }
+`;
+export const updateKennysListUserTable = /* GraphQL */ `
+  mutation UpdateKennysListUserTable($input: UpdateKennysListUserTableInput!) {
+    updateKennysListUserTable(input: $input) {
+      username
+      accountID
+    }
+  }
+`;
+export const deleteKennysListUserTable = /* GraphQL */ `
+  mutation DeleteKennysListUserTable($input: DeleteKennysListUserTableInput!) {
+    deleteKennysListUserTable(input: $input) {
+      username
+      accountID
+    }
+  }
+`;
 export const createUserBidsTable = /* GraphQL */ `
   mutation CreateUserBidsTable($input: CreateUserBidsTableInput!) {
     createUserBidsTable(input: $input) {
@@ -109,30 +133,6 @@ export const deleteUserBidsTable = /* GraphQL */ `
       BidAmt
       BidID
       Status
-    }
-  }
-`;
-export const createKennysListUserTable = /* GraphQL */ `
-  mutation CreateKennysListUserTable($input: CreateKennysListUserTableInput!) {
-    createKennysListUserTable(input: $input) {
-      username
-      accountID
-    }
-  }
-`;
-export const updateKennysListUserTable = /* GraphQL */ `
-  mutation UpdateKennysListUserTable($input: UpdateKennysListUserTableInput!) {
-    updateKennysListUserTable(input: $input) {
-      username
-      accountID
-    }
-  }
-`;
-export const deleteKennysListUserTable = /* GraphQL */ `
-  mutation DeleteKennysListUserTable($input: DeleteKennysListUserTableInput!) {
-    deleteKennysListUserTable(input: $input) {
-      username
-      accountID
     }
   }
 `;
