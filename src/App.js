@@ -163,7 +163,7 @@ class App extends Component {
 
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
           <div className="container">
-            <a class="navbar-brand">KennysList</a>
+            <a className="navbar-brand">KennysList</a>
             <div>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
