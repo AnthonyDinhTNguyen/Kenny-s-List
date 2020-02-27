@@ -48,8 +48,7 @@ export default class CheckoutPage extends React.Component {
                     let temp3 = evt.data.getItemTable;
                     temp2.currentBid = currentBids[i];
                     temp3.currentSta = currentStatus[i];
-                    temp.push(temp2);
-                    temp.push(temp3);
+                    temp.push(temp2,temp3);
                     this.setState({biddingItems: temp});
                 }); 
             }

@@ -176,7 +176,7 @@ const ProductDetail = (props) => {
     };
 
 
-    if(expTime === 0){
+    if(expTime){
         console.log("This product cannot be bid anymore!!!");
         const [winner,setWinner] = useState('');
         useEffect(() => {
