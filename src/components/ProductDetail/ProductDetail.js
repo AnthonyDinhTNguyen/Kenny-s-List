@@ -155,27 +155,22 @@ const ProductDetail = (props) => {
         for(let i = 0; i < bidding_users.length; i++){
             let user_index = bidding_users[i];
             if(username === user_index){
+                console.log("compared:", username, user_index);
                 await API.graphql(graphqlOperation(updateUserBidsTable,
                    {input:{
                            ProductID : itemID,
                            Username: username,
                            BidAmt : value,
-                           Status: "Bidding"
                        }}));
             }
-            else{
-                await API.graphql(graphqlOperation(createUserBidsTable,
-                    {input:{
-                            ProductID: itemID,
-                            Username: username,
-                            BidAmt : value,
-                            Status: "Bidding"
-                        }}))
-            }
         }
-
-
-
+        await API.graphql(graphqlOperation(createUserBidsTable,
+            {input:{
+                    ProductID: itemID,
+                    Username: username,
+                    BidAmt : value,
+                    Status: "Bidding"
+                }}))
 
     };
 
