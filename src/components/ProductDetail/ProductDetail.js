@@ -152,25 +152,31 @@ const ProductDetail = (props) => {
             });
         });
 
+        let count_usersBidding = 0;
         for(let i = 0; i < bidding_users.length; i++){
-            let user_index = bidding_users[i];
-            if(username === user_index){
-                console.log("compared:", username, user_index);
-                await API.graphql(graphqlOperation(updateUserBidsTable,
-                   {input:{
-                           ProductID : itemID,
-                           Username: username,
-                           BidAmt : value,
-                       }}));
+            if(username === bidding_users[i]){
+                count_usersBidding +=1;
             }
         }
-        await API.graphql(graphqlOperation(createUserBidsTable,
-            {input:{
-                    ProductID: itemID,
-                    Username: username,
-                    BidAmt : value,
-                    Status: "Bidding"
-                }}))
+        console.log(count_usersBidding);
+        if(count_usersBidding > 0){
+            await API.graphql(graphqlOperation(updateUserBidsTable,
+                {input:{
+                        ProductID : itemID,
+                        Username: username,
+                        BidAmt : value,
+                    }}));
+        }
+        else{
+            await API.graphql(graphqlOperation(createUserBidsTable,
+                {input:{
+                        ProductID: itemID,
+                        Username: username,
+                        BidAmt : value,
+                        Status: "Bidding"
+                    }}))
+        }
+
 
     };
 
