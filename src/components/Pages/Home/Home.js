@@ -12,7 +12,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            await (API.graphql(graphqlOperation(listItemTables, {limit: 18})).then(e => {
+            await (API.graphql(graphqlOperation(listItemTables, {limit: 100})).then(e => {
                 setProducts(e.data.listItemTables.items);
             }).catch(e => {console.log("Failed to retrieve data");}));
 

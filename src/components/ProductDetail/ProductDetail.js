@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
 import { getItemTable,getLatestUserBidTable } from '../../graphql/queries';
 import {
+    createUserBidsTable,
     updateLatestUserBidTable,
     updateUserBidsTable
 } from '../../graphql/mutations';
@@ -123,7 +124,6 @@ const ProductDetail = (props) => {
             setErrorValidation('Bid Value cannot be NULL');
             return;
         }
-
         const count = parseInt(value, 10);
         if(count <= BidHistory){
             setErrorValidation(`Bid Value must be greater than $${BidHistory}`);
@@ -135,14 +135,6 @@ const ProductDetail = (props) => {
 
             console.log("username submitted bid", username);
 
-            await API.graphql(graphqlOperation(updateUserBidsTable,
-                {input:{
-                        ProductID : itemID,
-                        Username: username,
-                        BidAmt : value,
-                        Status: "Bidding"
-                    }}));
-
             await API.graphql(graphqlOperation(updateLatestUserBidTable,
                 {input:{
                         lubtProductID: itemID,
@@ -150,6 +142,20 @@ const ProductDetail = (props) => {
                         BidAmt: value
                     }}));
 
+        API.graphql(graphqlOperation(createUserBidsTable,
+            {input:{
+                    ProductID: itemID,
+                    Username: "Leroy",
+                    BidAmt : value,
+                    Status: "Bidding"
+                }}))
+         // await API.graphql(graphqlOperation(updateUserBidsTable,
+         //    {input:{
+         //            ProductID : itemID,
+         //            Username: username,
+         //            BidAmt : value,
+         //            Status: "Bidding"
+         //        }}));
 
 
     };
