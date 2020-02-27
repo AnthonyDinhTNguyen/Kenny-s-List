@@ -145,7 +145,7 @@ const ProductDetail = (props) => {
         API.graphql(graphqlOperation(createUserBidsTable,
             {input:{
                     ProductID: itemID,
-                    Username: "Leroy",
+                    Username: "Hiiii",
                     BidAmt : value,
                     Status: "Bidding"
                 }}))
