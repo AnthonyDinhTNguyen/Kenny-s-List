@@ -21,7 +21,7 @@ const ProductDetail = (props) => {
     const [BidHistory, setBidHistory] = useState(null);
     const [username, setUsername] = useState('');
 
-    const [expTime, setExpTime] = useState(1000);
+    const [expTime, setExpTime] = useState(0);
     const [errorValidation, setErrorValidation] = useState('');
 
     const expTimeFormatted = () => {
@@ -143,10 +143,6 @@ const ProductDetail = (props) => {
                 }}));
         let bidding_users = [];
         await API.graphql(graphqlOperation(listUserBidsTables, {filter:{ProductID: {eq:itemID}}})).then((evt) => {
-
-            console.log("It worked!");
-            console.log(evt.data.listUserBidsTables.items);
-
             evt.data.listUserBidsTables.items.forEach(tuple => {
                 bidding_users.push(tuple.Username);
             });
@@ -158,7 +154,6 @@ const ProductDetail = (props) => {
                 count_usersBidding +=1;
             }
         }
-        console.log(count_usersBidding);
         if(count_usersBidding > 0){
             await API.graphql(graphqlOperation(updateUserBidsTable,
                 {input:{
@@ -180,9 +175,9 @@ const ProductDetail = (props) => {
 
     };
 
+
     if(expTime === 0){
         const [winner,setWinner] = useState('');
-
         useEffect(() => {
             const fetchData = async () => {
                 await (API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
