@@ -21,7 +21,7 @@ const ProductDetail = (props) => {
     const [BidHistory, setBidHistory] = useState(null);
     const [username, setUsername] = useState('');
 
-    const [expTime, setExpTime] = useState(0);
+    const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
 
     const expTimeFormatted = () => {
@@ -245,7 +245,7 @@ const ProductDetail = (props) => {
                     </div>
                     {errorValidation.length > 0 ? (<div style={{color: 'red'}}>{errorValidation}</div>):(<div></div>)}
 
-                    <input onClick={onCart} type="submit" className="mt-2" value="Place Bid" disabled={expTime===0}/>
+                    <input onClick={onCart} type="submit" className="mt-2" value="Place Bid" disabled={expTime}/>
                 </form>
                 <hr/>
                 <dl className="item-property">
