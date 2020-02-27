@@ -73,7 +73,8 @@ const ProductDetail = (props) => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
                 // 604800 = seven days in seconds
-                const bidTime = 604800 ;
+                // const bidTime = 604800 ;
+                const bidTime = 120 ;
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
                 setExpTime(time);
             }).catch(e => {console.log("Failed to retrieve data");}));
@@ -103,7 +104,6 @@ const ProductDetail = (props) => {
     };
     const handleChange = e => {
         e.preventDefault();
-        console.log
         setValue(e.target.value);
       };
 
@@ -119,12 +119,11 @@ const ProductDetail = (props) => {
     const handleSubmit = async event => {
         event.preventDefault();
         clearState();
-
+        const count = parseInt(value, 10);
         if(value.trim() === ""){
             setErrorValidation('Bid Value cannot be NULL');
             return;
         }
-        const count = parseInt(value, 10);
         if(count <= BidHistory){
             setErrorValidation(`Bid Value must be greater than $${BidHistory}`);
             return;
@@ -175,7 +174,7 @@ const ProductDetail = (props) => {
 
     };
 
-
+    console.log("expire time: ", expTime);
     if(expTime){
         console.log("This product cannot be bid anymore!!!");
         const [winner,setWinner] = useState('');
