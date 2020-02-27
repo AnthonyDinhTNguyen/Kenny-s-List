@@ -45,10 +45,9 @@ export default class CheckoutPage extends React.Component {
                 API.graphql(graphqlOperation(getItemTable, {itemID: itemIds[i]})).then((evt) => {
                     let temp = this.state.biddingItems;
                     let temp2 = evt.data.getItemTable;
-                    let temp3 = evt.data.getItemTable;
                     temp2.currentBid = currentBids[i];
-                    temp3.currentSta = currentStatus[i];
-                    temp.push(temp2,temp3);
+                    temp2.currentSta = currentStatus[i];
+                    temp.push(temp2);
                     this.setState({biddingItems: temp});
                 }); 
             }
