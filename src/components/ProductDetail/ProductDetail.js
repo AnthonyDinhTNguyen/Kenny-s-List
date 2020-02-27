@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
-import { getItemTable,getLatestUserBidTable } from '../../graphql/queries';
+import {getItemTable, getLatestUserBidTable, listUserBidsTables} from '../../graphql/queries';
 import {
     createUserBidsTable,
     updateLatestUserBidTable,
@@ -116,7 +116,7 @@ const ProductDetail = (props) => {
         fetchData();
     }, []);
 
-    const  handleSubmit = async event => {
+    const handleSubmit = async event => {
         event.preventDefault();
         clearState();
 
@@ -130,22 +130,34 @@ const ProductDetail = (props) => {
             return;
         }
 
-            setBidHistory(value);
-            setErrorValidation('');
+        setBidHistory(value);
+        setErrorValidation('');
 
-            console.log("username submitted bid", username);
+        console.log("username submitted bid", username);
 
-            await API.graphql(graphqlOperation(updateLatestUserBidTable,
-                {input:{
-                        lubtProductID: itemID,
-                        Username: username,
-                        BidAmt: value
-                    }}));
+        await API.graphql(graphqlOperation(updateLatestUserBidTable,
+            {input:{
+                lubtProductID: itemID,
+                    Username: username,
+                    BidAmt: value
+                }}));
 
-        API.graphql(graphqlOperation(createUserBidsTable,
+        // await API.graphql(graphqlOperation(listUserBidsTables, {filter:{Username:{eq:username}, ProductID: {eq:itemID}}})).then((evt) => {
+        //
+        //     console.log("It worked!");
+        //     console.log(evt.data.listUserBidsTables.items);
+        //
+        //     let bidding_users = [];
+        //
+        //     evt.data.listUserBidsTables.items.forEach(tuple => {
+        //         bidding_users.push(tuple.Username);
+        //     });
+        // });
+
+        await API.graphql(graphqlOperation(createUserBidsTable,
             {input:{
                     ProductID: itemID,
-                    Username: "Hiiii",
+                    Username: username,
                     BidAmt : value,
                     Status: "Bidding"
                 }}))
