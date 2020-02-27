@@ -177,6 +177,7 @@ const ProductDetail = (props) => {
 
 
     if(expTime === 0){
+        console.log("This product cannot be bid anymore!!!");
         const [winner,setWinner] = useState('');
         useEffect(() => {
             const fetchData = async () => {

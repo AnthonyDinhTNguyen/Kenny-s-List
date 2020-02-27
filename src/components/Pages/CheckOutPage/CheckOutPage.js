@@ -29,21 +29,27 @@ export default class CheckoutPage extends React.Component {
 
             let itemIds = [];
             let currentBids = [];
+            let currentStatus = [];
 
             evt.data.listUserBidsTables.items.forEach(tuple => {
                 itemIds.push(tuple.ProductID);
                 currentBids.push(tuple.BidAmt);
+                currentStatus.push(tuple.Status);
             });
 
             console.log(itemIds);
             console.log(currentBids);
+            console.log(currentStatus);
 
             for (let i = 0; i < itemIds.length; i++) {
                 API.graphql(graphqlOperation(getItemTable, {itemID: itemIds[i]})).then((evt) => {
                     let temp = this.state.biddingItems;
                     let temp2 = evt.data.getItemTable;
+                    let temp3 = evt.data.getItemTable;
                     temp2.currentBid = currentBids[i];
+                    temp3.currentSta = currentStatus[i];
                     temp.push(temp2);
+                    temp.push(temp3);
                     this.setState({biddingItems: temp});
                 }); 
             }
@@ -72,7 +78,7 @@ export default class CheckoutPage extends React.Component {
                         </HeaderBlockContainer>
                     </CheckoutHeaderContainer>
                     {this.state.biddingItems.length !== 0 ? this.state.biddingItems.map(cart => (
-                        <BidCartItem2 img={cart.images[0]} id={cart.itemID} title={cart.name} currentBid={cart.currentBid} />
+                        <BidCartItem2 img={cart.images[0]} id={cart.itemID} title={cart.name} currentBid={cart.currentBid} currentSta={cart.currentSta} />
                         )) : <h1 className="display-4 mt-5 text-center">There is no bid in your BidCart</h1> }
         </CheckoutPageContainer>);
     }

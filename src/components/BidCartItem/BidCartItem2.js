@@ -55,7 +55,7 @@ export default class BidCartItem2 extends React.Component {
                     <Link to={"/products/" + this.props.id}>{this.props.title}</Link>
                 </TextContainer>
                 <StatusContainer>
-                    Bidding
+                    {this.props.currentSta}
                 </StatusContainer>
                 <TextContainer>${this.props.currentBid}</TextContainer>
                 <ButtonContainer>
