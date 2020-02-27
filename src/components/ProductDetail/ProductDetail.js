@@ -151,21 +151,30 @@ const ProductDetail = (props) => {
                 bidding_users.push(tuple.Username);
             });
         });
-        console.log("hihi", bidding_users);
-        await API.graphql(graphqlOperation(createUserBidsTable,
-            {input:{
-                    ProductID: itemID,
-                    Username: username,
-                    BidAmt : value,
-                    Status: "Bidding"
-                }}))
-         // await API.graphql(graphqlOperation(updateUserBidsTable,
-         //    {input:{
-         //            ProductID : itemID,
-         //            Username: username,
-         //            BidAmt : value,
-         //            Status: "Bidding"
-         //        }}));
+
+        for(let i = 0; i < bidding_users.length; i++){
+            let user_index = bidding_users[i];
+            if(username === user_index){
+                await API.graphql(graphqlOperation(updateUserBidsTable,
+                   {input:{
+                           ProductID : itemID,
+                           Username: username,
+                           BidAmt : value,
+                           Status: "Bidding"
+                       }}));
+            }
+            else{
+                await API.graphql(graphqlOperation(createUserBidsTable,
+                    {input:{
+                            ProductID: itemID,
+                            Username: username,
+                            BidAmt : value,
+                            Status: "Bidding"
+                        }}))
+            }
+        }
+
+
 
 
     };
