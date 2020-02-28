@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faUser, faShoppingCart, faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
+import {Auth} from 'aws-amplify'
 
 const Header = () => {
     return (
