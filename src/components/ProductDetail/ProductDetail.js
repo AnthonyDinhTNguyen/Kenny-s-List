@@ -239,7 +239,7 @@ const ProductDetail = (props) => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <h6><strong>Your bid:</strong></h6>
-                        <input style={{ width: "30px" }} id={itemID} name="input-field" className="form-control" type="number" value={value} min={BidHistory}
+                        <input style={{ width: "300px" }} id={itemID} name="input-field" className="form-control" type="number" value={value} min={BidHistory}
                         placeholder="Your Bid"  onChange={handleChange} />
                         <span className="ml-3"><input onClick={onCart}  type="submit" value="Place Bid" disabled={!expTime}/></span>
                         {errorValidation.length > 0 ? (<div style={{color: 'red'}}>{errorValidation}</div>):(<div></div>)}
