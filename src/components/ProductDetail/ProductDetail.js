@@ -20,7 +20,7 @@ const ProductDetail = (props) => {
     const [value, setValue] = useState(null);
     const [BidHistory, setBidHistory] = useState(null);
     const [username, setUsername] = useState('');
-    const [expTime, setExpTime] = useState(1000);
+    const [expTime, setExpTime] = useState(0);
     const [errorValidation, setErrorValidation] = useState('');
 
     const expTimeFormatted = () => {
@@ -62,7 +62,7 @@ const ProductDetail = (props) => {
     useEffect(() => {
 
         // Fetch the item data from the server and set the expiration time accordingly.
-        if (!expTime)
+        if (expTime <= 0)
             return;
 
         console.log("Get item table is " + getItemTable);
@@ -88,7 +88,7 @@ const ProductDetail = (props) => {
     }, []);
 
     useEffect(() => {
-        if (!expTime) return;
+        if (expTime <= 0) return;
 
         const interval = setInterval(() => {
             setExpTime(expTime - 1);
