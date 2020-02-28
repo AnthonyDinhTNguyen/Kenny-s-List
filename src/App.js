@@ -127,7 +127,7 @@ class App extends Component {
   }
   
   render() {    
-    if (this.state.user != null) {
+    if (this.state.user == null) {
       return <Login/>;
     } else { 
       return (
