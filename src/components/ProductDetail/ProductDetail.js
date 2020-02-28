@@ -20,7 +20,6 @@ const ProductDetail = (props) => {
     const [value, setValue] = useState(null);
     const [BidHistory, setBidHistory] = useState(null);
     const [username, setUsername] = useState('');
-
     const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
 
@@ -74,7 +73,7 @@ const ProductDetail = (props) => {
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
                 // 604800 = seven days in seconds
                 // const bidTime = 604800 ;
-                const bidTime = 120 ;
+                const bidTime = 604800;
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
                 setExpTime(time);
             }).catch(e => {console.log("Failed to retrieve data");}));
