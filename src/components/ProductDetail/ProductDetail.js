@@ -244,7 +244,7 @@ const ProductDetail = (props) => {
                     <div>
                         <h6><strong>Your bid:</strong></h6>
                         <input onClick={onCart} style={{float:"right"}} className="ml-2"  type="submit" value="Place Bid" disabled={!expTime}/>
-                        <input style={{ width: "260px" }} id={itemID} name="input-field" className="form-control mt-3" type="number" value={value} min={BidHistory}
+                        <input style={{ width: "290px" }} id={itemID} name="input-field" className="form-control mt-3" type="number" value={value} min={BidHistory}
                         placeholder="Your Bid"  onChange={handleChange} />
                         {errorValidation.length > 0 ? (<div style={{color: 'red'}}>{errorValidation}</div>):(<div></div>)}
                     </div>
