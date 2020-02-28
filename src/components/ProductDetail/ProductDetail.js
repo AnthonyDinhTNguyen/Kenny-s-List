@@ -232,7 +232,7 @@ const ProductDetail = (props) => {
                 </h6>
                 <h6 className="mb-3">
                 <strong>Time Left: </strong>
-                    {expTime ? (<span>SOLD</span>):(<span>{expTimeFormatted()}</span>)}
+                    {!expTime ? (<span>{expTimeFormatted()}</span>):(<span>SOLD</span>)}
                 </h6>
                 <form onSubmit={handleSubmit}>
                     <div>

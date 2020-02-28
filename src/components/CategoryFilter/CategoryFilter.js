@@ -23,7 +23,7 @@ const CategoryFilter = (props) => {
         return (
             <div className="card mb-3">
                 <div className="card-header">
-                    <h5>Categories</h5><span><FontAwesomeIcon icon={faTags} /></span>
+                    <h5>Categories<span><FontAwesomeIcon icon={faTags} /></span></h5>
                 </div>
                 <ul className="list-group flex-row flex-wrap">
                     {categories.map(category => (
