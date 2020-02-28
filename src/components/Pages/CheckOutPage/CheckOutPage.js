@@ -58,7 +58,6 @@ export default class CheckoutPage extends React.Component {
 
     render() {
         return (<CheckoutPageContainer>
-
                     <CheckoutHeaderContainer>
                         <HeaderBlockContainer>
                             <span>Product</span>
@@ -77,7 +76,7 @@ export default class CheckoutPage extends React.Component {
                         </HeaderBlockContainer>
                     </CheckoutHeaderContainer>
                     {this.state.biddingItems.length !== 0 ? this.state.biddingItems.map(cart => (
-                        <BidCartItem2 img={cart.images[0]} id={cart.itemID} title={cart.name} currentBid={cart.currentBid} currentSta={cart.currentSta} />
+                        <BidCartItem2 key={cart} img={cart.images[0]} id={cart.itemID} title={cart.name} currentBid={cart.currentBid} currentSta={cart.currentSta} />
                         )) : <h1 className="display-4 mt-5 text-center">There is no bid in your BidCart</h1> }
         </CheckoutPageContainer>);
     }
