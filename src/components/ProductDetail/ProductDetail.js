@@ -20,7 +20,7 @@ const ProductDetail = (props) => {
     const [value, setValue] = useState(null);
     const [BidHistory, setBidHistory] = useState(null);
     const [username, setUsername] = useState('');
-    const [expTime, setExpTime] = useState(0);
+    const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
 
     const expTimeFormatted = () => {
@@ -75,7 +75,11 @@ const ProductDetail = (props) => {
                 // const bidTime = 604800 ;
                 const bidTime = 604800;
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
-                setExpTime(time);
+                if (time > 0) {
+                    setExpTime(time);
+                } else {
+                    setExpTime(0);
+                }
             }).catch(e => {console.log("Failed to retrieve data");}));
 
             await (API.graphql(graphqlOperation(getItemTable, {itemID: `{itemID}`})).then(e => {
