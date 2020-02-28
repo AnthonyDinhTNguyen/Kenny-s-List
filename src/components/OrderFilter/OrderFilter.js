@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import './OrderFilter.css';
 import {clearOrderBy, ORDER_BY_ASC, ORDER_BY_DESC, orderByAsc, orderByDesc} from "../../actions";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes} from '@fortawesome/free-solid-svg-icons'
 
 const OrderFilter = ({dispatch}) => {
 
@@ -31,10 +33,8 @@ const OrderFilter = ({dispatch}) => {
     };
 
     if(selected) {
-        removeSelected  =  <span onClick={removeFilter} className="text-remove-selected text-right">Remove filter</span>
+        removeSelected  =  <span onClick={removeFilter} className="text-remove-selected text-right"><FontAwesomeIcon icon={faTimes} size="lg"/></span>
     }
-
-
 
     return (
             <div className="card">

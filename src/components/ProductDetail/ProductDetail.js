@@ -174,7 +174,6 @@ const ProductDetail = (props) => {
 
     };
 
-    console.log("expire time: ", expTime);
     if(expTime){
         console.log("This product cannot be bid anymore!!!");
         const [winner,setWinner] = useState('');
@@ -209,7 +208,6 @@ const ProductDetail = (props) => {
                     }
                 }))
         }
-
     };
 
     const onCart = async () => {
@@ -242,9 +240,8 @@ const ProductDetail = (props) => {
                         <h6><strong>Your bid:</strong></h6>
                         <input id={itemID} name="input-field" className="form-control" type="number" value={value} min={BidHistory}
                         placeholder="Your Bid"  onChange={handleChange} />
+                        {errorValidation.length > 0 ? (<div style={{color: 'red'}}>{errorValidation}</div>):(<div></div>)}
                     </div>
-                    {errorValidation.length > 0 ? (<div style={{color: 'red'}}>{errorValidation}</div>):(<div></div>)}
-
                     <input onClick={onCart} type="submit" className="mt-2" value="Place Bid" disabled={expTime}/>
                 </form>
                 <hr/>
