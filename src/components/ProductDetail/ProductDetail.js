@@ -162,6 +162,7 @@ const ProductDetail = (props) => {
                         ProductID : itemID,
                         Username: username,
                         BidAmt : value,
+                        Status: "Bidding"
                     }}));
         }
         else{
@@ -236,17 +237,18 @@ const ProductDetail = (props) => {
                 </h6>
                 <h6 className="mb-3">
                 <strong>Time Left: </strong>
-                    {/*{!expTime ? (<span>{expTimeFormatted()}</span>):(<span>SOLD</span>)}*/}
-                    <span>{expTimeFormatted()}</span>
+                    {!expTime ? (<span>SOLD</span>):(<span>{expTimeFormatted()}</span>)}
+
                 </h6>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <h6><strong>Your bid:</strong></h6>
-                        <input id={itemID} name="input-field" className="form-control" type="number" value={value} min={BidHistory}
+                        <input style={{ width: "300px" }} id={itemID} name="input-field" className="form-control" type="number" value={value} min={BidHistory}
                         placeholder="Your Bid"  onChange={handleChange} />
+                        <span className="ml-3"><input onClick={onCart}  type="submit" value="Place Bid" disabled={!expTime}/></span>
                         {errorValidation.length > 0 ? (<div style={{color: 'red'}}>{errorValidation}</div>):(<div></div>)}
                     </div>
-                    <input onClick={onCart} type="submit" className="mt-2" value="Place Bid" disabled={!expTime}/>
+
                 </form>
                 <hr/>
                 <dl className="item-property">
