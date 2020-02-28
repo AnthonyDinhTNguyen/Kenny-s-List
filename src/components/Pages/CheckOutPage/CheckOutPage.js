@@ -58,6 +58,7 @@ export default class CheckoutPage extends React.Component {
 
     render() {
         return (<CheckoutPageContainer>
+
                     <CheckoutHeaderContainer>
                         <HeaderBlockContainer>
                             <span>Product</span>
