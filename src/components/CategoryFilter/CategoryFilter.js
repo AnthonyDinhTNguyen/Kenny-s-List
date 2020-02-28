@@ -2,7 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import './CategoryFilter.css';
 import {addCategoryToFilter, removeCategoryFromFilter} from "../../actions";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faTags} from '@fortawesome/free-solid-svg-icons'
 
 const CategoryFilter = (props) => {
 
@@ -22,7 +23,7 @@ const CategoryFilter = (props) => {
         return (
             <div className="card mb-3">
                 <div className="card-header">
-                    <h3>Categories</h3>
+                    <h5>Categories</h5><span><FontAwesomeIcon icon={faTags} /></span>
                 </div>
                 <ul className="list-group flex-row flex-wrap">
                     {categories.map(category => (
