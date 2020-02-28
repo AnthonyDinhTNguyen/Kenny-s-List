@@ -173,7 +173,7 @@ const ProductDetail = (props) => {
 
     };
 
-    if(expTime){
+    if(!expTime){
         console.log("This product cannot be bid anymore!!!");
         const [winner,setWinner] = useState('');
         useEffect(() => {
@@ -242,7 +242,7 @@ const ProductDetail = (props) => {
                         placeholder="Your Bid"  onChange={handleChange} />
                         {errorValidation.length > 0 ? (<div style={{color: 'red'}}>{errorValidation}</div>):(<div></div>)}
                     </div>
-                    <input onClick={onCart} type="submit" className="mt-2" value="Place Bid" disabled={expTime}/>
+                    <input onClick={onCart} type="submit" className="mt-2" value="Place Bid" disabled={!expTime}/>
                 </form>
                 <hr/>
                 <dl className="item-property">
