@@ -148,19 +148,20 @@ const ProductDetail = (props) => {
                 }}));
 
         let bidding_users = [];
-        await API.graphql(graphqlOperation(listUserBidsTables, {filter:{ProductID: {eq:ProductID}}})).then((evt) => {
+        await API.graphql(graphqlOperation(listUserBidsTables, {filter:{ProductID: {eq:itemID}}})).then((evt) => {
             console.log("sd",evt.data.listUserBidsTables.items);
             evt.data.listUserBidsTables.items.forEach(tuple => {
                 bidding_users.push(tuple.Username);
             });
         });
 
-        // let count_usersBidding = 0;
-        // for(let i = 0; i < bidding_users.length; i++){
-        //     if(currentUser === bidding_users[i]){
-        //         count_usersBidding +=1;
-        //     }
-        // }
+        let count_usersBidding = 0;
+        for(let i = 0; i < bidding_users.length; i++){
+            console.log(bidding_users[i]);
+            if(currentUser === bidding_users[i]){
+                count_usersBidding +=1;
+            }
+        }
         console.log(bidding_users);
         if(bidding_users.includes(currentUser)){
             await API.graphql(graphqlOperation(updateUserBidsTable,
