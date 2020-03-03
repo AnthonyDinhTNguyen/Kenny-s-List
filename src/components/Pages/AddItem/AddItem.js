@@ -118,6 +118,7 @@ export default class AddItem extends React.Component {
 
 
         }
+        this.refs.sub.removeAttribute("disabled");
       }
       async checkSellable(uname){
         let itemList = [];
