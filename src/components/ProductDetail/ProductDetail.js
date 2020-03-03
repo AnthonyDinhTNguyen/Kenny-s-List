@@ -17,7 +17,7 @@ const ProductDetail = (props) => {
         itemID, name, description,marketPrice
     } = props.product;
 
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(null);
     const [BidHistory, setBidHistory] = useState(null);
     const [username, setUsername] = useState('');
     const [expTime, setExpTime] = useState(1000);
@@ -122,11 +122,18 @@ const ProductDetail = (props) => {
     const handleSubmit = async event => {
         event.preventDefault();
         clearState();
-        const count = parseInt(value, 10);
-        if(value.trim() === ""){
-            setErrorValidation('Bid Value cannot be NULL');
+
+        var invalidChars = [
+            "-",
+            "+",
+            "e",
+          ];
+        
+        if(value === "" || invalidChars.includes(value)){
+            setErrorValidation('Bid Value is invalid!!');
             return;
         }
+        const count = parseInt(value, 10);
         if(count <= BidHistory){
             setErrorValidation(`Bid Value must be greater than $${BidHistory}`);
             return;
@@ -243,9 +250,15 @@ const ProductDetail = (props) => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <h6><strong>Your bid:</strong></h6>
-                        <input onClick={onCart} style={{float:"right"}} className="ml-2"  type="submit" value="Place Bid" disabled={!expTime}/>
-                        <input style={{ width: "290px" }} id={itemID} name="input-field" className="form-control mt-3" type="number" value={value}
-                        placeholder="Your Bid"  onChange={handleChange} />
+                        <input onClick={onCart} style={{float:"right"}} className="ml-2" type="submit" value="Place Bid" disabled={!expTime}/>
+                        <input style={{ width: "290px" }} 
+                                    maxlength="10"
+                                    id={itemID} name="input-field" 
+                                    className="form-control mt-3" 
+                                    type="number" 
+                                    value={value}
+                                    placeholder="Your Bid"  
+                                    onChange={handleChange} />
                         {errorValidation.length > 0 ? (<div style={{color: 'red'}}>{errorValidation}</div>):(<div></div>)}
                     </div>
                 </form>
