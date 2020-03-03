@@ -128,9 +128,11 @@ const ProductDetail = (props) => {
             "+",
             "e",
           ];
-
-        if(value.split('').includes(invalidChars)){
-            console.log("qwewf",value.split(''));
+        
+          console.log("qwewf",value.split(''));
+        if(value.split('').includes("e-+")){
+            console.log("passed");
+            return;
         }
         
         if(value.trim() === ""){
