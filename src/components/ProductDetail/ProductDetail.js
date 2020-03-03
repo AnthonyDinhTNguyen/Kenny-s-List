@@ -17,7 +17,7 @@ const ProductDetail = (props) => {
         itemID, name, description,marketPrice
     } = props.product;
 
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState(null);
     const [username, setUsername] = useState('');
     const [expTime, setExpTime] = useState(1000);
@@ -128,11 +128,16 @@ const ProductDetail = (props) => {
             "+",
             "e",
           ];
-          console.log(value.key);
-        if(value === "" || invalidChars.includes(value.key)){
-            setErrorValidation('Bid Value is invalid!!');
+
+        if(value.split('').includes(invalidChars)){
+            console.log("qwewf",value.split(''));
+        }
+        
+        if(value.trim() === ""){
+            setErrorValidation('Bid Value cannot be NULL');
             return;
         }
+
         const count = parseInt(value, 10);
         if(count <= BidHistory){
             setErrorValidation(`Bid Value must be greater than $${BidHistory}`);
@@ -253,8 +258,7 @@ const ProductDetail = (props) => {
                         <input onClick={onCart} style={{float:"right"}} className="ml-2" type="submit" value="Place Bid" disabled={!expTime}/>
                         <input style={{ width: "290px" }} 
                                     maxlength="10"
-                                    id={itemID} 
-                                    name="input-field" 
+                                    id={itemID} name="input-field" 
                                     className="form-control mt-3" 
                                     type="number" 
                                     value={value}
