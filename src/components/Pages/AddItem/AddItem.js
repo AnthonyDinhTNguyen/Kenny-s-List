@@ -57,6 +57,7 @@ export default class AddItem extends React.Component {
     }
 
     async handleSubmit(event) {
+        this.refs.btn.setAttribute("disabled", "disabled");
         event.preventDefault();
         const file = this.state.file;
         const title = this.state.value;
@@ -167,7 +168,7 @@ export default class AddItem extends React.Component {
                 <form onSubmit = {this.handleSubmit}>
                     <div className = "row">
                         <div className = "col-25">
-                            <label for="fileName">Image:</label>
+                            <label htmlFor="fileName">Image:</label>
                         </div>
                         <div className = "col-75">
                             <input id = "fileName" type="file" accept='image/png' onChange={this.handleFile}/>
@@ -175,7 +176,7 @@ export default class AddItem extends React.Component {
                     </div>
                     <div className = "row">
                         <div className = "col-25">
-                            <label for="title">Title:</label>
+                            <label htmlFor="title">Title:</label>
                         </div>
                         <div className = "col-75">
                             <input id ="title" type="text" value = {this.state.value} onChange={this.handleName} />
@@ -183,7 +184,7 @@ export default class AddItem extends React.Component {
                     </div>
                     <div className = "row">
                         <div className = "col-25">
-                            <label for="startingBid">Starting Bid</label>
+                            <label htmlFor="startingBid">Starting Bid</label>
                         </div>
                         <div className = "col-75">
                             <input type="number" step = "0.01" min = "0"  id="startingBid" value = {this.state.startingBid} onChange = {this.handleStartingBid}/>
@@ -191,7 +192,7 @@ export default class AddItem extends React.Component {
                     </div>
                     <div className = "row">
                         <div className = "col-25">
-                            <label for="marketPrice">Market Price</label>
+                            <label htmlFor="marketPrice">Market Price</label>
                         </div>
                         <div className = "col-75">
                             <input type="number" step = "0.01" min = "0"  id="marketPrice" value = {this.state.marketPrice} onChange = {this.handleMarketPrice}/>
@@ -199,7 +200,7 @@ export default class AddItem extends React.Component {
                     </div>
                     <div className = "row">
                         <div className = "col-25">
-                            <label for="desc">Description of Item:</label>
+                            <label htmlFor="desc">Description of Item:</label>
                         </div>
                         <div className = "col-75">
                             <textarea id="desc" type="text" value = {this.state.desc} onChange={this.handleDesc} />
@@ -207,7 +208,7 @@ export default class AddItem extends React.Component {
                     </div>
                     <div className = "row">
                         <div className = "col-25">
-                            <label for ="category">Category:</label>
+                            <label htmlFor ="category">Category:</label>
                         </div>
                         <div className = "col-75">
                             <select id="category" value = {this.state.category} onChange={this.handleCategory}>
@@ -220,7 +221,7 @@ export default class AddItem extends React.Component {
                     </div>
                     <div className = "row">
                         <div className = "col-25">
-                            <label for = "condition">Condition:</label>
+                            <label htmlFor = "condition">Condition:</label>
                         </div>
                         <div className = "col-75">
                             <select id="condition" onChange={this.handleCondition}>
@@ -230,7 +231,7 @@ export default class AddItem extends React.Component {
                         </div>
                     </div>
                     <div className ="row">
-                        {this.state.accountCreated ? <input type="submit" value = "Submit" /> : <button onClick={this.stripeAccount}>Create Stripe Account</button>}
+                        {this.state.accountCreated ? <input ref ="sub" type="submit" value = "Submit" /> : <button onClick={this.stripeAccount}>Create Stripe Account</button>}
                     </div>
                 </form>
 
