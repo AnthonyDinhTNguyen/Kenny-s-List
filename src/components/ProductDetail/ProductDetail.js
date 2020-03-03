@@ -17,7 +17,7 @@ const ProductDetail = (props) => {
         itemID, name, description,marketPrice
     } = props.product;
 
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState(null);
     const [username, setUsername] = useState('');
     const [expTime, setExpTime] = useState(1000);
