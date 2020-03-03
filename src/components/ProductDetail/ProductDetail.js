@@ -19,7 +19,7 @@ const ProductDetail = (props) => {
 
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState(null);
-    const [username, setUsername] = useState('');
+    const [currentUser, setUsername] = useState('');
     const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
 
@@ -123,20 +123,9 @@ const ProductDetail = (props) => {
         event.preventDefault();
         clearState();
 
-        var invalidChars = [
-            "-",
-            "+",
-            "e",
-          ];
-        
-          console.log("qwewf",value.split(''));
-        if(value.split('').includes('e')||value.split('').includes('-')|| value.split('').includes('+')){
-            console.log("passed");
-            return;
-        }
-        
-        if(value.trim() === ""){
-            setErrorValidation('Bid Value cannot be NULL');
+     
+        if(value.trim() === "" || value.split('').includes('e')||value.split('').includes('-')|| value.split('').includes('+')){
+            setErrorValidation('Bid Value is invalid');
             return;
         }
 
@@ -149,14 +138,15 @@ const ProductDetail = (props) => {
         setBidHistory(value);
         setErrorValidation('');
 
-        console.log("username submitted bid", username);
+        console.log("username submitted bid", currentUser);
 
         await API.graphql(graphqlOperation(updateLatestUserBidTable,
             {input:{
                 lubtProductID: itemID,
-                    Username: username,
+                    Username: currentUser,
                     BidAmt: value
                 }}));
+
         let bidding_users = [];
         await API.graphql(graphqlOperation(listUserBidsTables, {filter:{ProductID: {eq:itemID}}})).then((evt) => {
             evt.data.listUserBidsTables.items.forEach(tuple => {
@@ -166,15 +156,16 @@ const ProductDetail = (props) => {
 
         // let count_usersBidding = 0;
         // for(let i = 0; i < bidding_users.length; i++){
-        //     if(username === bidding_users[i]){
+        //     if(currentUser === bidding_users[i]){
         //         count_usersBidding +=1;
         //     }
         // }
-        if(bidding_users.includes(username)){
+        console.log(bidding_users);
+        if(bidding_users.includes(currentUser)){
             await API.graphql(graphqlOperation(updateUserBidsTable,
                 {input:{
                         ProductID : itemID,
-                        Username: username,
+                        Username: currentUser,
                         BidAmt : value,
                         Status: "Bidding"
                     }}));
@@ -183,7 +174,7 @@ const ProductDetail = (props) => {
             await API.graphql(graphqlOperation(createUserBidsTable,
                 {input:{
                         ProductID: itemID,
-                        Username: username,
+                        Username: currentUser,
                         BidAmt : value,
                         Status: "Bidding"
                     }}))
@@ -204,13 +195,13 @@ const ProductDetail = (props) => {
             fetchData();
         }, []);
 
-        if(username === winner){
+        if(currentUser === winner){
             console.log("won");
                 API.graphql(graphqlOperation(updateUserBidsTable,
                     {
                         input: {
                             ProductID: itemID,
-                            Username: username,
+                            Username: currentUser,
                             Status: "Won"
                         }
                     }))
@@ -221,7 +212,7 @@ const ProductDetail = (props) => {
                 {
                     input: {
                         ProductID: itemID,
-                        Username: username,
+                        Username: currentUser,
                         Status: "Lost"
                     }
                 }))
@@ -230,7 +221,7 @@ const ProductDetail = (props) => {
 
     const onCart = async () => {
         props.dispatch(addProductToCart(props.product));
-        props.dispatch(updateUsername(username));
+        props.dispatch(updateUsername(currentUser));
     };
 
     return (
