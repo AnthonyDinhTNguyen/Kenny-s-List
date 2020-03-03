@@ -57,8 +57,8 @@ export default class AddItem extends React.Component {
     }
 
     async handleSubmit(event) {
-        event.preventDefault();
         this.refs.sub.setAttribute("disabled", "disabled");
+        event.preventDefault();
         const file = this.state.file;
         const title = this.state.value;
         const desc = this.state.desc;
