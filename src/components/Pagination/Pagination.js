@@ -17,6 +17,28 @@ class Pagination extends Component {
         this.props.onNextPage();
     }
 
+    totalPages() {
+        return Math.ceil(this.props.totalItemsCount / this.props.perPage) || 0;
+    }
+
+    getMin(){
+        return ((this.props.perPage * this.props.currentPage) - this.props.perPage) + 1;
+    }
+
+    getMax() {
+        let max = this.props.perPage * this.props.currentPage;
+        if (max > this.props.totalItemsCount) {
+            max = this.props.totalItemsCount;
+        }
+        return max;
+    }
+    onPrev = () => {
+        this.props.onPrevPage();
+    }
+
+    onNext = () =>  {
+        this.props.onNextPage();
+    }
 
     getPages = () => {
         const c = Math.ceil(this.props.totalItemsCount / this.props.perPage);
