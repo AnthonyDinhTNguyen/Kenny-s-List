@@ -130,7 +130,7 @@ const ProductDetail = (props) => {
           ];
         
           console.log("qwewf",value.split(''));
-        if(value.split('').includes("e-+")){
+        if(value.split('').includes('e')||value.split('').includes('-')|| value.split('').includes('+')){
             console.log("passed");
             return;
         }
@@ -259,7 +259,7 @@ const ProductDetail = (props) => {
                         <h6><strong>Your bid:</strong></h6>
                         <input onClick={onCart} style={{float:"right"}} className="ml-2" type="submit" value="Place Bid" disabled={!expTime}/>
                         <input style={{ width: "290px" }} 
-                                    maxLength={10}
+                                    max={99999999999}
                                     id={itemID} name="input-field" 
                                     className="form-control mt-3" 
                                     type="number" 
