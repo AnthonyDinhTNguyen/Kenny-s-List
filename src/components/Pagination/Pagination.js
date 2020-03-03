@@ -3,18 +3,14 @@ import {connect} from "react-redux";
 import {goPage, nextPage, prevPage} from "../../actions";
 
 class Pagination extends Component {
+
+
     onPage(n){
         this.props.onGoPage(n);
     }
+
     isOnLastPage(){
         return this.props.perPage * this.props.currentPage >= this.props.totalItemsCount;
-    }
-    onPrev = () => {
-        this.props.onPrevPage();
-    }
-
-    onNext = () =>  {
-        this.props.onNextPage();
     }
 
     totalPages() {
@@ -32,6 +28,7 @@ class Pagination extends Component {
         }
         return max;
     }
+
     onPrev = () => {
         this.props.onPrevPage();
     }
@@ -68,7 +65,7 @@ class Pagination extends Component {
 
     render() {
 
-        console.log(this.props);
+        //console.log(this.props);
 
         const pages =this.getPages().map(pageNum => {
 
@@ -128,4 +125,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps) (Pagination);
+export default Pagination;
