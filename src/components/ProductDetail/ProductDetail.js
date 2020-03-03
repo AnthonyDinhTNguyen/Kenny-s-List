@@ -128,8 +128,8 @@ const ProductDetail = (props) => {
             "+",
             "e",
           ];
-        
-        if(value === "" || invalidChars.includes(value)){
+          console.log(value.key);
+        if(value === "" || invalidChars.includes(value.key)){
             setErrorValidation('Bid Value is invalid!!');
             return;
         }
@@ -157,13 +157,13 @@ const ProductDetail = (props) => {
             });
         });
 
-        let count_usersBidding = 0;
-        for(let i = 0; i < bidding_users.length; i++){
-            if(username === bidding_users[i]){
-                count_usersBidding +=1;
-            }
-        }
-        if(count_usersBidding > 0){
+        // let count_usersBidding = 0;
+        // for(let i = 0; i < bidding_users.length; i++){
+        //     if(username === bidding_users[i]){
+        //         count_usersBidding +=1;
+        //     }
+        // }
+        if(bidding_users.includes(username)){
             await API.graphql(graphqlOperation(updateUserBidsTable,
                 {input:{
                         ProductID : itemID,
@@ -253,7 +253,8 @@ const ProductDetail = (props) => {
                         <input onClick={onCart} style={{float:"right"}} className="ml-2" type="submit" value="Place Bid" disabled={!expTime}/>
                         <input style={{ width: "290px" }} 
                                     maxlength="10"
-                                    id={itemID} name="input-field" 
+                                    id={itemID} 
+                                    name="input-field" 
                                     className="form-control mt-3" 
                                     type="number" 
                                     value={value}
