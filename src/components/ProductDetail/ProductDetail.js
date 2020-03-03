@@ -257,7 +257,7 @@ const ProductDetail = (props) => {
                         <h6><strong>Your bid:</strong></h6>
                         <input onClick={onCart} style={{float:"right"}} className="ml-2" type="submit" value="Place Bid" disabled={!expTime}/>
                         <input style={{ width: "290px" }} 
-                                    maxlength="10"
+                                    maxLength="10"
                                     id={itemID} name="input-field" 
                                     className="form-control mt-3" 
                                     type="number" 
