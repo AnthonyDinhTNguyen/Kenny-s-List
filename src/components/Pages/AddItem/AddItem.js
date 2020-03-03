@@ -13,7 +13,7 @@ export default class AddItem extends React.Component {
         super(props)
         this.state = {value: '', file:'',desc: '',category: 'Other',cond:'New',startingBid:0,marketPrice:0, accountCreated: false};
         this.handleName = this.handleName.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSub = this.handleSub.bind(this);
         this.handleFile = this.handleFile.bind(this);
         this.handleDesc = this.handleDesc.bind(this);
         this.handleCategory = this.handleCategory.bind(this);
@@ -56,9 +56,9 @@ export default class AddItem extends React.Component {
         }
     }
 
-    async handleSubmit(event) {
-        this.refs.sub.setAttribute("disabled", "disabled");
+    async handleSub(event) {
         event.preventDefault();
+        this.refs.sub.setAttribute("disabled", "disabled");
         const file = this.state.file;
         const title = this.state.value;
         const desc = this.state.desc;
@@ -232,7 +232,7 @@ export default class AddItem extends React.Component {
                         </div>
                     </div>
                     <div className ="row">
-                        {this.state.accountCreated ? <input ref ="sub" type="submit" value = "Submit" /> : <button onClick={this.stripeAccount}>Create Stripe Account</button>}
+                        {this.state.accountCreated ? <button onClick = {this.handleSub} ref ="sub" >Submit</button> : <button onClick={this.stripeAccount}>Create Stripe Account</button>}
                     </div>
                 </form>
 
