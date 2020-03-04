@@ -153,7 +153,7 @@ export default class AddItem extends React.Component {
         console.log("about to log testvar");
         console.log(process.env.TEST_VAR);
         console.log("about to log test2");
-        console.log(process.env.TEST_2);
+        console.log(process.env.TEST_1);
         console.log("about to log process");
         console.log(process.env);
         let user = (await Auth.currentAuthenticatedUser()).username;

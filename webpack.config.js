@@ -39,6 +39,7 @@ module.exports = {
         hot: true
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.EnvironmentPlugin(['TEST_1'])
     ]
 };
