@@ -164,7 +164,7 @@ export default class AddItem extends React.Component {
         fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
         .then(respose => respose.json())
         // times => this.setState({time: times.datetime})
-        .then(times => console.log("APT time",times.datatime))
+        .then(times => console.log("APT time",times))
         .catch(error => console.log('Error:', error));
     }
 
