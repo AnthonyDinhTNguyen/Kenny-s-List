@@ -62,8 +62,8 @@ const ProductDetail = (props) => {
     useEffect(() => {
 
         // Fetch the item data from the server and set the expiration time accordingly.
-        if (expTime <= 0)
-            return;
+        // if (expTime <= 0)
+        //     return;
 
         console.log("Get item table is " + getItemTable);
 
@@ -91,9 +91,9 @@ const ProductDetail = (props) => {
     }, []);
 
     useEffect(() => {
-        if (expTime <= 0){
-            return;
-        };
+        // if (expTime <= 0){
+        //     return;
+        // };
    
 
         const interval = setInterval(() => {
@@ -177,12 +177,11 @@ const ProductDetail = (props) => {
                     }}))
         }
     };
-    console.log("wefwefwef",currentUser);
 
+    if(expTime<=0){
     useEffect(() => {
         const getWinner = async () => {
-            if(!expTime){
-
+        
                 await API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
                     setWinner(e.data.getLatestUserBidTable.Username);
                 }).catch(e => {console.log("Failed to retrieve data");})
@@ -229,9 +228,10 @@ const ProductDetail = (props) => {
                  }else{console.log("No Bid");} 
             
             };
-        };
-        getWinner();
-    }, []);
+      
+            getWinner();
+        }, []);
+    };
 
     const onCart = () => {
         props.dispatch(addProductToCart(props.product));
