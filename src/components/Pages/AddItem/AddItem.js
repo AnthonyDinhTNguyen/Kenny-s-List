@@ -146,6 +146,10 @@ export default class AddItem extends React.Component {
     }
 
     async componentDidMount() {
+        var env = process.env;
+        Object.keys(env).forEach(function(key) {
+        console.log('export ' + key + '="' + env[key] +'"');
+        });
         console.log("about to log testvar");
         console.log(process.env.TEST_VAR);
         console.log("about to log test2");
