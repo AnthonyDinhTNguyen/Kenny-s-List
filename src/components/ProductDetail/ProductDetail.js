@@ -92,13 +92,37 @@ const ProductDetail = (props) => {
     }, []);
 
     useEffect(() => {
-        if (expTime <= 0) return;
+        if (expTime <= 0){
+            const getWinner = async () => {
+                // await API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
+                //     setWinner(e.data.getLatestUserBidTable.Username);
+                // });
+    
+                await API.graphql(graphqlOperation(listUserBidsTables,{limit: 600, filter:{ProductID:{eq:itemID}}})).then((evt) => {
+                    console.log("wiefwf",evt.data.listUserBidsTables);
+    
+                    let bid_users = [];
+    
+                    evt.data.listUserBidsTables.items.forEach(key => {
+                        bid_users.push(key.Username);
+                    });
+    
+                    console.log(bid_users);
+                    console.log(bid_users.length);
+                });
+              
+            };
+            getWinner();
+            return;
+        };
+   
 
         const interval = setInterval(() => {
             setExpTime(expTime - 1);
         }, 1000);
 
         return () => clearInterval(interval);
+        
     }, [expTime]);
 
 
@@ -176,32 +200,14 @@ const ProductDetail = (props) => {
         }
     };
 
-    useEffect(() => {
+    // useEffect(() => {
         
-            if(expTime<=0){
-            const getWinner = async () => {
-                // await API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
-                //     setWinner(e.data.getLatestUserBidTable.Username);
-                // });
-    
-                await API.graphql(graphqlOperation(listUserBidsTables,{limit: 600, filter:{ProductID:{eq:itemID}}})).then((evt) => {
-                    console.log("wiefwf",evt.data.listUserBidsTables);
-    
-                    let bid_users = [];
-    
-                    evt.data.listUserBidsTables.items.forEach(key => {
-                        bid_users.push(key.Username);
-                    });
-    
-                    console.log(bid_users);
-                    console.log(bid_users.length);
-                });
-              
-            };
-            getWinner();
-        };
+    //         if(expTime<=0){
+            
+    //         getWinner();
+    //     };
         
-    }, []);
+    // }, []);
 
 
     const onCart = () => {
