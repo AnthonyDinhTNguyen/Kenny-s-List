@@ -61,9 +61,9 @@ const ProductDetail = (props) => {
 
     useEffect(() => {
 
-        // Fetch the item data from the server and set the expiration time accordingly.
-        // if (expTime <= 0)
-        //     return;
+        //Fetch the item data from the server and set the expiration time accordingly.
+        if (expTime <= 0)
+            return;
 
         console.log("Get item table is " + getItemTable);
 
@@ -91,9 +91,9 @@ const ProductDetail = (props) => {
     }, []);
 
     useEffect(() => {
-        // if (expTime <= 0){
-        //     return;
-        // };
+        if (expTime <= 0){
+            return;
+        };
    
 
         const interval = setInterval(() => {
