@@ -20,7 +20,7 @@ const ProductDetail = (props) => {
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState(null);
     const [currentUser, setUsername] = useState('');
-    const [expTime, setExpTime] = useState(1000);
+    const [expTime, setExpTime] = useState(0);
     const [errorValidation, setErrorValidation] = useState('');
     const [winner,setWinner] = useState('');
 
@@ -198,6 +198,7 @@ const ProductDetail = (props) => {
 
                 if(bid_users.includes(currentUser)){
                     if(currentUser === winner){
+                        console.log(currentUser," Won");
                         await API.graphql(graphqlOperation(updateUserBidsTable,
                         {
                             input: {
