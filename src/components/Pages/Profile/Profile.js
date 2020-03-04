@@ -85,7 +85,7 @@ export default class Profile extends React.Component {
                     <div style={{borderBottom: '2px solid black'}}>
                         <h5>Selling</h5>
                     </div>
-                    {this.state.selling.map(item => <div key={item} style={{paddingTop: 15, paddingBottom: 15, borderBottom: '1px solid black'}}>
+                    {this.state.selling.map((item,index) => <div key={index} style={{paddingTop: 15, paddingBottom: 15, borderBottom: '1px solid black'}}>
                         <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
                             <img style={{marginRight: 15}} height="80" src={item.images[0]}></img>
                         </div>
