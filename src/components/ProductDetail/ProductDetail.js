@@ -72,7 +72,7 @@ const ProductDetail = (props) => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
                 
-                const bidTime = 604800;// 604800 = seven days in seconds
+                const bidTime = 300;// 604800 = seven days in seconds
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
                 if (time > 0) {
                     setExpTime(time);

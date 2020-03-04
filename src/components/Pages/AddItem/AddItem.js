@@ -11,7 +11,7 @@ import {formatMoney} from "../../Pipes/priceFormatter";
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
-        this.state = {value: '', file:'',desc: '',category: 'Other',cond:'New',startingBid:0,marketPrice:0, accountCreated: false};
+        this.state = {value: '', file:'',desc: '',category: 'Other',cond:'New',startingBid:0,marketPrice:0, accountCreated: false, time:''};
         this.handleName = this.handleName.bind(this);
         this.handleSub = this.handleSub.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -71,6 +71,7 @@ export default class AddItem extends React.Component {
         const sellable =await this.checkSellable(user);
         console.log(sellable);
         const time = new Date().toISOString();
+        console.log("local time:", time);
         if(sellable ==false){
             alert('You can only sell 5 items at a time. Please Delete Some Items or wait');
             console.log('adding too many items');
@@ -95,11 +96,6 @@ export default class AddItem extends React.Component {
                 API.graphql(graphqlOperation(createItemTable,
                 {input: {itemID: itemIDStore, description: desc,itemOwner:user,
                     name: title, postTime: time, category: cate, startingBid: startBid, marketPrice: markPrice, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'}); this.refs.sub.removeAttribute("disabled");}).catch(err=>console.log(err)); this.refs.btn.removeAttribute("disabled");}).catch(e=>console.log(e));}
-
-            // API.graphql(graphqlOperation(createItemTable,
-            //     {input: {itemID: uID.toString(), description: desc,itemOwner:user,
-            //         name: title, postTime: time, category: cate, startingBid: startBid, marketPrice: markPrice, images: [r.substring(0,r.indexOf('?'))], condition: condi}})).then(e=>{alert('Successful Upload');this.setState({value: '',desc: '',category: 'Other'});}).catch(err=>console.log(err));}).catch(e=>console.log(e));}
-
 
                     ).catch(err => console.log(err));
 
@@ -158,6 +154,12 @@ export default class AddItem extends React.Component {
             console.log("Account already created!");
             this.setState({accountCreated: true});
         }
+
+        fetch('http://worldtimeapi.org/api/timezone/America/Los_Angeles')
+        .then(respose => res.json())
+        // times => this.setState({time: times.datetime})
+        .then(times => console.log("APT time",times.datatime))
+        .catch(error => console.log('Error:', error));
     }
 
   //images will be validated server side as well
