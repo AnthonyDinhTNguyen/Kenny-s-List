@@ -189,11 +189,9 @@ const ProductDetail = (props) => {
             });
         });
         console.log(bid_users);
-        if(!bid_users.includes(currentUser)){
-            console.log("No Bid");
-        }
 
-        else if(currentUser === winner){
+        if(bid_users.includes(currentUser)){
+            if(currentUser === winner){
                 API.graphql(graphqlOperation(updateUserBidsTable,
                     {
                         input: {
@@ -203,17 +201,20 @@ const ProductDetail = (props) => {
                         }
                     }))
             }
-        else{
-            console.log("Lost");
-            API.graphql(graphqlOperation(updateUserBidsTable,
-                {
-                    input: {
-                        ProductID: itemID,
-                        Username: currentUser,
-                        Status: "Lost"
-                    }
-                }))
-        }
+            else{
+                console.log("Lost");
+                API.graphql(graphqlOperation(updateUserBidsTable,
+                    {
+                        input: {
+                            ProductID: itemID,
+                            Username: currentUser,
+                            Status: "Lost"
+                        }
+                    }))
+            }
+        }else{console.log("No Bid");}
+
+        
     };
 
     const onCart = async () => {
