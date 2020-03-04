@@ -177,14 +177,14 @@ const ProductDetail = (props) => {
     };
 
     useEffect(() => {
-        const getWinner = async () => {
-            if(!expTime){
-                
-                await API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
-                    setWinner(e.data.getLatestUserBidTable.Username);
-                });
+        
+            if(expTime<=0){
+            const getWinner = async () => {
+                // await API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
+                //     setWinner(e.data.getLatestUserBidTable.Username);
+                // });
     
-                await API.graphql(graphqlOperation(listUserBidsTables,{limit: 500, filter:{ProductID:{eq:itemID}}})).then((evt) => {
+                await API.graphql(graphqlOperation(listUserBidsTables,{limit: 600, filter:{ProductID:{eq:itemID}}})).then((evt) => {
                     console.log("wiefwf",evt.data.listUserBidsTables);
     
                     let bid_users = [];
@@ -197,43 +197,10 @@ const ProductDetail = (props) => {
                     console.log(bid_users.length);
                 });
               
-                let count12 = 0;
-        
-                for(let i = 0; i < bid_users.length; i++){
-                    console.log(bid_users[i]);
-                    console.log(currentUser);
-                    if(currentUser === bid_users[i]){
-                        console.log("matched");
-                        count12+=1;
-                    }
-                }
-                if(count12 > 0){
-                    if(currentUser === winner){
-                        await API.graphql(graphqlOperation(updateUserBidsTable,
-                            {
-                                input: {
-                                    ProductID: itemID,
-                                    Username: currentUser,
-                                    Status: "Won"
-                                }
-                            }))
-                    }
-                    else{
-                        console.log("Lost");
-                        await API.graphql(graphqlOperation(updateUserBidsTable,
-                            {
-                                input: {
-                                    ProductID: itemID,
-                                    Username: currentUser,
-                                    Status: "Lost"
-                                }
-                            }))
-                    }
-                }else{console.log("No Bid");}
-         
             };
+            getWinner();
         };
-        getWinner();
+        
     }, []);
 
 
@@ -266,7 +233,7 @@ const ProductDetail = (props) => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <h6><strong>Your bid:</strong></h6>
-                        <input onClick={onCart} style={{float:"right"}} className="ml-1" type="submit" value="Place Bid" disabled={!expTime}/>
+                        <input onClick={onCart} style={{float:"right"}} className="ml-1" type="submit" value="Place Bid" disabled={expTime<=0}/>
                         <input style={{ width: "290px" }} 
                                     max={99999999999}
                                     id={itemID} name="input-field" 
