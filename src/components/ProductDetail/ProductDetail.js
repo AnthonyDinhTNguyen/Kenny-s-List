@@ -20,7 +20,7 @@ const ProductDetail = (props) => {
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState(null);
     const [currentUser, setCurrentUsername] = useState('');
-    const [expTime, setExpTime] = useState(0);
+    const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
     const [winner,setWinner] = useState('');
 
