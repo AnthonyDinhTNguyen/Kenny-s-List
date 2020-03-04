@@ -148,7 +148,7 @@ const ProductDetail = (props) => {
 
         let bidding_users = [];
         //{filter:{ProductID:{eq:itemID}}}
-        await API.graphql(graphqlOperation(listUserBidsTables,{limit: 100})).then((evt) => {
+        await API.graphql(graphqlOperation(listUserBidsTables,{limit: 500, filter:{ProductID:{eq:ItemID}}})).then((evt) => {
             console.log("sd",evt.data.listUserBidsTables);
             // evt.data.listUserBidsTables.items.forEach(tuple => {
             //     bidding_users.push(tuple.Username);
