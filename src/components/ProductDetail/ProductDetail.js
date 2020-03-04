@@ -125,7 +125,7 @@ const ProductDetail = (props) => {
         
     }, [expTime]);
 
-
+//
     const clearState = () => {
         setValue('');
     };
