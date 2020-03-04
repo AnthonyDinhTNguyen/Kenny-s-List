@@ -190,9 +190,10 @@ const ProductDetail = (props) => {
         });
         console.log(bid_users);
         let count12 = 0;
+
         for(let i = 0; i < bid_users.length; i++){
-            console.log(bid_users[i],currentUser);
-            
+            console.log(bid_users[i]);
+            console.log(currentUser);
             if(currentUser === bid_users[i]){
                 console.log("matched");
                 count12+=1;
