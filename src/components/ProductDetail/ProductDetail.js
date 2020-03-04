@@ -19,8 +19,8 @@ const ProductDetail = (props) => {
 
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState(null);
-    const [currentUser, setUsername] = useState('');
-    const [expTime, setExpTime] = useState(0);
+    const [currentUser, setCurrentUsername] = useState('');
+    const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
     const [winner,setWinner] = useState('');
 
@@ -50,9 +50,8 @@ const ProductDetail = (props) => {
             Auth.currentAuthenticatedUser({
                 bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
             }).then(user => {
-                setUsername(user.username);
+                setCurrentUsername(user.username);
                 console.log(`Load additional settings for user: ${user.username}`);
-                // TBD
             })
         }
         catch (e) {
@@ -158,7 +157,6 @@ const ProductDetail = (props) => {
             });
         });
 
-        console.log(bidding_users, bidding_users.length);
 
         if(bidding_users.includes(currentUser)){
             await API.graphql(graphqlOperation(updateUserBidsTable,
@@ -179,7 +177,7 @@ const ProductDetail = (props) => {
                     }}))
         }
     };
-
+    console.log("wefwefwef",currentUser);
 
     useEffect(() => {
         const getWinner = async () => {
@@ -195,11 +193,10 @@ const ProductDetail = (props) => {
                         bid_users.push(key.Username);
                     });
                 });
-            
+                console.log("wef",currentUser);
+                console.log("qwe",winner);
                 let count12 = 0;
                 for(let i = 0; i < bid_users.length; i++){
-                    console.log(bid_users[i]);
-                    console.log(currentUser);
                     if(currentUser === bid_users[i]){
                         count12+=1;
                     }
