@@ -185,7 +185,7 @@ const ProductDetail = (props) => {
                 setWinner(e.data.getLatestUserBidTable.Username);
             }).catch(e => {console.log("Failed to retrieve data");})
     
-            let bid_users = {};
+            let bid_users = [];
             await API.graphql(graphqlOperation(listUserBidsTables,{limit: 500, filter:{ProductID:{eq:itemID}}})).then((evt) => {
                 evt.data.listUserBidsTables.items.forEach(tuple => {
                     bid_users.push(tuple.Username);
@@ -233,7 +233,7 @@ const ProductDetail = (props) => {
     }
 
     getWinner();
-    
+
     const onCart = () => {
         props.dispatch(addProductToCart(props.product));
         props.dispatch(updateUsername(currentUser));
