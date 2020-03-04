@@ -146,6 +146,7 @@ export default class AddItem extends React.Component {
     }
 
     async componentDidMount() {
+        console.log(process.env);
         let user = (await Auth.currentAuthenticatedUser()).username;
         let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
         console.log("Hey!");
