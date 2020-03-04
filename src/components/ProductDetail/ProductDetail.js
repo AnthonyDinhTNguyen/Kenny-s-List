@@ -178,10 +178,11 @@ const ProductDetail = (props) => {
         }
     };
 
-    if(expTime<=0){
+    
     useEffect(() => {
-        const getWinner = async () => {
         
+        const getWinner = async () => {
+            if(expTime<=0){
                 await API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
                     setWinner(e.data.getLatestUserBidTable.Username);
                 }).catch(e => {console.log("Failed to retrieve data");})
@@ -228,10 +229,11 @@ const ProductDetail = (props) => {
                  }else{console.log("No Bid");} 
             
             };
-      
+        };
             getWinner();
+        
         }, []);
-    };
+ 
 
     const onCart = () => {
         props.dispatch(addProductToCart(props.product));
