@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {formatMoney} from "../Pipes/priceFormatter";
-import {getItemTable, getLatestUserBidTable, listUserBidsTables} from '../../graphql/queries';
+import {getItemTable, getLatestUserBidTable, listUserBidsTables, listItemTables} from '../../graphql/queries';
 import {
     createUserBidsTable,
     updateLatestUserBidTable,
@@ -148,11 +148,11 @@ const ProductDetail = (props) => {
 
         let bidding_users = [];
         //{filter:{ProductID:{eq:itemID}}}
-        await API.graphql(graphqlOperation(listUserBidsTables )).then((evt) => {
-            console.log("sd",evt.data.listUserBidsTables);
-            evt.data.listUserBidsTables.items.forEach(tuple => {
-                bidding_users.push(tuple.Username);
-            });
+        await API.graphql(graphqlOperation(listItemTables )).then((evt) => {
+            console.log("sd",evt.data.listItemTables);
+            // evt.data.listUserBidsTables.items.forEach(tuple => {
+            //     bidding_users.push(tuple.Username);
+            // });
         });
 
         let count_usersBidding = 0;
