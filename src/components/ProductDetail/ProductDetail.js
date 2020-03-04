@@ -154,6 +154,8 @@ const ProductDetail = (props) => {
             });
         });
 
+        console.log(bidding_users, bidding_users.length);
+
         if(bidding_users.includes(currentUser)){
             await API.graphql(graphqlOperation(updateUserBidsTable,
                 {input:{
