@@ -22,6 +22,7 @@ const ProductDetail = (props) => {
     const [currentUser, setUsername] = useState('');
     const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
+    const [winner,setWinner] = useState('');
 
     const expTimeFormatted = () => {
         var time = expTime
@@ -178,7 +179,7 @@ const ProductDetail = (props) => {
 
     if(!expTime){
         console.log("This product cannot be bid anymore!!!");
-        const [winner,setWinner] = useState('');
+        
         API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
             setWinner(e.data.getLatestUserBidTable.Username);
         }).catch(e => {console.log("Failed to retrieve data");})
