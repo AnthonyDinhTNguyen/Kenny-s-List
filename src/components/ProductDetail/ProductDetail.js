@@ -176,67 +176,68 @@ const ProductDetail = (props) => {
         }
     };
 
-    async function getWinner() {
-        if(!expTime){
-            console.log("This product cannot be bid anymore!!!");
-            
-            await API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
-                setWinner(e.data.getLatestUserBidTable.Username);
-            }).catch(e => {console.log("Failed to retrieve data");})
-    
-            let bid_users = [];
-            await API.graphql(graphqlOperation(listUserBidsTables,{limit: 500, filter:{ProductID:{eq:itemID}}})).then((evt) => {
-                console.log(evt.data.listUserBidsTables.items);
+    useEffect(() => {
+        const getWinner = async () => {
+            if(!expTime){
+                console.log("This product cannot be bid anymore!!!");
                 
-                let bid_users = [];
+                await API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
+                    setWinner(e.data.getLatestUserBidTable.Username);
+                }).catch(e => {console.log("Failed to retrieve data");})
 
-                evt.data.listUserBidsTables.items.forEach(key => {
-                    bid_users.push(key.Username);
-                });
-
-                console.log(bid_users);
-                console.log(bid_users.length);
-            });
-          
-            let count12 = 0;
     
-            for(let i = 0; i < bid_users.length; i++){
-                console.log(bid_users[i]);
-                console.log(currentUser);
-                if(currentUser === bid_users[i]){
-                    console.log("matched");
-                    count12+=1;
+                await API.graphql(graphqlOperation(listUserBidsTables,{limit: 500, filter:{ProductID:{eq:itemID}}})).then((evt) => {
+                    console.log(evt.data.listUserBidsTables.items);
+    
+                    let bid_users = [];
+    
+                    evt.data.listUserBidsTables.items.forEach(key => {
+                        bid_users.push(key.Username);
+                    });
+    
+                    console.log(bid_users);
+                    console.log(bid_users.length);
+                });
+              
+                let count12 = 0;
+        
+                for(let i = 0; i < bid_users.length; i++){
+                    console.log(bid_users[i]);
+                    console.log(currentUser);
+                    if(currentUser === bid_users[i]){
+                        console.log("matched");
+                        count12+=1;
+                    }
                 }
-            }
-            if(count12 > 0){
-                if(currentUser === winner){
-                    await API.graphql(graphqlOperation(updateUserBidsTable,
-                        {
-                            input: {
-                                ProductID: itemID,
-                                Username: currentUser,
-                                Status: "Won"
-                            }
-                        }))
-                }
-                else{
-                    console.log("Lost");
-                    await API.graphql(graphqlOperation(updateUserBidsTable,
-                        {
-                            input: {
-                                ProductID: itemID,
-                                Username: currentUser,
-                                Status: "Lost"
-                            }
-                        }))
-                }
-            }else{console.log("No Bid");}
-     
+                if(count12 > 0){
+                    if(currentUser === winner){
+                        await API.graphql(graphqlOperation(updateUserBidsTable,
+                            {
+                                input: {
+                                    ProductID: itemID,
+                                    Username: currentUser,
+                                    Status: "Won"
+                                }
+                            }))
+                    }
+                    else{
+                        console.log("Lost");
+                        await API.graphql(graphqlOperation(updateUserBidsTable,
+                            {
+                                input: {
+                                    ProductID: itemID,
+                                    Username: currentUser,
+                                    Status: "Lost"
+                                }
+                            }))
+                    }
+                }else{console.log("No Bid");}
+         
+            };
         };
+        getWinner();
+    }, []);
 
-    }
-
-    getWinner();
 
     const onCart = () => {
         props.dispatch(addProductToCart(props.product));
