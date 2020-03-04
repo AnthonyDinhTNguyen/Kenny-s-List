@@ -71,9 +71,8 @@ const ProductDetail = (props) => {
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
-                // 604800 = seven days in seconds
-                // const bidTime = 604800 ;
-                const bidTime = 604800;
+                
+                const bidTime = 604800;// 604800 = seven days in seconds
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
                 if (time > 0) {
                     setExpTime(time);
@@ -148,7 +147,7 @@ const ProductDetail = (props) => {
                 }}));
 
         let bidding_users = [];
-        await API.graphql(graphqlOperation(listUserBidsTables, {filter:{ProductID: {eq:itemID}}})).then((evt) => {
+        await API.graphql(graphqlOperation(listUserBidsTables, {filter:{ProductID:{eq:itemID}}})).then((evt) => {
             console.log("sd",evt.data.listUserBidsTables);
             evt.data.listUserBidsTables.items.forEach(tuple => {
                 bidding_users.push(tuple.Username);
