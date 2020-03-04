@@ -20,7 +20,7 @@ const ProductDetail = (props) => {
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState(null);
     const [currentUser, setUsername] = useState('');
-    const [expTime, setExpTime] = useState(1000);
+    const [expTime, setExpTime] = useState(0);
     const [errorValidation, setErrorValidation] = useState('');
     const [winner,setWinner] = useState('');
 
@@ -174,7 +174,7 @@ const ProductDetail = (props) => {
         }
     };
 
-    console.log(expTime);
+    
     if(!expTime){
         console.log("This product cannot be bid anymore!!!");
         
