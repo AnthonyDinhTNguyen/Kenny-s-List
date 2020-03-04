@@ -199,16 +199,16 @@ const ProductDetail = (props) => {
             console.log(bid_users.length);
             console.log("wef",curUser);
             console.log("qwe",winnerr);
-            let count12 = 0;
-            for(let i = 0; i < bid_users.length; i++){
-                if(curUser == bid_users[i]){
-                    count12+=1;
-                }
-            }
+            // let count12 = 0;
+            // for(let i = 0; i < bid_users.length; i++){
+            //     if(curUser == bid_users[i]){
+            //         count12+=1;
+            //     }
+            // }
 
-            if(count12 > 0){
+            if(bid_users.includes(curUser)){
                 if(currentUser == winnerr){
-                    console.log(curUser," Won");
+                    console.log(curUser, " Won");
                     await API.graphql(graphqlOperation(updateUserBidsTable,
                     {
                         input: {
