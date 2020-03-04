@@ -20,7 +20,7 @@ const ProductDetail = (props) => {
     const [value, setValue] = useState('');
     const [BidHistory, setBidHistory] = useState(null);
     const [currentUser, setCurrentUsername] = useState('');
-    const [expTime, setExpTime] = useState(1000);
+    const [expTime, setExpTime] = useState(0);
     const [errorValidation, setErrorValidation] = useState('');
     const [winner,setWinner] = useState('');
 
@@ -195,16 +195,6 @@ const ProductDetail = (props) => {
                     bid_users.push(key.Username);
                 });
             });
-            console.log(bid_users);
-            console.log(bid_users.length);
-            console.log("wef",curUser);
-            console.log("qwe",winnerr);
-            // let count12 = 0;
-            // for(let i = 0; i < bid_users.length; i++){
-            //     if(curUser == bid_users[i]){
-            //         count12+=1;
-            //     }
-            // }
 
             if(bid_users.includes(curUser)){
                 if(currentUser == winnerr){
@@ -234,12 +224,8 @@ const ProductDetail = (props) => {
         
         };
     };
+
     getWinner();
-        
-    // const onCart = () => {
-    //     props.dispatch(addProductToCart(props.product));
-    //     props.dispatch(updateUsername(currentUser));
-    // };
 
     return (
         <aside className="col-sm-7">
