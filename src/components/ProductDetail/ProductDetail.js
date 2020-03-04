@@ -132,9 +132,14 @@ const ProductDetail = (props) => {
             return;
         }
 
-        const count = parseInt(value, 10);
-        if(count <= BidHistory){
+        const convertNum = parseInt(value, 10);
+        if(convertNum <= BidHistory){
             setErrorValidation(`Bid Value must be greater than $${BidHistory}`);
+            return;
+        }
+
+        if(convertNum >= 999999999){
+            setErrorValidation(`Bid Value is too large!! Try Again`)
             return;
         }
 
@@ -253,7 +258,6 @@ const ProductDetail = (props) => {
                         <h6><strong>Your bid:</strong></h6>
                         <input style={{float:"right"}} className="ml-1" type="submit" value="Place Bid" disabled={expTime<=0}/>
                         <input style={{ width: "290px" }} 
-                                    max={99999999999}
                                     id={itemID} name="input-field" 
                                     className="form-control mt-3" 
                                     type="number" 
