@@ -154,14 +154,6 @@ const ProductDetail = (props) => {
             });
         });
 
-        // let count_usersBidding = 0;
-        // for(let i = 0; i < bidding_users.length; i++){
-        //     console.log(bidding_users[i]);
-        //     if(currentUser === bidding_users[i]){
-        //         count_usersBidding +=1;
-        //     }
-        // }
-        console.log(bidding_users);
         if(bidding_users.includes(currentUser)){
             await API.graphql(graphqlOperation(updateUserBidsTable,
                 {input:{
@@ -187,14 +179,9 @@ const ProductDetail = (props) => {
     if(!expTime){
         console.log("This product cannot be bid anymore!!!");
         const [winner,setWinner] = useState('');
-        useEffect(() => {
-            const fetchData = async () => {
-                await (API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
-                    setWinner(e.data.getLatestUserBidTable.Username);
-                }).catch(e => {console.log("Failed to retrieve data");}));
-            };
-            fetchData();
-        }, []);
+        API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
+            setWinner(e.data.getLatestUserBidTable.Username);
+        }).catch(e => {console.log("Failed to retrieve data");})
 
         if(currentUser === winner){
             console.log("won");
@@ -249,7 +236,7 @@ const ProductDetail = (props) => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <h6><strong>Your bid:</strong></h6>
-                        <input onClick={onCart} style={{float:"right"}} className="ml-2" type="submit" value="Place Bid" disabled={!expTime}/>
+                        <input onClick={onCart} style={{float:"right"}} className="ml-1" type="submit" value="Place Bid" disabled={!expTime}/>
                         <input style={{ width: "290px" }} 
                                     max={99999999999}
                                     id={itemID} name="input-field" 
