@@ -13,11 +13,17 @@ import API, { graphqlOperation } from '@aws-amplify/api';
 export default class BidCartItem2 extends React.Component {
     constructor(props){
         super(props);
-        this.state ={stripe:false,stripeP:'',clientID:''};
+        this.state ={stripe:false,stripeP:'',clientID:'', disableButton:false};
         this.startStripe = this.startStripe.bind(this);
     }
 
     async componentDidMount() {
+      if(currentSta == "Bidding"){
+        this.setState({disableButton:true})
+      }
+      else{
+        this.setState({disableButton:false})
+      }
         
     }
     async startStripe(event){
@@ -59,7 +65,7 @@ export default class BidCartItem2 extends React.Component {
                 </StatusContainer>
                 <TextContainer>${this.props.currentBid}</TextContainer>
                 <ButtonContainer>
-                    <button onClick = {this.startStripe} disbaled={this.props.currentSta == "Bidding"}>Pay</button>
+                    <button onClick = {this.startStripe} disbaled={this.state.disableButton}>Pay</button>
                 </ButtonContainer>
 
                 {(this.state.stripe) ? (<div style={{position: "fixed", top: 0, left: 0, width: "100%", height: "100%", zIndex: 1, backgroundColor: "rgba(0,0,0,0.25)"}}>
