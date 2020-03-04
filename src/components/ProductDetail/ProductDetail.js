@@ -177,7 +177,6 @@ const ProductDetail = (props) => {
     };
 
     async function getWinner() {
-
         if(!expTime){
             console.log("This product cannot be bid anymore!!!");
             
@@ -187,13 +186,18 @@ const ProductDetail = (props) => {
     
             let bid_users = [];
             await API.graphql(graphqlOperation(listUserBidsTables,{limit: 500, filter:{ProductID:{eq:itemID}}})).then((evt) => {
-                evt.data.listUserBidsTables.items.forEach(tuple => {
-                    bid_users.push(tuple.Username);
+                console.log(evt.data.listUserBidsTables.items);
+                
+                let bid_users = [];
+
+                evt.data.listUserBidsTables.items.forEach(key => {
+                    bid_users.push(key.Username);
                 });
+
+                console.log(bid_users);
+                console.log(bid_users.length);
             });
-            console.log(bid_users);
-            console.log(bid_users.length);
-            console.log(currentUser);
+          
             let count12 = 0;
     
             for(let i = 0; i < bid_users.length; i++){
