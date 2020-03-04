@@ -182,8 +182,11 @@ const ProductDetail = (props) => {
    
     async function getWinner() {
         if(expTime<=0){
+            let winnerr = '';
+            let curUser = currentUser;
             await API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
-                setWinner(e.data.getLatestUserBidTable.Username);
+                // setWinner(e.data.getLatestUserBidTable.Username);
+                winnerr = e.data.getLatestUserBidTable.Username
             }).catch(e => {console.log("Failed to retrieve data");})
 
             let bid_users = [];
@@ -192,18 +195,18 @@ const ProductDetail = (props) => {
                     bid_users.push(key.Username);
                 });
             });
-            console.log("wef",currentUser);
-            console.log("qwe",winner);
+            console.log("wef",curUser);
+            console.log("qwe",winnerr);
             let count12 = 0;
             for(let i = 0; i < bid_users.length; i++){
-                if(currentUser === bid_users[i]){
+                if(curUser == bid_users[i]){
                     count12+=1;
                 }
             }
 
             if(count12 > 0){
-                if(currentUser === winner){
-                    console.log(currentUser," Won");
+                if(currentUser == winnerr){
+                    console.log(curUser," Won");
                     await API.graphql(graphqlOperation(updateUserBidsTable,
                     {
                         input: {
