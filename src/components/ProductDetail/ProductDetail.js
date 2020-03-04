@@ -195,8 +195,17 @@ const ProductDetail = (props) => {
                         bid_users.push(key.Username);
                     });
                 });
-                console.log(bid_users);
-                if(bid_users.includes(currentUser)){
+            
+                let count12 = 0;
+                for(let i = 0; i < bid_users.length; i++){
+                    console.log(bid_users[i]);
+                    console.log(currentUser);
+                    if(currentUser === bid_users[i]){
+                        count12+=1;
+                    }
+                }
+
+                if(count12 > 0){
                     if(currentUser === winner){
                         console.log(currentUser," Won");
                         await API.graphql(graphqlOperation(updateUserBidsTable,
