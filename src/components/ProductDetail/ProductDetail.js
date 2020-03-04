@@ -191,10 +191,9 @@ const ProductDetail = (props) => {
         console.log(bid_users);
         if(!bid_users.includes(currentUser)){
             console.log("No Bid");
-            return;
         }
 
-        if(currentUser === winner){
+        else if(currentUser === winner){
                 API.graphql(graphqlOperation(updateUserBidsTable,
                     {
                         input: {
