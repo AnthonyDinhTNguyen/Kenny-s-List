@@ -172,8 +172,6 @@ const ProductDetail = (props) => {
                         Status: "Bidding"
                     }}))
         }
-
-
     };
 
     console.log(expTime);
@@ -191,7 +189,7 @@ const ProductDetail = (props) => {
             });
         });
         console.log(bid_users);
-        if(bid_users.includes(currentUser)){
+        if(!bid_users.includes(currentUser)){
             console.log("No Bid");
             return;
         }
