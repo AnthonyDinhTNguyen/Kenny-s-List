@@ -189,6 +189,8 @@ const ProductDetail = (props) => {
             });
         });
         console.log(bid_users);
+        console.log(bid_users.length);
+        console.log(currentUser);
         let count12 = 0;
 
         for(let i = 0; i < bid_users.length; i++){
