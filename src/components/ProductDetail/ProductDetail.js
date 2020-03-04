@@ -195,7 +195,7 @@ const ProductDetail = (props) => {
                         bid_users.push(key.Username);
                     });
                 });
-
+                console.log(bid_users);
                 if(bid_users.includes(currentUser)){
                     if(currentUser === winner){
                         console.log(currentUser," Won");
