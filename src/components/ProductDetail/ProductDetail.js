@@ -179,15 +179,13 @@ const ProductDetail = (props) => {
     useEffect(() => {
         const getWinner = async () => {
             if(!expTime){
-                console.log("This product cannot be bid anymore!!!");
                 
                 await API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
                     setWinner(e.data.getLatestUserBidTable.Username);
-                }).catch(e => {console.log("Failed to retrieve data");})
-
+                });
     
                 await API.graphql(graphqlOperation(listUserBidsTables,{limit: 500, filter:{ProductID:{eq:itemID}}})).then((evt) => {
-                    console.log(evt.data.listUserBidsTables.items);
+                    console.log("wiefwf",evt.data.listUserBidsTables);
     
                     let bid_users = [];
     
