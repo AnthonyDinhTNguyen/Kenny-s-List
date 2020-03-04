@@ -93,26 +93,6 @@ const ProductDetail = (props) => {
 
     useEffect(() => {
         if (expTime <= 0){
-            const getWinner = async () => {
-                // await API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})).then(e => {
-                //     setWinner(e.data.getLatestUserBidTable.Username);
-                // });
-    
-                await API.graphql(graphqlOperation(listUserBidsTables,{limit: 600, filter:{ProductID:{eq:itemID}}})).then((evt) => {
-                    console.log("wiefwf",evt.data.listUserBidsTables);
-    
-                    let bid_users = [];
-    
-                    evt.data.listUserBidsTables.items.forEach(key => {
-                        bid_users.push(key.Username);
-                    });
-    
-                    console.log(bid_users);
-                    console.log(bid_users.length);
-                });
-              
-            };
-            getWinner();
             return;
         };
    
@@ -200,15 +180,30 @@ const ProductDetail = (props) => {
         }
     };
 
-    // useEffect(() => {
-        
-    //         if(expTime<=0){
-            
-    //         getWinner();
-    //     };
-        
-    // }, []);
 
+    useEffect(() => {
+        const getWinner = async () => {
+            if(!expTime){
+                
+                await API.graphql(graphqlOperation(listUserBidsTables,{limit: 500, filter:{ProductID:{eq:itemID}}})).then((evt) => {
+                    console.log(evt.data.listUserBidsTables.items);
+
+                    let bid_users = [];
+
+                    evt.data.listUserBidsTables.items.forEach(key => {
+                        bid_users.push(key.Username);
+                    });
+
+                    console.log(bid_users);
+                    console.log(bid_users.length);
+                });
+
+        
+            }
+            
+        };
+        getWinner();
+    }, []);
 
     const onCart = () => {
         props.dispatch(addProductToCart(props.product));
@@ -233,8 +228,8 @@ const ProductDetail = (props) => {
                 </h6>
                 <h6 className="mb-3">
                 <strong>Time Left: </strong>
-                    {/* {!expTime ? (<span>SOLD</span>):(<span>{expTimeFormatted()}</span>)} */}
-                    <span>{expTimeFormatted()}</span>
+                    {!expTime ? (<span>SOLD</span>):(<span>{expTimeFormatted()}</span>)}
+
                 </h6>
                 <form onSubmit={handleSubmit}>
                     <div>
