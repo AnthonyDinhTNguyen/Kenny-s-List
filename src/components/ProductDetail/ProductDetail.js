@@ -195,6 +195,8 @@ const ProductDetail = (props) => {
                     bid_users.push(key.Username);
                 });
             });
+            console.log(bid_users);
+            console.log(bid_users.length);
             console.log("wef",curUser);
             console.log("qwe",winnerr);
             let count12 = 0;
