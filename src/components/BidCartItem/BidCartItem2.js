@@ -18,7 +18,8 @@ export default class BidCartItem2 extends React.Component {
     }
 
     async componentDidMount() {
-      if(currentSta == "Bidding"){
+      currentStatus = this.props.currentSta;
+      if(currentStatus == "Bidding"){
         this.setState({disableButton:true})
       }
       else{
@@ -65,7 +66,7 @@ export default class BidCartItem2 extends React.Component {
                 </StatusContainer>
                 <TextContainer>${this.props.currentBid}</TextContainer>
                 <ButtonContainer>
-                    <button onClick = {this.startStripe} disbaled={this.state.disableButton}>Pay</button>
+                    <button onClick = {this.startStripe} disabled={this.state.disableButton}>Pay</button>
                 </ButtonContainer>
 
                 {(this.state.stripe) ? (<div style={{position: "fixed", top: 0, left: 0, width: "100%", height: "100%", zIndex: 1, backgroundColor: "rgba(0,0,0,0.25)"}}>
