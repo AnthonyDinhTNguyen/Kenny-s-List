@@ -155,11 +155,11 @@ export default class AddItem extends React.Component {
             this.setState({accountCreated: true});
         }
 
-        fetch('http://worldtimeapi.org/api/timezone/America/Los_Angeles')
-        .then(respose => res.json())
-        // times => this.setState({time: times.datetime})
-        .then(times => console.log("APT time",times.datatime))
-        .catch(error => console.log('Error:', error));
+        // fetch('http://worldtimeapi.org/api/timezone/America/Los_Angeles')
+        // .then(respose => res.json())
+        // // times => this.setState({time: times.datetime})
+        // .then(times => console.log("APT time",times.datatime))
+        // .catch(error => console.log('Error:', error));
     }
 
   //images will be validated server side as well
