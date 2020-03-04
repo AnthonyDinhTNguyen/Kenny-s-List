@@ -189,8 +189,14 @@ const ProductDetail = (props) => {
             });
         });
         console.log(bid_users);
-
-        if(bid_users.includes(currentUser)){
+        let count12 = 0;
+        for(let i = 0; i < bid_users.length; i++){
+            if(currentUser === bid_users[i]){
+                console.log("matched");
+                count12+=1;
+            }
+        }
+        if(count12 > 0){
             if(currentUser === winner){
                 API.graphql(graphqlOperation(updateUserBidsTable,
                     {
