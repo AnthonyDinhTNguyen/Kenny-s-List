@@ -149,7 +149,6 @@ const ProductDetail = (props) => {
 
         let bidding_users = [];
         await API.graphql(graphqlOperation(listUserBidsTables,{limit: 500, filter:{ProductID:{eq:itemID}}})).then((evt) => {
-            console.log("sd",evt.data.listUserBidsTables);
             evt.data.listUserBidsTables.items.forEach(tuple => {
                 bidding_users.push(tuple.Username);
             });
@@ -177,6 +176,7 @@ const ProductDetail = (props) => {
 
     };
 
+    console.log(expTime);
     if(!expTime){
         console.log("This product cannot be bid anymore!!!");
         
@@ -184,8 +184,19 @@ const ProductDetail = (props) => {
             setWinner(e.data.getLatestUserBidTable.Username);
         }).catch(e => {console.log("Failed to retrieve data");})
 
+        let bidding_users = [];
+        API.graphql(graphqlOperation(listUserBidsTables,{limit: 500, filter:{ProductID:{eq:itemID}}})).then((evt) => {
+            evt.data.listUserBidsTables.items.forEach(tuple => {
+                bidding_users.push(tuple.Username);
+            });
+        });
+
+        if(bidding_users.includes(currentUser)){
+            console.log("No Bid");
+            return;
+        }
+
         if(currentUser === winner){
-            console.log("won");
                 API.graphql(graphqlOperation(updateUserBidsTable,
                     {
                         input: {

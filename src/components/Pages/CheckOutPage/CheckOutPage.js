@@ -22,7 +22,7 @@ export default class CheckoutPage extends React.Component {
 
         //Clear state
         this.setState({biddingItems: []});
-        await API.graphql(graphqlOperation(listUserBidsTables, {filter:{Username:{eq:currentUser}}})).then((evt) => {
+        await API.graphql(graphqlOperation(listUserBidsTables, {limit:500, filter:{Username:{eq:currentUser}}})).then((evt) => {
 
             console.log("It worked!");
             console.log(evt.data.listUserBidsTables.items);
