@@ -184,14 +184,14 @@ const ProductDetail = (props) => {
             setWinner(e.data.getLatestUserBidTable.Username);
         }).catch(e => {console.log("Failed to retrieve data");})
 
-        let bidding_users = [];
+        let bid_users = [];
         API.graphql(graphqlOperation(listUserBidsTables,{limit: 500, filter:{ProductID:{eq:itemID}}})).then((evt) => {
             evt.data.listUserBidsTables.items.forEach(tuple => {
-                bidding_users.push(tuple.Username);
+                bid_users.push(tuple.Username);
             });
         });
-
-        if(bidding_users.includes(currentUser)){
+        console.log(bid_users);
+        if(bid_users.includes(currentUser)){
             console.log("No Bid");
             return;
         }
