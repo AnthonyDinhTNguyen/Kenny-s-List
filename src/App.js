@@ -30,13 +30,13 @@ API.configure(awsconfig);
 PubSub.configure(awsconfig);
 Amplify.configure({
   Auth: {
-      identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
-      region: 'us-east-1',
-      userPoolId: 'us-east-1_buFSrhliB',
-      userPoolWebClientId: '1qkrcfqgqv63hk594qi92q5hqi',
+      identityPoolId: process.env.IDENTITY_POOL_ID,
+      region: process.env.REGION,
+      userPoolId: process.env.USER_POOL_ID,
+      userPoolWebClientId: process.env.USER_POOL_WEBCLIENT_ID,
       mandatorySignIn: true,
       oauth: {
-        domain: 'kennyslist.auth.us-east-1.amazoncognito.com',
+        domain: process.env.DOMAIN,
         scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
         redirectSignIn: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
         redirectSignOut: 'https://master.d2nmsllsuquwvm.amplifyapp.com',
@@ -45,9 +45,9 @@ Amplify.configure({
     },
   Storage: {
       AWSS3: {
-          bucket: 'kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist', //REQUIRED -  Amazon S3 bucket
-          region: 'us-east-1', //OPTIONAL -  Amazon service region
-          identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3'
+          bucket: process.env.BUCKET, //REQUIRED -  Amazon S3 bucket
+          region: process.env.REGION, //OPTIONAL -  Amazon service region
+          identityPoolId: process.env.IDENTITY_POOL_ID
       }
   },
   API: {
@@ -56,10 +56,10 @@ Amplify.configure({
   }
 });
 Storage.configure({
-  bucket:'kennyslist0a68ad13e69142fb89779b2dba58e9dd145823-kennyslist',
+  bucket: process.env.BUCKET,
   level: 'public',
-  region:'us-east-1',
-  identityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3'
+  region: process.env.REGION,
+  identityPoolId: process.env.IDENTITY_POOL_ID
 });
 
 async function checkUser() {
@@ -96,13 +96,13 @@ class App extends Component {
 
   async componentWillMount() {
       const res = await checkUser();
-      console.log("User is " + JSON.stringify(res));
+      //console.log("User is " + JSON.stringify(res));
       Auth.currentSession().then(data => console.log(data)).catch(err => console.log(err));
       this.setState({user: res});
       const result = await Auth.currentSession();
-      AWS.config.region ='us-east=1';
+      AWS.config.region =process.env.REGION;
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: 'us-east-1:452e5811-58e7-4cce-8b39-90db30a8eba3',
+        IdentityPoolId: process.env.IDENTITY_POOL_ID,
         Logins: {
             'cognito-idp.us-east-1.amazonaws.com/us-east-1_buFSrhliB': result.getIdToken().getJwtToken()
         }

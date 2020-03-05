@@ -40,6 +40,6 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.EnvironmentPlugin(['TEST_VAR'])
+        new webpack.EnvironmentPlugin(['TEST_VAR','BUCKET','DOMAIN','IDENTITY_POOL_ID','REGION','USER_POOL_ID','USER_POOL_WEBCLIENT_ID'])
     ]
 };
