@@ -60,27 +60,29 @@ const ProductDetail = (props) => {
         }
 
         // const getAPITime = async () => {
-        fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
-             .then(res => res.json())
-             .then(data => {setAPItime(data.datetime);
-                            console.log(`12: ${data.datetime}`);
-                        })
-             .catch(err => console.log(err));
+        // fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
+        //      .then(res => res.json())
+        //      .then(data => {setAPItime(data.datetime);
+        //                     console.log(`12: ${data.datetime}`);
+        //                 })
+        //      .catch(err => console.log(err));
      
         // };
         // getAPITime();
     }, []);
 
-    // useEffect(() => {
-    //     const getAPITime = async () => {
-    //        await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
-    //         .then(res => res.json())
-    //         .then(data => setAPItime(data.datetime))
-    //         .catch(err => console.log(err));
+    useEffect(() => {
+        const getAPITime = async () => {
+           await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
+            .then(res => res.json())
+            .then(data => {setAPItime(data.datetime);
+                        console.log(`12: ${data.datetime}`);
+            })
+            .catch(err => console.log(err));
 
-    //     };
-    //     getAPITime();
-    // },[])
+        };
+        getAPITime();
+    },[])
 
     useEffect(() => {
 
@@ -91,7 +93,7 @@ const ProductDetail = (props) => {
         console.log("Get item table is " + getItemTable);
    
         const fetchData = async () => {
-            const curTime = APItime;
+            const curTime = Date.parse(APItime);
             console.log("14",curTime);
         
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
