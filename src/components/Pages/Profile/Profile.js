@@ -54,6 +54,9 @@ export default class Profile extends React.Component {
 
     async handleOnRemove(event) {
         let itemId = event.target.getAttribute('name');
+        console.log(event.target.name);
+        console.log(event.target);
+        console.log(itemId);
         if (confirm("Are you sure that you want to remove this item listing?")) {
             await API.graphql(graphqlOperation(deleteItemTable, {input:{itemID: itemId}})).then((evt) => {
                 location.reload();

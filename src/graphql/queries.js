@@ -76,7 +76,6 @@ export const getKennysListUserTable = /* GraphQL */ `
     getKennysListUserTable(username: $username) {
       username
       accountID
-      randstring
     }
   }
 `;
@@ -94,7 +93,6 @@ export const listKennysListUserTables = /* GraphQL */ `
       items {
         username
         accountID
-        randstring
       }
       nextToken
     }

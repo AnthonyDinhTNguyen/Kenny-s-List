@@ -10,7 +10,6 @@ import {
 import {addProductToCart,updateUsername} from "../../actions";
 import API, { graphqlOperation } from '@aws-amplify/api'
 import { Auth } from 'aws-amplify';
-import axios from 'axios';
 
 const ProductDetail = (props) => {
     const {
@@ -23,18 +22,19 @@ const ProductDetail = (props) => {
     const [currentUser, setCurrentUsername] = useState('');
     const [expTime, setExpTime] = useState(1000);
     const [errorValidation, setErrorValidation] = useState('');
+    const [winner,setWinner] = useState('');
 
     const expTimeFormatted = () => {
-        var time = expTime;
-        const days = Math.floor(time / 86400);
-        time = time % 86400;
-        const hours = Math.floor(time / 3600);
-        time = time % 3600;
-        const minutes = Math.floor(time / 60);
-        time = time % 60;
-        const seconds = time;
+        var time = expTime
+        const days = Math.floor(time / 86400)
+        time = time % 86400
+        const hours = Math.floor(time / 3600)
+        time = time % 3600
+        const minutes = Math.floor(time / 60)
+        time = time % 60
+        const seconds = time
 
-        var formattedTime = "";
+        var formattedTime = ""
 
         if (days) formattedTime += days + "d ";
         if (hours) formattedTime += hours + "h ";
@@ -57,7 +57,6 @@ const ProductDetail = (props) => {
         catch (e) {
             console.log("failed to get username");
         }
-
     }, []);
 
     useEffect(() => {
@@ -65,24 +64,28 @@ const ProductDetail = (props) => {
         //Fetch the item data from the server and set the expiration time accordingly.
         if (expTime <= 0)
             return;
-        
-        console.log("Get item table is " + getItemTable);
-     
-        const fetchData = async () => {
 
-            const result = await axios('https://worldtimeapi.org/api/timezone/America/Los_Angeles');
-            
+        console.log("Get item table is " + getItemTable);
+
+        const fetchData = async () => {
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
-                const curTimeInEpoch = Math.round(Date.parse(result.data.datetime) / 1000);
+                const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
-                const bidTime = 300;// 604800 = seven days in seconds
+                
+                const bidTime = 120;// 604800 = seven days in seconds
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
                 if (time > 0) {
                     setExpTime(time);
                 } else {
                     setExpTime(0);
                 }
-            }));
+            }).catch(e => {console.log("Failed to retrieve data");}));
+
+            await (API.graphql(graphqlOperation(getItemTable, {itemID: `{itemID}`})).then(e => {
+                console.log(e.data.getItemTable.start)
+
+            }).catch(e => {console.log("Failed to retrieve data");}));
+
         };
         fetchData();
     }, []);
@@ -92,6 +95,7 @@ const ProductDetail = (props) => {
             return;
         };
    
+
         const interval = setInterval(() => {
             setExpTime(expTime - 1);
         }, 1000);
@@ -122,28 +126,18 @@ const ProductDetail = (props) => {
         event.preventDefault();
         clearState();
 
-        //Pull latest bid from DB here
-        let response = await (API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})));
-        let currentBid = response.data.getLatestUserBidTable.BidAmt;
-        if (currentBid !== BidHistory) {
-            alert("The current bid has been updated! Please reload the page!");
-            return;
-        }
-        
-        //validations for bid input
+     
         if(value.trim() === "" || value.split('').includes('e')||value.split('').includes('-')|| value.split('').includes('+')){
             setErrorValidation('Bid Value is invalid');
             return;
         }
 
-        //validations for bid input
         const convertNum = parseInt(value, 10);
         if(convertNum <= BidHistory){
             setErrorValidation(`Bid Value must be greater than $${BidHistory}`);
             return;
         }
 
-        //validations for bid input
         if(convertNum >= 999999999){
             setErrorValidation(`Bid Value is too large!! Try Again`)
             return;
@@ -152,7 +146,8 @@ const ProductDetail = (props) => {
         setBidHistory(value);
         setErrorValidation('');
 
-    
+        console.log("username submitted bid", currentUser);
+
         await API.graphql(graphqlOperation(updateLatestUserBidTable,
             {input:{
                 lubtProductID: itemID,
@@ -166,6 +161,7 @@ const ProductDetail = (props) => {
                 bidding_users.push(tuple.Username);
             });
         });
+
 
         if(bidding_users.includes(currentUser)){
             await API.graphql(graphqlOperation(updateUserBidsTable,
@@ -188,6 +184,7 @@ const ProductDetail = (props) => {
     };
 
     
+   
     async function getWinner() {
         if(expTime<=0){
             let winnerr = '';
@@ -229,6 +226,7 @@ const ProductDetail = (props) => {
                 }
         
                 }else{console.log("No Bid");} 
+        
         };
     };
 
@@ -258,7 +256,7 @@ const ProductDetail = (props) => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <h6><strong>Your bid:</strong></h6>
-                        <input style={{float:"right"}} className="mt-2 mr-3" type="submit" value="Place Bid" disabled={expTime<=0}/>
+                        <input style={{float:"right"}} className="ml-1" type="submit" value="Place Bid" disabled={expTime<=0}/>
                         <input style={{ width: "290px" }} 
                                     id={itemID} name="input-field" 
                                     className="form-control mt-3" 
