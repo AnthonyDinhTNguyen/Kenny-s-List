@@ -148,13 +148,12 @@ export default class AddItem extends React.Component {
 
         let magicString = "";
         for (let i = 0; i < 8; i++) {
-            console.log(magicNumbers[i]);
-            console.log("\n");
+            alert(magicNumbers[i]);
         }
 
         let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+user;
         window.open(link);
-        //location.reload();
+        location.reload();
     }
 
     async componentDidMount() {
