@@ -145,7 +145,7 @@ export default class AddItem extends React.Component {
         //Generate random value to associate with user
         let magicNumbers = new Uint32Array(1);
         window.crypto.getRandomValues(magicNumbers);
-        let magicString= magicNumbers[i].toString();
+        let magicString= magicNumbers[0].toString();
 
         //Store (user, magicString) tuple in database
         API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}));

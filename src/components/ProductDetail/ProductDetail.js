@@ -154,6 +154,12 @@ const ProductDetail = (props) => {
         clearState();
 
         //Pull latest bid from DB here
+        let response = await (API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})));
+        let currentBid = response.data.getLatestUserBidTable.BidAmt;
+        if (currentBid !== BidHistory) {
+            alert("The current bid has been updated! Please reload the page!");
+            return;
+        }
      
         if(value.trim() === "" || value.split('').includes('e')||value.split('').includes('-')|| value.split('').includes('+')){
             setErrorValidation('Bid Value is invalid');
@@ -161,8 +167,8 @@ const ProductDetail = (props) => {
         }
 
         const convertNum = parseInt(value, 10);
-        if(convertNum <= BidHistory){
-            setErrorValidation(`Bid Value must be greater than $${BidHistory}`);
+        if(convertNum <= currentBid){
+            setErrorValidation(`Bid Value must be greater than $${currentBid}`);
             return;
         }
 
