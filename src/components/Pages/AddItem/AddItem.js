@@ -7,6 +7,7 @@ import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
 import './AddItem.css'
 import {formatMoney} from "../../Pipes/priceFormatter";
+
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
@@ -69,7 +70,8 @@ export default class AddItem extends React.Component {
         const user = (await Auth.currentAuthenticatedUser()).username;
         const sellable =await this.checkSellable(user);
         console.log(sellable);
-        const time = this.state.APItime.toISOString();
+        const time = new Date().toISOString();
+        // const time = this.state.APItime.toISOString();
         console.log("local time:", time);
         if(sellable ==false){
             alert('You can only sell 5 items at a time. Please Delete Some Items or wait');
@@ -163,7 +165,8 @@ export default class AddItem extends React.Component {
             console.log("Account already created!");
             this.setState({accountCreated: true});
         }
-
+        const time12 = new Date();
+        console.log("asdf", time12);
         fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
         .then(respose => respose.json())
         // times => this.setState({APItime: times.datetime})
