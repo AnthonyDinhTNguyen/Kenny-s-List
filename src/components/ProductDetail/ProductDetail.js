@@ -59,15 +59,16 @@ const ProductDetail = (props) => {
             console.log("failed to get username");
         }
 
-        
-        fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
+        // const getAPITime = async () => {
+        await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
              .then(res => res.json())
              .then(data => {setAPItime(data.datetime);
                             console.log(`12: ${data.datetime}`);
                         })
              .catch(err => console.log(err));
      
-        
+        // };
+        // getAPITime();
     }, []);
 
     // useEffect(() => {
@@ -87,11 +88,12 @@ const ProductDetail = (props) => {
         if (expTime <= 0)
             return;
         
-        const curTime = APItime;
-        console.log("14",curTime);
-        console.log("Get item table is " + getItemTable);
+            console.log("Get item table is " + getItemTable);
    
         const fetchData = async () => {
+            const curTime = APItime;
+            console.log("14",curTime);
+        
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
                 const curTimeInEpoch1 = Math.round(Date.parse(curTime) / 1000);
