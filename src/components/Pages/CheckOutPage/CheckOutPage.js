@@ -23,10 +23,6 @@ export default class CheckoutPage extends React.Component {
         //Clear state
         this.setState({biddingItems: []});
         await API.graphql(graphqlOperation(listUserBidsTables, {limit:500, filter:{Username:{eq:currentUser}}})).then((evt) => {
-
-            console.log("It worked!");
-            console.log(evt.data.listUserBidsTables.items);
-
             let itemIds = [];
             let currentBids = [];
             let currentStatus = [];
@@ -36,10 +32,6 @@ export default class CheckoutPage extends React.Component {
                 currentBids.push(tuple.BidAmt);
                 currentStatus.push(tuple.Status);
             });
-
-            console.log(itemIds);
-            console.log(currentBids);
-            console.log(currentStatus);
 
             for (let i = 0; i < itemIds.length; i++) {
                 API.graphql(graphqlOperation(getItemTable, {itemID: itemIds[i]})).then((evt) => {
@@ -52,8 +44,6 @@ export default class CheckoutPage extends React.Component {
                 }); 
             }
         });
-
-        console.log(this.state.biddingItems);
     }
 
     render() {
