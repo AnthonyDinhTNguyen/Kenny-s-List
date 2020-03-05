@@ -145,16 +145,9 @@ export default class AddItem extends React.Component {
     }
 
     async componentDidMount() {
-        var env = process.env;
-        Object.keys(env).forEach(function(key) {
-        console.log('export ' + key + '="' + env[key] +'"');
-        });
+
         console.log("about to log testvar");
         console.log(process.env.TEST_VAR);
-        console.log("about to log test2");
-        console.log(process.env.TEST_1);
-        console.log("about to log process");
-        console.log(process.env);
         let user = (await Auth.currentAuthenticatedUser()).username;
         let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
         console.log("Hey!");
