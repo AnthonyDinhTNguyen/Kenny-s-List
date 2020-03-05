@@ -83,11 +83,6 @@ const ProductDetail = (props) => {
                     setExpTime(0);
                 }
             }));
-
-            await (API.graphql(graphqlOperation(getItemTable, {itemID: `{itemID}`})).then(e => {
-                console.log(e.data.getItemTable.start)
-            }));
-
         };
         fetchData();
     }, []);
