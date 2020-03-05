@@ -143,14 +143,9 @@ export default class AddItem extends React.Component {
         }
 
         //Generate random value to associate with user
-        let magicNumbers = new Uint32Array(2);
+        let magicNumbers = new Uint32Array(1);
         window.crypto.getRandomValues(magicNumbers);
-
-        let magicString = "";
-        for (let i = 0; i < 2; i++) {
-            let append = magicNumbers[i].toString();
-            magicString += append; 
-        }
+        let magicString= magicNumbers[i].toString();
 
         //Store (user, magicString) tuple in database
         API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}));
@@ -174,10 +169,12 @@ export default class AddItem extends React.Component {
         let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
         console.log("Hey!");
         console.log(response);
-        if (response.data.getKennysListUserTable !== null) {
+
+        if (response.data.getKennysListUserTable.accountID !== null) {
             console.log("Account already created!");
             this.setState({accountCreated: true});
         }
+
         const time12 = new Date();
         console.log("asdf", time12);
         fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
