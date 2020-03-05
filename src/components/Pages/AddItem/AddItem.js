@@ -154,7 +154,7 @@ export default class AddItem extends React.Component {
 
         let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+user;
         window.open(link);
-        location.reload();
+        //location.reload();
     }
 
     async componentDidMount() {
