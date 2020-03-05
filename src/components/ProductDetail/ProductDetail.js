@@ -61,8 +61,7 @@ const ProductDetail = (props) => {
 
         fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
             .then(res => res.json())
-            // .then(data => setAPItime(data.datetime))
-            .then(data => console.log(data))
+            .then(data => setAPItime(data.datetime))
             .catch(err => console.log(err));
         
     }, []);
@@ -74,7 +73,7 @@ const ProductDetail = (props) => {
             return;
 
         console.log("Get item table is " + getItemTable);
-
+        console.log("hihihi",APItime);
         const fetchData = async () => {
             
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
