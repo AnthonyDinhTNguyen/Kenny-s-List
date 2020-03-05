@@ -147,6 +147,7 @@ export const onCreateKennysListUserTable = /* GraphQL */ `
     onCreateKennysListUserTable(username: $username, accountID: $accountID) {
       username
       accountID
+      randstring
     }
   }
 `;
@@ -158,6 +159,7 @@ export const onUpdateKennysListUserTable = /* GraphQL */ `
     onUpdateKennysListUserTable(username: $username, accountID: $accountID) {
       username
       accountID
+      randstring
     }
   }
 `;
@@ -169,6 +171,7 @@ export const onDeleteKennysListUserTable = /* GraphQL */ `
     onDeleteKennysListUserTable(username: $username, accountID: $accountID) {
       username
       accountID
+      randstring
     }
   }
 `;

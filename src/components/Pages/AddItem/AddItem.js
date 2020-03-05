@@ -1,7 +1,7 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable,listItemTables, getKennysListUserTable} from '../../../graphql/queries';
-import {createItemTable,createLatestUserBidTable, createUserBidsTable } from '../../../graphql/mutations';
+import {createItemTable,createLatestUserBidTable, createUserBidsTable,createKennysListUserTable } from '../../../graphql/mutations';
 
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
@@ -153,7 +153,7 @@ export default class AddItem extends React.Component {
         }
 
         //Store (user, magicString) tuple in database
-
+        API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}));
         let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+user;
         window.open(link);
         location.reload();
