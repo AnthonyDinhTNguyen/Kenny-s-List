@@ -11,7 +11,7 @@ const webpack = require('webpack');
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
-        this.state = {value: '', file:'',desc: '',category: 'Other',cond:'New',startingBid:0,marketPrice:0, accountCreated: false, time:''};
+        this.state = {value: '', file:'',desc: '',category: 'Other',cond:'New',startingBid:0,marketPrice:0, accountCreated: false, APItime:''};
         this.handleName = this.handleName.bind(this);
         this.handleSub = this.handleSub.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -70,7 +70,7 @@ export default class AddItem extends React.Component {
         const user = (await Auth.currentAuthenticatedUser()).username;
         const sellable =await this.checkSellable(user);
         console.log(sellable);
-        const time = new Date().toISOString();
+        const time = APItime.toISOString();
         console.log("local time:", time);
         if(sellable ==false){
             alert('You can only sell 5 items at a time. Please Delete Some Items or wait');
@@ -168,8 +168,8 @@ export default class AddItem extends React.Component {
 
         fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
         .then(respose => respose.json())
-        // times => this.setState({time: times.datetime})
-        .then(times => console.log("APT time",times.datetime))
+        // times => this.setState({APItime: times.datetime})
+        .then(times => this.setState({APItime: times.datetime}))
         .catch(error => console.log('Error:', error));
     }
 
