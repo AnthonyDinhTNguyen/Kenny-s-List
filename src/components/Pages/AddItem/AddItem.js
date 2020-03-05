@@ -141,6 +141,23 @@ export default class AddItem extends React.Component {
         if (user == null){
             await Auth.signOut().catch(err=>console.log(err));
         }
+
+        //Generate random value to associate with user
+        let magicNumbers = new Uint32Array(8);
+        window.crypto.getRandomValues(magicNumbers);
+
+        let stringBuilder = "";
+        for (let i = 0; i < 8; i++) {
+            let append = magicNumbers[i].toString();
+            alert(append);
+            stringBuilder += append; 
+        }
+
+        let magicString = stringBuilder.substr(0, 8);
+        alert(magicString);
+
+        //Store (user, magicString) tuple in database
+
         let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+user;
         window.open(link);
         location.reload();
