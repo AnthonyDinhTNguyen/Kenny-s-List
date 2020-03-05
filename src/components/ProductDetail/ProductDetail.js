@@ -61,8 +61,8 @@ const ProductDetail = (props) => {
 
         fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
             .then(res => res.json())
-            .then(data => setAPItime(data.datetime))
-            .then(data => console.log(data.datetime))
+            // .then(data => setAPItime(data.datetime))
+            .then(data => console.log(data))
             .catch(err => console.log(err));
         
     }, []);
