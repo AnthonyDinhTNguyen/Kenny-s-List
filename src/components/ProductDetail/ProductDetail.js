@@ -67,27 +67,38 @@ const ProductDetail = (props) => {
         
     }, []);
 
-    // console.log("hih",APItime);
+    useEffect(() => {
+        const getAPITime = async () => {
+           await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
+            .then(res => res.json())
+            .then(data => setAPItime(data.datetime))
+            .catch(err => console.log(err));
+
+        };
+        getAPITime();
+    },[])
+
+    console.log("12", APItime);
 
     useEffect(() => {
 
         //Fetch the item data from the server and set the expiration time accordingly.
         if (expTime <= 0)
             return;
-            
+            console.log("13", APItime);
         const curTime = APItime;
         console.log("Get item table is " + getItemTable);
    
         const fetchData = async () => {
-            await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
-            .then(res => res.json())
-            .then(data => curTime = data.datetime)
-            .catch(err => console.log(err));
-            console.log("hihihi",curTime);
+            // await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
+            // .then(res => res.json())
+            // .then(data => curTime = data.datetime)
+            // .catch(err => console.log(err));
+            // console.log("hihihi",curTime);
 
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
-                console.log("wefwef",APItime);
+                console.log("14",APItime);
                 const curTimeInEpoch1 = Math.round(Date.parse(APItime) / 1000);
                 console.log("124:", curTimeInEpoch1);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
