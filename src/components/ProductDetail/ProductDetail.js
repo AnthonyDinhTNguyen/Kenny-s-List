@@ -59,39 +59,46 @@ const ProductDetail = (props) => {
             console.log("failed to get username");
         }
 
-        // fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
-        //     .then(res => res.json())
-        //     .then(data => setAPItime(data.datetime))
-        //     .then(data => console.log("sdfw",data.datetime))
-        //     .catch(err => console.log(err));
-        
+        // const getAPITime = async () => {
+        fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
+             .then(res => res.json())
+             .then(data => {setAPItime(data.datetime);
+                            console.log(`12: ${data.datetime}`);
+                        })
+             .catch(err => console.log(err));
+     
+        // };
+        // getAPITime();
     }, []);
 
-    // console.log("hih",APItime);
+    // useEffect(() => {
+    //     const getAPITime = async () => {
+    //        await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
+    //         .then(res => res.json())
+    //         .then(data => setAPItime(data.datetime))
+    //         .catch(err => console.log(err));
+
+    //     };
+    //     getAPITime();
+    // },[])
 
     useEffect(() => {
 
         //Fetch the item data from the server and set the expiration time accordingly.
         if (expTime <= 0)
             return;
-            
-        const curTime = APItime;
-        console.log("Get item table is " + getItemTable);
+        
+            console.log("Get item table is " + getItemTable);
    
         const fetchData = async () => {
-            await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
-            .then(res => res.json())
-            .then(data => curTime = data.datetime)
-            .catch(err => console.log(err));
-            console.log("hihihi",curTime);
-
+            const curTime = APItime;
+            console.log("14",curTime);
+        
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
-                console.log("wefwef",APItime);
-                const curTimeInEpoch1 = Math.round(Date.parse(APItime) / 1000);
+                const curTimeInEpoch1 = Math.round(Date.parse(curTime) / 1000);
                 console.log("124:", curTimeInEpoch1);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
-                console.log("124:", postTimeInEpoch);
                 const bidTime = 300;// 604800 = seven days in seconds
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
                 if (time > 0) {
