@@ -35,8 +35,8 @@ module.exports = {
         ]
     },
     devServer: {
-        // contentBase: './build',
-        contentBase:path.join(__dirname, '../'),
+        contentBase: './build',
+        //contentBase:path.join(__dirname, '../'),
         overlay: true,
         hot: true,
         historyApiFallback: true
