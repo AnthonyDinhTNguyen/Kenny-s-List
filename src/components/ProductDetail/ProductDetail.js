@@ -70,8 +70,9 @@ const ProductDetail = (props) => {
 
         const fetchData = async () => {
             const res = await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles');
+            console.log("wefwef",res);
             res.json().then(res => setAPItime(res.datetime)).catch(err => console.log(err));
-
+            
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
                 console.log("123:", curTimeInEpoch);
