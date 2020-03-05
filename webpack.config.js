@@ -7,7 +7,7 @@ module.exports = {
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'build'),
-        publicPath: '/',
+        publicPath: '/'
     },
     module: {
         rules: [
@@ -38,7 +38,7 @@ module.exports = {
         contentBase: './build',
         overlay: true,
         hot: true,
-        historyApiFallback:true
+        historyApiFallback: true
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
