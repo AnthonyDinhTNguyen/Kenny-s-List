@@ -1,7 +1,7 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable,listItemTables, getKennysListUserTable} from '../../../graphql/queries';
-import {createItemTable,createLatestUserBidTable, createUserBidsTable,createKennysListUserTable, updateKennysListUserTable } from '../../../graphql/mutations';
+import {createItemTable,createLatestUserBidTable, createUserBidsTable } from '../../../graphql/mutations';
 
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
@@ -70,9 +70,7 @@ export default class AddItem extends React.Component {
         const user = (await Auth.currentAuthenticatedUser()).username;
         const sellable =await this.checkSellable(user);
         console.log(sellable);
-        //const time = new Date().toISOString();
         const time = this.state.APItime;
-        console.log("local time:", time);
         if(sellable ==false){
             alert('You can only sell 5 items at a time. Please Delete Some Items or wait');
             console.log('adding too many items');
@@ -141,34 +139,7 @@ export default class AddItem extends React.Component {
         if (user == null){
             await Auth.signOut().catch(err=>console.log(err));
         }
-
-        //Generate random value to associate with user
-        let magicNumbers = new Uint32Array(2);
-        window.crypto.getRandomValues(magicNumbers);
-
-        let magicString = "";
-        for (let i = 0; i < 2; i++) {
-            let append = magicNumbers[i].toString();
-            magicString += append; 
-        }
-
-        //Store (user, magicString) tuple in database
-        let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
-
-        //Update pre-existing database entry
-        if (response.data.getKennysListUserTable !== null) {
-            API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
-                username: user,
-                randstring: magicString
-            }}));
-        } 
-        
-        //Create new database entry
-        else {
-            API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}));
-        }
-
-        let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+magicString;
+        let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+user;
         window.open(link);
         location.reload();
     }
@@ -188,17 +159,13 @@ export default class AddItem extends React.Component {
         let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
         console.log("Hey!");
         console.log(response);
-
-        if (response.data.getKennysListUserTable.accountID !== null) {
+        if (response.data.getKennysListUserTable !== null) {
             console.log("Account already created!");
             this.setState({accountCreated: true});
         }
-
-        const time12 = new Date();
-        console.log("asdf", time12);
-        fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
+  
+        await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
         .then(respose => respose.json())
-        // times => this.setState({APItime: times.datetime})
         .then(times => this.setState({APItime: times.datetime}))
         .catch(error => console.log('Error:', error));
     }

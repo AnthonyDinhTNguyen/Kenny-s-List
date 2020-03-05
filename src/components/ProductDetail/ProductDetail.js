@@ -73,9 +73,10 @@ const ProductDetail = (props) => {
         const fetchData = async () => {
 
             const result = await axios('https://worldtimeapi.org/api/timezone/America/Los_Angeles');
-            const curTimeInEpoch = Math.round(Date.parse(result.data.datetime) / 1000);
+            
         
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
+                const curTimeInEpoch = Math.round(Date.parse(result.data.datetime) / 1000);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
                 const bidTime = 500;// 604800 = seven days in seconds
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
