@@ -70,17 +70,16 @@ const ProductDetail = (props) => {
 
         const fetchData = async () => {
             const res = await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles');
-            console.log("wefwef",res);
-            res.json().then(res => console.log("wefwef",res.datetime)).catch(err => console.log(err));
-            // setAPItime(res.datetime)
+            res.json().then(res => setAPItime(res.datetime)).catch(err => console.log(err));
+            
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
-                console.log("123:", curTimeInEpoch);
+                console.log("wefwef",APItime);
                 const curTimeInEpoch1 = Math.round(Date.parse(APItime) / 1000);
                 console.log("124:", curTimeInEpoch1);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
                 console.log("124:", postTimeInEpoch);
-                const bidTime = 120;// 604800 = seven days in seconds
+                const bidTime = 300;// 604800 = seven days in seconds
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
                 if (time > 0) {
                     setExpTime(time);
