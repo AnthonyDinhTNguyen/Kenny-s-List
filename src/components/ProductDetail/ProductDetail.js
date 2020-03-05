@@ -75,10 +75,10 @@ const ProductDetail = (props) => {
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
                 console.log("123:", curTimeInEpoch);
-                const curTimeInEpoch1 = Math.round(APItime / 1000);
-                console.log("124:", curTimeInEpoch1)
+                const curTimeInEpoch1 = Math.round(Date.parse(APItime) / 1000);
+                console.log("124:", curTimeInEpoch1);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
-                
+                console.log("124:", postTimeInEpoch);
                 const bidTime = 120;// 604800 = seven days in seconds
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
                 if (time > 0) {
