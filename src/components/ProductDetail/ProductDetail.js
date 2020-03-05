@@ -22,7 +22,7 @@ const ProductDetail = (props) => {
     const [BidHistory, setBidHistory] = useState(null);
     const [currentUser, setCurrentUsername] = useState('');
     const [expTime, setExpTime] = useState(1000);
-    const [APItime, setAPItime] = useState({});
+    const [APItime, setAPItime] = useState(null);
     const [errorValidation, setErrorValidation] = useState('');
     const [winner,setWinner] = useState('');
 
@@ -65,8 +65,9 @@ const ProductDetail = (props) => {
     useEffect(() => {
         const getAPITime = async () => {
             const result = await axios('https://worldtimeapi.org/api/timezone/America/Los_Angeles');
-            console.log("12",result.data);
-            setAPItime(result.data);
+            const curTimeInEpoch = Math.round(Date.parse(result.data) / 1000);
+            console.log("12",curTimeInEpoch);
+            setAPItime(curTimeInEpoch);
         };
         getAPITime();
     },[])
