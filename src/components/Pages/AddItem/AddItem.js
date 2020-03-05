@@ -7,7 +7,6 @@ import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
 import './AddItem.css'
 import {formatMoney} from "../../Pipes/priceFormatter";
-const webpack = require('webpack');
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
@@ -146,7 +145,6 @@ export default class AddItem extends React.Component {
     }
 
     async componentDidMount() {
-        new webpack.EnvironmentPlugin(['TEST_VAR']);
         var env = process.env;
         Object.keys(env).forEach(function(key) {
         console.log('export ' + key + '="' + env[key] +'"');
