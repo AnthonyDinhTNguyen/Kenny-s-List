@@ -80,7 +80,7 @@ const ProductDetail = (props) => {
    
         const fetchData = async () => {
             // const curTime = Date.parse(APItime);
-            console.log("14",result);
+            console.log("14",APItime);
         
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
