@@ -267,7 +267,7 @@ const ProductDetail = (props) => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <h6><strong>Your bid:</strong></h6>
-                        <input style={{float:"right"}} className="mt-3" type="submit" value="Place Bid" disabled={expTime<=0}/>
+                        <input style={{float:"right"}} className="mt-2 mr-3" type="submit" value="Place Bid" disabled={expTime<=0}/>
                         <input style={{ width: "290px" }} 
                                     id={itemID} name="input-field" 
                                     className="form-control mt-3" 
