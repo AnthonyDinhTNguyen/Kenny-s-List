@@ -1,7 +1,7 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable,listItemTables, getKennysListUserTable} from '../../../graphql/queries';
-import {createItemTable,createLatestUserBidTable, createUserBidsTable } from '../../../graphql/mutations';
+import {createItemTable,createLatestUserBidTable, createUserBidsTable,createKennysListUserTable } from '../../../graphql/mutations';
 
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
@@ -143,21 +143,12 @@ export default class AddItem extends React.Component {
         }
 
         //Generate random value to associate with user
-        let magicNumbers = new Uint32Array(8);
+        let magicNumbers = new Uint32Array(1);
         window.crypto.getRandomValues(magicNumbers);
-
-        let stringBuilder = "";
-        for (let i = 0; i < 8; i++) {
-            let append = magicNumbers[i].toString();
-            alert(append);
-            stringBuilder += append; 
-        }
-
-        let magicString = stringBuilder.substr(0, 8);
-        alert(magicString);
+        let magicString= magicNumbers[i].toString();
 
         //Store (user, magicString) tuple in database
-
+        API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}));
         let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+user;
         window.open(link);
         location.reload();
@@ -178,10 +169,12 @@ export default class AddItem extends React.Component {
         let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
         console.log("Hey!");
         console.log(response);
-        if (response.data.getKennysListUserTable !== null) {
+
+        if (response.data.getKennysListUserTable.accountID !== null) {
             console.log("Account already created!");
             this.setState({accountCreated: true});
         }
+
         const time12 = new Date();
         console.log("asdf", time12);
         fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')

@@ -153,6 +153,7 @@ const ProductDetail = (props) => {
         event.preventDefault();
         clearState();
 
+        //Pull latest bid from DB here
      
         if(value.trim() === "" || value.split('').includes('e')||value.split('').includes('-')|| value.split('').includes('+')){
             setErrorValidation('Bid Value is invalid');
