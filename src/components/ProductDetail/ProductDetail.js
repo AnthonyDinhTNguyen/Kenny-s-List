@@ -65,7 +65,7 @@ const ProductDetail = (props) => {
     useEffect(() => {
         const getAPITime = async () => {
             const result = await axios('https://worldtimeapi.org/api/timezone/America/Los_Angeles');
-            const curTimeInEpoch = Math.round(Date.parse(result.data) / 1000);
+            const curTimeInEpoch = Math.round(Date.parse(result.data.datetime) / 1000);
             console.log("12",curTimeInEpoch);
             setAPItime(curTimeInEpoch);
         };
