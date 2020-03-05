@@ -62,9 +62,12 @@ const ProductDetail = (props) => {
         fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
             .then(res => res.json())
             .then(data => setAPItime(data.datetime))
+            .then(data => console.log("sdfw",data.datatime))
             .catch(err => console.log(err));
         
     }, []);
+
+    console.log("hihihi",APItime);
 
     useEffect(() => {
 
