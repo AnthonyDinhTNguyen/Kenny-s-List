@@ -176,7 +176,7 @@ export default class AddItem extends React.Component {
         let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
         console.log("Hey!");
         console.log(response);
-        if (response.data.getKennysListUserTable.accountID !== null) {
+        if (response.data.getKennysListUserTable!== null && response.data.getKennysListUserTable.accountID !== null) {
             console.log("Account already created!");
             this.setState({accountCreated: true});
         }
