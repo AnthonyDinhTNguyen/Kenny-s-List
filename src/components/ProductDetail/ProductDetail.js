@@ -62,53 +62,51 @@ const ProductDetail = (props) => {
 
     }, []);
 
+    // useEffect(() => {
+    //     const getAPITime = async () => {
+    //         const result = await axios('https://worldtimeapi.org/api/timezone/America/Los_Angeles');
+    //         const curTimeInEpoch = Math.round(Date.parse(result.data.datetime) / 1000);
+    //         console.log("12",curTimeInEpoch);
+    //         setAPItime(curTimeInEpoch);
+    //     };
+    //     getAPITime();
+    // },[])
+
     useEffect(() => {
 
+        //Fetch the item data from the server and set the expiration time accordingly.
+        if (expTime <= 0)
+            return;
+        
         console.log("Get item table is " + getItemTable);
-    
+     
         const fetchData = async () => {
-  
-            await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
-                // const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
-                const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
-                setAPItime(postTimeInEpoch);
-                
-            }));
 
-        };
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-
-         //Fetch the item data from the server and set the expiration time accordingly.
-         if (expTime <= 0)
-         return;
-
-        const getAPITime = async () => {
-            
             const result = await axios('https://worldtimeapi.org/api/timezone/America/Los_Angeles');
             const curTimeInEpoch = Math.round(Date.parse(result.data.datetime) / 1000);
-            console.log("12",APItime);
-            const postTimeInEpoch1 = APItime
-            const bidTime = 300;// 604800 = seven days in seconds
-            
-            const time = bidTime - (curTimeInEpoch - postTimeInEpoch1);
+        
+            await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
+                //const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
+                // const curTimeInEpoch1 = Math.round(Date.parse(APItime) / 1000);
+                console.log("124:", curTimeInEpoch);
+                const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
+                const bidTime = 300;// 604800 = seven days in seconds
+                const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
                 if (time > 0) {
                     setExpTime(time);
                 } else {
                     setExpTime(0);
                 }
-                await (API.graphql(graphqlOperation(getItemTable, {itemID: `{itemID}`})).then(e => {
-                    console.log(e.data.getItemTable.start)
-        
-                }).catch(e => {console.log("Failed to retrieve data");}));
-         
-        };
+            }).catch(e => {console.log("Failed to retrieve data");}));
 
-    
-        getAPITime();
-    },[])
+            await (API.graphql(graphqlOperation(getItemTable, {itemID: `{itemID}`})).then(e => {
+                console.log(e.data.getItemTable.start)
+
+            }).catch(e => {console.log("Failed to retrieve data");}));
+
+        };
+        fetchData();
+    }, []);
 
     useEffect(() => {
         if (expTime <= 0){
