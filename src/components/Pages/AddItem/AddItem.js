@@ -70,7 +70,7 @@ export default class AddItem extends React.Component {
         const user = (await Auth.currentAuthenticatedUser()).username;
         const sellable =await this.checkSellable(user);
         console.log(sellable);
-        const time = APItime.toISOString();
+        const time = this.state.APItime.toISOString();
         console.log("local time:", time);
         if(sellable ==false){
             alert('You can only sell 5 items at a time. Please Delete Some Items or wait');

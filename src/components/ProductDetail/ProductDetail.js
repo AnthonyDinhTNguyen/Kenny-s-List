@@ -21,6 +21,7 @@ const ProductDetail = (props) => {
     const [BidHistory, setBidHistory] = useState(null);
     const [currentUser, setCurrentUsername] = useState('');
     const [expTime, setExpTime] = useState(1000);
+    const [APItime, setAPItime] = useState('');
     const [errorValidation, setErrorValidation] = useState('');
     const [winner,setWinner] = useState('');
 
@@ -68,8 +69,12 @@ const ProductDetail = (props) => {
         console.log("Get item table is " + getItemTable);
 
         const fetchData = async () => {
+            const res = await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles');
+            res.json().then(res => setAPItime(res.datetime)).catch(err => console.log(err));
+
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
-                const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
+                //const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
+                const curTimeInEpoch = Math.round(APItime / 1000);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
                 
                 const bidTime = 120;// 604800 = seven days in seconds
