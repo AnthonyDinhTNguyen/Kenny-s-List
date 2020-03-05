@@ -20,7 +20,7 @@ export default class BidCartItem2 extends React.Component {
     async componentDidMount() {
       
       let currentStatus = this.props.currentSta;
-      if(currentStatus == "Bidding"){
+      if(currentStatus == "Bidding" || currentStatus == "Lost"){
         this.setState({disableButton:true})
       }
       else{
