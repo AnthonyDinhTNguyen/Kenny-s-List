@@ -25,8 +25,8 @@
     "uuid": "^3.4.0"
   },
   "scripts": {
-    "start": "webpack && webpack-dev-server --mode development",
-    "build":"webpack -d && copy build\\index.html /y && webpack-dev-server --content-base src --inline --port 3000 --history-api-fallback"
+    "start": "webpack && webpack-dev-server --history-api-fallback --mode development",
+    "build":"webpack"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
