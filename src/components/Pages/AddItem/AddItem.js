@@ -146,10 +146,17 @@ export default class AddItem extends React.Component {
         let magicNumbers = new Uint32Array(8);
         window.crypto.getRandomValues(magicNumbers);
 
-        let magicString = "";
+        let stringBuilder = "";
         for (let i = 0; i < 8; i++) {
-            alert(magicNumbers[i]);
+            let append = magicNumbers[i].toString();
+            alert(append);
+            stringBuilder += append; 
         }
+
+        let magicString = stringBuilder.substr(0, 8);
+        alert(magicString);
+
+        //Store (user, magicString) tuple in database
 
         let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+user;
         window.open(link);
