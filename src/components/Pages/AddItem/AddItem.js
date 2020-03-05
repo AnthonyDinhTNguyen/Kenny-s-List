@@ -23,7 +23,6 @@ export default class AddItem extends React.Component {
     }
     handleCategory(event){
         this.setState({category: event.target.value});
-        console.log(event.target.value);
     }
     handleFile(event){
         this.setState({file: event.target.files[0]});
@@ -39,7 +38,6 @@ export default class AddItem extends React.Component {
         if(event.target.value===''||re.test(event.target.value)){
             this.setState({desc: event.target.value});
         }
-        console.log(this.state.desc);
     }
     handleCondition(event){
         this.setState({cond: event.target.value});
@@ -68,7 +66,6 @@ export default class AddItem extends React.Component {
         const uID = uuid.v4();
         const user = (await Auth.currentAuthenticatedUser()).username;
         const sellable =await this.checkSellable(user);
-        console.log(sellable);
         const time = this.state.APItime;
         if(sellable ==false){
             alert('You can only sell 5 items at a time. Please Delete Some Items or wait');
@@ -120,7 +117,6 @@ export default class AddItem extends React.Component {
                 evt.data.listItemTables.items.map((itemDB,i) =>{itemList.push(itemDB);});
             }
         }));
-        console.log(itemList);
         if(itemList.length <5){
             console.log("returning True");
             return true;
@@ -170,12 +166,8 @@ export default class AddItem extends React.Component {
 
     async componentDidMount() {
 
-        console.log("about to log testvar");
-        console.log(process.env.TEST_VAR);
         let user = (await Auth.currentAuthenticatedUser()).username;
         let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
-        console.log("Hey!");
-        console.log(response);
         if (response.data.getKennysListUserTable!== null && response.data.getKennysListUserTable.accountID !== null) {
             console.log("Account already created!");
             this.setState({accountCreated: true});

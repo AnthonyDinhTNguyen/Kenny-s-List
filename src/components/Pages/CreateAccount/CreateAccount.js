@@ -12,7 +12,6 @@ export default class CreateAccount extends React.Component {
         try {
             let response = await Auth.currentAuthenticatedUser();
             currentUser = response.username;
-            console.log(currentUser);
             this.setState({username: currentUser});
           } catch(err) {
               console.log("ERROR: Failed to retrieve username.");

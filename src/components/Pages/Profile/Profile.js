@@ -11,31 +11,8 @@ export default class Profile extends React.Component {
         super(props);
         this.state = {selling: [], stripeLink:''};
         this.handleOnRemove = this.handleOnRemove.bind(this);
-        this.stripeAccount = this.stripeAccount.bind(this);
     }
 
-    async stripeAccount(){
-        let user = (await Auth.currentAuthenticatedUser()).username;
-        if (user == null){
-            await Auth.signOut().catch(err=>console.log(err));
-        }
-        let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+user;
-        window.open(link);
-        //this.setState({stripeLink:link});
-        // let url = "https://in8hc6wee5.execute-api.us-east-1.amazonaws.com/stripe/stripe-payment";
-        // let amount = "500";
-        // let test = (parseFloat(this.props.yourBid)*100).toString();
-        // console.log(test);
-        // let accountID = "acct_1GEXPGKzFt6viajs";
-        // let postThis = url+"?amount="+amount+"&accountID="+accountID;
-        // const stripePromise = loadStripe("pk_test_NedNuvs9YOl1WOhanD0xfJtX00q2eAowF8");
-        // let dataJSON = await axios.get(postThis);
-        // console.log(dataJSON);
-        // console.log(dataJSON.data.body.clientSecret+"bidcart");
-        // this.setState({clientID:dataJSON.data.body.clientSecret});
-        // this.setState({stripeP:stripePromise})
-        // this.setState({stripe:true});
-    }
     async componentDidMount(){
         let currentUser = "";
         try {
@@ -49,7 +26,6 @@ export default class Profile extends React.Component {
             this.setState({selling: evt.data.listItemTables.items});
         });
 
-        console.log(this.state.selling);
     }
 
     async handleOnRemove(event) {

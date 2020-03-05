@@ -92,8 +92,7 @@ class App extends Component {
 
   async componentWillMount() {
       const res = await checkUser();
-      //console.log("User is " + JSON.stringify(res));
-      Auth.currentSession().then(data => console.log(data)).catch(err => console.log(err));
+      Auth.currentSession().catch(err => console.log(err));
       this.setState({user: res});
       const result = await Auth.currentSession();
       AWS.config.region =process.env.REGION;

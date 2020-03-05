@@ -51,7 +51,6 @@ const ProductDetail = (props) => {
                 bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
             }).then(user => {
                 setCurrentUsername(user.username);
-                console.log(`Load additional settings for user: ${user.username}`);
             })
         }
         catch (e) {
@@ -66,7 +65,6 @@ const ProductDetail = (props) => {
         if (expTime <= 0)
             return;
         
-        console.log("Get item table is " + getItemTable);
      
         const fetchData = async () => {
 
@@ -206,7 +204,6 @@ const ProductDetail = (props) => {
 
             if(bid_users.includes(curUser)){
                 if(currentUser == winnerr){
-                    console.log(curUser, " Won");
                     await API.graphql(graphqlOperation(updateUserBidsTable,
                     {
                         input: {
@@ -217,7 +214,6 @@ const ProductDetail = (props) => {
                     }))
                 }
                 else{
-                    console.log("Lost");
                     await API.graphql(graphqlOperation(updateUserBidsTable,
                     {
                         input: {

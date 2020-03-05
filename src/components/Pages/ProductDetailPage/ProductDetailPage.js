@@ -20,7 +20,6 @@ const ProductDetail = (props) => {
 const mapStateToProps = (state, props) =>  {
 
     const product = state.items.items.find(product => product.itemID === props.match.params.id);
-    console.log(product);
     return {
         product
     }
