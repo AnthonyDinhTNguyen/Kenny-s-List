@@ -1,13 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {connect, useSelector} from 'react-redux';
+import React from 'react';
 import {Link} from 'react-router-dom';
-import StripePayment from '../StripePayment/StripePayment';
 import axios from "axios";
 import styled from 'styled-components';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import CheckoutForm from "./CheckoutForm"
-import {Auth} from 'aws-amplify';
 import {getKennysListUserTable,getItemTable} from '../../graphql/queries';
 import API, { graphqlOperation } from '@aws-amplify/api';
 export default class BidCartItem2 extends React.Component {
@@ -32,18 +29,14 @@ export default class BidCartItem2 extends React.Component {
       let url = "https://in8hc6wee5.execute-api.us-east-1.amazonaws.com/stripe/stripe-payment";
       let amount = "500";
       amount = (parseFloat(this.props.currentBid)*100).toString();
-      console.log(amount);
       let user = (await API.graphql(graphqlOperation(getItemTable, {itemID: this.props.id}))).data.getItemTable.itemOwner;
-      //let user = (await Auth.currentAuthenticatedUser()).username;
+
       let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
-      console.log(response);
       let accountID = response.data.getKennysListUserTable.accountID;
-      console.log(accountID);
+
       let postThis = url+"?amount="+amount+"&accountID="+accountID;
       const stripePromise = loadStripe("pk_test_NedNuvs9YOl1WOhanD0xfJtX00q2eAowF8");
       let dataJSON = await axios.get(postThis);
-      console.log(dataJSON);
-      console.log(dataJSON.data.body.clientSecret+"bidcart");
       if(dataJSON.data.statusCode=="200"){
         this.setState({clientID:dataJSON.data.body.clientSecret});
         this.setState({stripeP:stripePromise})
