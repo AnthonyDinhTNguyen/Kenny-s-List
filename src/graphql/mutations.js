@@ -84,6 +84,7 @@ export const createKennysListUserTable = /* GraphQL */ `
     createKennysListUserTable(input: $input) {
       username
       accountID
+      randstring
     }
   }
 `;
@@ -92,6 +93,7 @@ export const updateKennysListUserTable = /* GraphQL */ `
     updateKennysListUserTable(input: $input) {
       username
       accountID
+      randstring
     }
   }
 `;
@@ -100,6 +102,7 @@ export const deleteKennysListUserTable = /* GraphQL */ `
     deleteKennysListUserTable(input: $input) {
       username
       accountID
+      randstring
     }
   }
 `;

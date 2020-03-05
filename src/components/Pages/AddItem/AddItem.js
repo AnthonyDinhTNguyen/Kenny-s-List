@@ -6,7 +6,7 @@ import {createItemTable,createLatestUserBidTable, createUserBidsTable } from '..
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
 import './AddItem.css'
-import {formatMoney} from "../../Pipes/priceFormatter";
+
 export default class AddItem extends React.Component {
     constructor(props){
         super(props)
@@ -69,8 +69,7 @@ export default class AddItem extends React.Component {
         const user = (await Auth.currentAuthenticatedUser()).username;
         const sellable =await this.checkSellable(user);
         console.log(sellable);
-        const time = APItime.toISOString();
-        console.log("local time:", time);
+        const time = this.state.APItime;
         if(sellable ==false){
             alert('You can only sell 5 items at a time. Please Delete Some Items or wait');
             console.log('adding too many items');
@@ -110,8 +109,6 @@ export default class AddItem extends React.Component {
                         ProductID: itemIDStore,
                         Username: `${user}, (seller)`
                     }}))
-
-
         }
       }
       async checkSellable(uname){
@@ -156,10 +153,9 @@ export default class AddItem extends React.Component {
             console.log("Account already created!");
             this.setState({accountCreated: true});
         }
-
-        fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
+  
+        await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
         .then(respose => respose.json())
-        // times => this.setState({APItime: times.datetime})
         .then(times => this.setState({APItime: times.datetime}))
         .catch(error => console.log('Error:', error));
     }
