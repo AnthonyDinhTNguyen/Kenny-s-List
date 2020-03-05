@@ -88,7 +88,7 @@ const ProductDetail = (props) => {
         if (expTime <= 0)
             return;
         
-            console.log("Get item table is " + getItemTable);
+        console.log("Get item table is " + getItemTable);
    
         const fetchData = async () => {
             const curTime = APItime;
@@ -96,7 +96,7 @@ const ProductDetail = (props) => {
         
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
-                const curTimeInEpoch1 = Math.round(Date.parse(curTime) / 1000);
+                const curTimeInEpoch1 = Math.round(Date.parse(APItime) / 1000);
                 console.log("124:", curTimeInEpoch1);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
                 const bidTime = 300;// 604800 = seven days in seconds
@@ -115,7 +115,7 @@ const ProductDetail = (props) => {
 
         };
         fetchData();
-    }, []);
+    }, [APItime]);
 
     useEffect(() => {
         if (expTime <= 0){
