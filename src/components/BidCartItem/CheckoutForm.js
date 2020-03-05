@@ -39,7 +39,7 @@ export default function CheckoutForm(props) {
         await API.graphql(graphqlOperation(deleteItemTable, {input:{itemID: props.prodID}})).then((evt) => {
         });
         await API.graphql(graphqlOperation(deleteUserBidsTable, {input:{ProductID: props.prodID}})).then((evt) => {
-        });
+        }).catch((err)=>{console.log("delete from user bids table catch stripe")});
         if(!alert('Alert For your User!')){window.location.reload();}
         // Show a success message to your customer
         // There's a risk of the customer closing the window before callback
