@@ -136,7 +136,20 @@ export default class AddItem extends React.Component {
         if (user == null){
             await Auth.signOut().catch(err=>console.log(err));
         }
-        let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+user;
+
+        //Generate random value to associate with user
+        let magicNumbers = new Uint32Array(2);
+        window.crypto.getRandomValues(magicNumbers);
+
+        let magicString = "";
+        for (let i = 0; i < 2; i++) {
+            let append = magicNumbers[i].toString();
+            magicString += append; 
+        }
+
+        //Store (user, magicString) tuple in database
+        API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}));
+        let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+magicString;
         window.open(link);
         location.reload();
     }
