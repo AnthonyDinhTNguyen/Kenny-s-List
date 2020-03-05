@@ -87,24 +87,16 @@ const ProductDetail = (props) => {
         if (expTime <= 0)
             return;
         
+        const curTime = APItime;
+        console.log("14",curTime);
         console.log("Get item table is " + getItemTable);
    
         const fetchData = async () => {
-            const curTime = '';
-            await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
-            .then(res => res.json())
-            .then(data => curTime = data.datetime)
-            .catch(err => console.log(err));
-            
-
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(new Date().getTime() / 1000);
-                console.log("hihihi",curTime);
-                console.log("14",APItime);
-                const curTimeInEpoch1 = Math.round(Date.parse(APItime) / 1000);
+                const curTimeInEpoch1 = Math.round(Date.parse(curTime) / 1000);
                 console.log("124:", curTimeInEpoch1);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
-                console.log("124:", postTimeInEpoch);
                 const bidTime = 300;// 604800 = seven days in seconds
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
                 if (time > 0) {
