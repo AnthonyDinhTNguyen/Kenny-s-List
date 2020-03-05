@@ -154,7 +154,7 @@ export default class AddItem extends React.Component {
 
         //Store (user, magicString) tuple in database
         API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}));
-        let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+user;
+        let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+magicString;
         window.open(link);
         location.reload();
     }
