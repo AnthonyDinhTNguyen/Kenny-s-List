@@ -22,7 +22,7 @@ const ProductDetail = (props) => {
     const [BidHistory, setBidHistory] = useState(null);
     const [currentUser, setCurrentUsername] = useState('');
     const [expTime, setExpTime] = useState(1000);
-    const [APItime, setAPItime] = useState([]);
+    const [APItime, setAPItime] = useState({});
     const [errorValidation, setErrorValidation] = useState('');
     const [winner,setWinner] = useState('');
 
@@ -78,7 +78,7 @@ const ProductDetail = (props) => {
             return;
         
         console.log("Get item table is " + getItemTable);
-   
+        console.log("15",APItime);
         const fetchData = async () => {
             // const curTime = Date.parse(APItime);
             console.log("14",APItime);
