@@ -99,14 +99,14 @@ const ProductDetail = (props) => {
                 } else {
                     setExpTime(0);
                 }
-            setAPItime(curTimeInEpoch);
+                await (API.graphql(graphqlOperation(getItemTable, {itemID: `{itemID}`})).then(e => {
+                    console.log(e.data.getItemTable.start)
+        
+                }).catch(e => {console.log("Failed to retrieve data");}));
+         
         };
 
-        await (API.graphql(graphqlOperation(getItemTable, {itemID: `{itemID}`})).then(e => {
-            console.log(e.data.getItemTable.start)
-
-        }).catch(e => {console.log("Failed to retrieve data");}));
-
+    
         getAPITime();
     },[])
 
