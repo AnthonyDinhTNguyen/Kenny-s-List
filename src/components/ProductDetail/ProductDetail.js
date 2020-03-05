@@ -167,8 +167,8 @@ const ProductDetail = (props) => {
         }
 
         const convertNum = parseInt(value, 10);
-        if(convertNum <= currentBid){
-            setErrorValidation(`Bid Value must be greater than $${currentBid}`);
+        if(convertNum <= BidHistory){
+            setErrorValidation(`Bid Value must be greater than $${BidHistory}`);
             return;
         }
 
