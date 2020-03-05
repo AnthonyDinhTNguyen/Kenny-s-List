@@ -60,7 +60,7 @@ const ProductDetail = (props) => {
         }
 
         // const getAPITime = async () => {
-        await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
+        fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles')
              .then(res => res.json())
              .then(data => {setAPItime(data.datetime);
                             console.log(`12: ${data.datetime}`);
