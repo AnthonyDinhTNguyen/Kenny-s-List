@@ -6,7 +6,6 @@ import {createItemTable,createLatestUserBidTable, createUserBidsTable } from '..
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
 import './AddItem.css'
-import {formatMoney} from "../../Pipes/priceFormatter";
 
 export default class AddItem extends React.Component {
     constructor(props){
@@ -110,8 +109,6 @@ export default class AddItem extends React.Component {
                         ProductID: itemIDStore,
                         Username: `${user}, (seller)`
                     }}))
-
-
         }
       }
       async checkSellable(uname){

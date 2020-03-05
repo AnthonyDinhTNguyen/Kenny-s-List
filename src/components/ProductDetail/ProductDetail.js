@@ -22,21 +22,19 @@ const ProductDetail = (props) => {
     const [BidHistory, setBidHistory] = useState(null);
     const [currentUser, setCurrentUsername] = useState('');
     const [expTime, setExpTime] = useState(1000);
-    const [APItime, setAPItime] = useState(null);
     const [errorValidation, setErrorValidation] = useState('');
-    const [winner,setWinner] = useState('');
 
     const expTimeFormatted = () => {
-        var time = expTime
-        const days = Math.floor(time / 86400)
-        time = time % 86400
-        const hours = Math.floor(time / 3600)
-        time = time % 3600
-        const minutes = Math.floor(time / 60)
-        time = time % 60
-        const seconds = time
+        var time = expTime;
+        const days = Math.floor(time / 86400);
+        time = time % 86400;
+        const hours = Math.floor(time / 3600);
+        time = time % 3600;
+        const minutes = Math.floor(time / 60);
+        time = time % 60;
+        const seconds = time;
 
-        var formattedTime = ""
+        var formattedTime = "";
 
         if (days) formattedTime += days + "d ";
         if (hours) formattedTime += hours + "h ";
@@ -74,7 +72,6 @@ const ProductDetail = (props) => {
 
             const result = await axios('https://worldtimeapi.org/api/timezone/America/Los_Angeles');
             
-        
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(Date.parse(result.data.datetime) / 1000);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
@@ -85,12 +82,11 @@ const ProductDetail = (props) => {
                 } else {
                     setExpTime(0);
                 }
-            }).catch(e => {console.log("Failed to retrieve data");}));
+            }));
 
             await (API.graphql(graphqlOperation(getItemTable, {itemID: `{itemID}`})).then(e => {
                 console.log(e.data.getItemTable.start)
-
-            }).catch(e => {console.log("Failed to retrieve data");}));
+            }));
 
         };
         fetchData();
@@ -101,7 +97,6 @@ const ProductDetail = (props) => {
             return;
         };
    
-
         const interval = setInterval(() => {
             setExpTime(expTime - 1);
         }, 1000);
@@ -139,18 +134,21 @@ const ProductDetail = (props) => {
             alert("The current bid has been updated! Please reload the page!");
             return;
         }
-     
+        
+        //validations for bid input
         if(value.trim() === "" || value.split('').includes('e')||value.split('').includes('-')|| value.split('').includes('+')){
             setErrorValidation('Bid Value is invalid');
             return;
         }
 
+        //validations for bid input
         const convertNum = parseInt(value, 10);
         if(convertNum <= BidHistory){
             setErrorValidation(`Bid Value must be greater than $${BidHistory}`);
             return;
         }
 
+        //validations for bid input
         if(convertNum >= 999999999){
             setErrorValidation(`Bid Value is too large!! Try Again`)
             return;
@@ -159,8 +157,7 @@ const ProductDetail = (props) => {
         setBidHistory(value);
         setErrorValidation('');
 
-        console.log("username submitted bid", currentUser);
-
+    
         await API.graphql(graphqlOperation(updateLatestUserBidTable,
             {input:{
                 lubtProductID: itemID,
@@ -174,7 +171,6 @@ const ProductDetail = (props) => {
                 bidding_users.push(tuple.Username);
             });
         });
-
 
         if(bidding_users.includes(currentUser)){
             await API.graphql(graphqlOperation(updateUserBidsTable,
@@ -197,7 +193,6 @@ const ProductDetail = (props) => {
     };
 
     
-   
     async function getWinner() {
         if(expTime<=0){
             let winnerr = '';
@@ -239,7 +234,6 @@ const ProductDetail = (props) => {
                 }
         
                 }else{console.log("No Bid");} 
-        
         };
     };
 
