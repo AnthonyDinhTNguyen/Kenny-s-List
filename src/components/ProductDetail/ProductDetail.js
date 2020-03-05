@@ -78,7 +78,7 @@ const ProductDetail = (props) => {
             await (API.graphql(graphqlOperation(getItemTable, {itemID: itemID})).then(e => {
                 const curTimeInEpoch = Math.round(Date.parse(result.data.datetime) / 1000);
                 const postTimeInEpoch = Math.round((Date.parse(e.data.getItemTable.postTime) / 1000));
-                const bidTime = 500;// 604800 = seven days in seconds
+                const bidTime = 300;// 604800 = seven days in seconds
                 const time = bidTime - (curTimeInEpoch - postTimeInEpoch);
                 if (time > 0) {
                     setExpTime(time);
