@@ -25,7 +25,7 @@
     "uuid": "^3.4.0"
   },
   "scripts": {
-    "start": "webpack && webpack-dev-server --mode development",
+    "start": "webpack && webpack-dev-server --mode development --history-api-fallback",
     "build": "webpack"
   },
   "devDependencies": {
