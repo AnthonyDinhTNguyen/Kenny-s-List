@@ -14,7 +14,7 @@ const ProductDetail = (props) => {
                 itemsTuple = e.data.listItemTables.items;
                 console.log("1", itemsTuple);
                 console.log("2", props.match.params.id);
-                const product1 = products.find(prod => prod.itemsTuple.itemID === props.match.params.id);
+                const product1 = itemsTuple.find(prod => prod.itemsTuple.itemID === props.match.params.id);
                 
                 setProducts(product1);
                 console.log("aaaa", product1);
@@ -25,9 +25,10 @@ const ProductDetail = (props) => {
     }, []);
 
     
-  
     console.log("aaaa", products);
+    
     return (
+        
         <div className="container" style={{padding: '6rem 0'}}>
             <div className="card">
                 <div className="row">
