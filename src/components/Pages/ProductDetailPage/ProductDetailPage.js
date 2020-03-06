@@ -9,16 +9,20 @@ const ProductDetail = (props) => {
     const [products, setProducts] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
+            let itemsTuple = [];
             await (API.graphql(graphqlOperation(listItemTables, {limit: 100})).then(e => {
-                setProducts(e.data.listItemTables.items);
+                itemsTuple = e.data.listItemTables.items
+                const product1 = products.find(prod => prod.itemsTuple.itemID === props.match.params.id);
+                setProducts(product1);
+                console.log("aaaa", product1);
             }).catch(e => {console.log("Failed to retrieve data");}));
-
+            
         };
         fetchData();
     }, []);
 
-    const product1 = products.find(prod => prod.itemID === props.match.params.id);
-    console.log("Asdf",product1);
+    
+  
     console.log("aaaa", products);
     return (
         <div className="container" style={{padding: '6rem 0'}}>
