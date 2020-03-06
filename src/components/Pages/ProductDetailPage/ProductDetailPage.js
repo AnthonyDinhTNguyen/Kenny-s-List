@@ -2,9 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ProductDetailComponent from '../../ProductDetail/ProductDetail';
 import ProductSlider from "../../ProductSlider/ProductSlider";
-
 const ProductDetail = (props) => {
 
+   console.log("product", props.product.images);
+    
     return (
         <div className="container" style={{padding: '6rem 0'}}>
             <div className="card">
