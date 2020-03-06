@@ -1,60 +1,20 @@
-import React,{Component,useState,useEffect} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import ProductDetailComponent from '../../ProductDetail/ProductDetail';
 import ProductSlider from "../../ProductSlider/ProductSlider";
-import API, {graphqlOperation} from "@aws-amplify/api";
-import {listItemTables} from "../../../graphql/queries";
-// const ProductDetail = (props) => {
 
-//     const [itemImg, setItemImg] = useState({});
-//     const [products, setProducts] = useState({});
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             let itemsTuple = [];
-//             await (API.graphql(graphqlOperation(listItemTables, {limit: 100})).then(e => {
-//                 itemsTuple = e.data.listItemTables.items;
-//                 const product1 = itemsTuple.find(prod => prod.itemID === props.match.params.id);
-//                 setProducts(itemsTuple);
-//                 setItemImg(product1);
-//             }));
-            
-//         };
-//         fetchData();
-//     }, []);
+const ProductDetail = (props) => {
 
-class ProductDetail extends Component {
-
-    constructor(props){
-        super(props);
-        this.state = {items: {}};
-    }
-
-    async componentDidMount(){
-        await API.graphql(graphqlOperation(listItemTables, {limit: 100})).then(e => {
-                // itemsTuple = e.data.listItemTables.items;
-                const product = e.data.listItemTables.items.find(prod => prod.itemID === this.props.match.params.id);
-                console.log("hihi,", product);
-                this.setState({items: product})
-        });
-
-    }
-
-render(){
-    const item = this.props.product;
     return (
         <div className="container" style={{padding: '6rem 0'}}>
-           
             <div className="card">
                 <div className="row">
-                    {console.log("Adsf",this.state.items.images)}
-                    {console.log("daf",item.images)}
-                    <ProductSlider images={this.state.items.images}/>
-                    <ProductDetailComponent product={this.state.items}/>
+                    <ProductSlider images={props.product.images}/>
+                    <ProductDetailComponent product={props.product}/>
                 </div>
             </div>
         </div>
     );
-}
 };
 
 const mapStateToProps = (state, props) =>  {
@@ -65,5 +25,6 @@ const mapStateToProps = (state, props) =>  {
     }
 };
 
+
+
 export default connect(mapStateToProps, null)(ProductDetail);
-// export default ProductDetail;
