@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {connect} from 'react-redux';
 import ProductDetailComponent from '../../ProductDetail/ProductDetail';
 import ProductSlider from "../../ProductSlider/ProductSlider";
