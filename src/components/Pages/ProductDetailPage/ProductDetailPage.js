@@ -6,7 +6,7 @@ import API, {graphqlOperation} from "@aws-amplify/api";
 import {listItemTables} from "../../../graphql/queries";
 const ProductDetail = (props) => {
 
-    const [products, setProducts] = useState('');
+    const [products, setProducts] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             let itemsTuple = [];
@@ -25,28 +25,29 @@ const ProductDetail = (props) => {
     }, []);
 
     
-    console.log("aaaa", products.images);
+    console.log("123", products.images);
     
     return (
         <div className="container" style={{padding: '6rem 0'}}>
             <div className="card">
                 <div className="row">
-                    <ProductSlider images={props.product.images}/>
-                    <ProductDetailComponent product={props.product}/>
+                    <ProductSlider images={products.images}/>
+                    <ProductDetailComponent product={products}/>
                 </div>
             </div>
         </div>
     );
 };
 
-const mapStateToProps = (state, props) =>  {
+// const mapStateToProps = (state, props) =>  {
 
-    const product = state.items.items.find(product => product.itemID === props.match.params.id);
-    return {
-        product
-    }
-};
+//     const product = state.items.items.find(product => product.itemID === props.match.params.id);
+//     return {
+//         product
+//     }
+// };
 
 
 
-export default connect(mapStateToProps, null)(ProductDetail);
+// export default connect(mapStateToProps, null)(ProductDetail);
+export default ProductDetail;
