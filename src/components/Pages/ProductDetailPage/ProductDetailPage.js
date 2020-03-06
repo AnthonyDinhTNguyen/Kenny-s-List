@@ -29,7 +29,7 @@ const ProductDetail = (props) => {
            
             <div className="card">
                 <div className="row">
-                    {console.log("Adsf",temImg.images)}
+                    {console.log("Adsf",itemImg.images)}
                     {console.log("daf",props.product.images)}
                     <ProductSlider images={props.product.images}/>
                     <ProductDetailComponent product={props.product}/>
