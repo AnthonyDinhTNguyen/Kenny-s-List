@@ -26,7 +26,7 @@ class ProductDetail extends Component {
     
     
 render(){
-    let item = props.product;
+    const item = this.props.product;
     return (
         <div className="container" style={{padding: '6rem 0'}}>
            
