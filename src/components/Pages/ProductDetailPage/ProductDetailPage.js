@@ -18,13 +18,14 @@ const ProductDetail = (props) => {
     }, []);
 
     const product1 = products.find(prod => prod.itemID === props.match.params.id);
-
+    console.log("Asdf",product1);
+    console.log("aaaa", products);
     return (
         <div className="container" style={{padding: '6rem 0'}}>
             <div className="card">
                 <div className="row">
-                    <ProductSlider images={product1.images}/>
-                    <ProductDetailComponent product={product1}/>
+                    <ProductSlider images={props.product.images}/>
+                    <ProductDetailComponent product={props.product}/>
                 </div>
             </div>
         </div>
