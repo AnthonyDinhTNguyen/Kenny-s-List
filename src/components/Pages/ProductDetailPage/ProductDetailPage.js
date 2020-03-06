@@ -11,8 +11,11 @@ const ProductDetail = (props) => {
         const fetchData = async () => {
             let itemsTuple = [];
             await (API.graphql(graphqlOperation(listItemTables, {limit: 100})).then(e => {
-                itemsTuple = e.data.listItemTables.items
+                itemsTuple = e.data.listItemTables.items;
+                console.log("1", itemsTuple);
+                console.log("2", props.match.params.id);
                 const product1 = products.find(prod => prod.itemsTuple.itemID === props.match.params.id);
+                
                 setProducts(product1);
                 console.log("aaaa", product1);
             }).catch(e => {console.log("Failed to retrieve data");}));
