@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'production',
@@ -43,6 +44,9 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.EnvironmentPlugin(['TEST_VAR','BUCKET','DOMAIN','IDENTITY_POOL_ID','REGION','USER_POOL_ID','USER_POOL_WEBCLIENT_ID','GRAPHQL'])
+        new webpack.EnvironmentPlugin(['TEST_VAR','BUCKET','DOMAIN','IDENTITY_POOL_ID','REGION','USER_POOL_ID','USER_POOL_WEBCLIENT_ID','GRAPHQL']),
+        new HtmlWebpackPlugin({
+            template: 'build/index.html'
+          })
     ]
 };
