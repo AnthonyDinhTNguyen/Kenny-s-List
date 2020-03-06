@@ -6,6 +6,7 @@ import API, {graphqlOperation} from "@aws-amplify/api";
 import {listItemTables} from "../../../graphql/queries";
 const ProductDetail = (props) => {
 
+    const [itemImg, setItemImg] = useState('');
     const [products, setProducts] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
@@ -15,8 +16,8 @@ const ProductDetail = (props) => {
                 console.log("1", itemsTuple);
                 console.log("2", props.match.params.id);
                 const product1 = itemsTuple.find(prod => prod.itemID === props.match.params.id);
-                
-                setProducts(product1);
+                setProducts(itemsTuple);
+                setItemImg(product1);
                 console.log("aaaa", product1);
             }).catch(e => {console.log("Failed to retrieve data");}));
             
@@ -25,13 +26,13 @@ const ProductDetail = (props) => {
     }, []);
 
     
-    console.log("123", products.images);
-    
+    console.log("123", products);
+    console.log("124", itemImg);
     return (
         <div className="container" style={{padding: '6rem 0'}}>
             <div className="card">
                 <div className="row">
-                    <ProductSlider images={products.images}/>
+                    <ProductSlider images={itemImg}/>
                     <ProductDetailComponent product={products}/>
                 </div>
             </div>
