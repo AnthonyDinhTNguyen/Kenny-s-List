@@ -32,7 +32,7 @@ render(){
            
             <div className="card">
                 <div className="row">
-                    {console.log("Adsf",itemImg.images)}
+                    {/* {console.log("Adsf",itemImg.images)} */}
                     {console.log("daf",item.images)}
                     <ProductSlider images={item.images}/>
                     <ProductDetailComponent product={props.product}/>
