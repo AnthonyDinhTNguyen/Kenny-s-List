@@ -32,8 +32,8 @@ const ProductDetail = (props) => {
         <div className="container" style={{padding: '6rem 0'}}>
             <div className="card">
                 <div className="row">
-                    <ProductSlider images={props.product.images}/>
-                    <ProductDetailComponent product={props.product}/>
+                    <ProductSlider images={products.images}/>
+                    <ProductDetailComponent product={products}/>
                 </div>
             </div>
         </div>
