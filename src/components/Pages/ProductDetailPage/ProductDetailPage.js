@@ -25,15 +25,14 @@ const ProductDetail = (props) => {
     }, []);
 
     
-    console.log("aaaa", products);
+    console.log("aaaa", products.images);
     
     return (
-        
         <div className="container" style={{padding: '6rem 0'}}>
             <div className="card">
                 <div className="row">
-                    <ProductSlider images={products.images}/>
-                    <ProductDetailComponent product={products}/>
+                    <ProductSlider images={props.product.images}/>
+                    <ProductDetailComponent product={props.product}/>
                 </div>
             </div>
         </div>
