@@ -6,7 +6,7 @@ import API, {graphqlOperation} from "@aws-amplify/api";
 import {listItemTables} from "../../../graphql/queries";
 const ProductDetail = (props) => {
 
-    const [itemImg, setItemImg] = useState('');
+    const [itemImg, setItemImg] = useState({});
     const [products, setProducts] = useState({});
     useEffect(() => {
         const fetchData = async () => {
@@ -25,9 +25,8 @@ const ProductDetail = (props) => {
         fetchData();
     }, []);
 
-    
-    console.log("123", products);
     console.log("124", itemImg);
+    console.log("124", itemImg.images);
     return (
         <div className="container" style={{padding: '6rem 0'}}>
             <div className="card">
