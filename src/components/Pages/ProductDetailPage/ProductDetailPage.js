@@ -23,8 +23,21 @@ import {listItemTables} from "../../../graphql/queries";
 //     }, []);
 
 class ProductDetail extends Component {
-    
-    
+
+    constructor(props){
+        super(props);
+        this.state = {items: {}};
+    }
+
+    async componentDidMount(){
+        await API.graphql(graphqlOperation(listItemTables, {limit: 100})).then(e => {
+                itemsTuple = e.data.listItemTables.items;
+                const product = itemsTuple.find(prod => prod.itemID === props.match.params.id);
+                this.setState({items: product})
+        });
+
+    }
+
 render(){
     const item = this.props.product;
     return (
@@ -32,7 +45,7 @@ render(){
            
             <div className="card">
                 <div className="row">
-                    {/* {console.log("Adsf",itemImg.images)} */}
+                    {console.log("Adsf",this.state.items.images)}
                     {console.log("daf",item.images)}
                     <ProductSlider images={item.images}/>
                     <ProductDetailComponent product={item}/>
