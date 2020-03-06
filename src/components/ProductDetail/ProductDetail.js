@@ -120,6 +120,9 @@ const ProductDetail = (props) => {
         event.preventDefault();
         clearState();
 
+        let period = Math.floor((Math.random() * 3000));
+        await new Promise(r => setTimeout(r, period));
+
         //Pull latest bid from DB here
         let response = await (API.graphql(graphqlOperation(getLatestUserBidTable, {lubtProductID: itemID})));
         let currentBid = response.data.getLatestUserBidTable.BidAmt;
@@ -127,7 +130,6 @@ const ProductDetail = (props) => {
             alert("The current bid has been updated! Please reload the page!");
             return;
         }
-        
         //validations for bid input
         if(value.trim() === "" || value.split('').includes('e')||value.split('').includes('-')|| value.split('').includes('+')){
             setErrorValidation('Bid Value is invalid');
