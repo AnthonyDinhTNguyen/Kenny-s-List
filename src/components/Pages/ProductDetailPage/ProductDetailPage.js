@@ -32,7 +32,8 @@ class ProductDetail extends Component {
     async componentDidMount(){
         await API.graphql(graphqlOperation(listItemTables, {limit: 100})).then(e => {
                 // itemsTuple = e.data.listItemTables.items;
-                const product = e.data.listItemTables.items.find(prod => prod.itemID === props.match.params.id);
+                const product = e.data.listItemTables.items.find(prod => prod.itemID === this.props.match.params.id);
+                console.log("hihi,", product);
                 this.setState({items: product})
         });
 
