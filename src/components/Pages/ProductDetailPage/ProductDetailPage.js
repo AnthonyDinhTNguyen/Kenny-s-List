@@ -6,7 +6,7 @@ import API, {graphqlOperation} from "@aws-amplify/api";
 import {listItemTables} from "../../../graphql/queries";
 const ProductDetail = (props) => {
 
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState('');
     useEffect(() => {
         const fetchData = async () => {
             let itemsTuple = [];
@@ -14,7 +14,7 @@ const ProductDetail = (props) => {
                 itemsTuple = e.data.listItemTables.items;
                 console.log("1", itemsTuple);
                 console.log("2", props.match.params.id);
-                const product1 = itemsTuple.find(prod => prod.itemsTuple.itemID === props.match.params.id);
+                const product1 = itemsTuple.find(prod => prod.itemID === props.match.params.id);
                 
                 setProducts(product1);
                 console.log("aaaa", product1);
