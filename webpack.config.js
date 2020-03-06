@@ -1,14 +1,12 @@
 const webpack = require('webpack');
-const path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
 
 module.exports = {
     mode: 'production',
     entry: './src/index.js',
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'build'),
-        publicPath: '/'
+        path: path.resolve(__dirname, 'build')
     },
     module: {
         rules: [
@@ -37,16 +35,11 @@ module.exports = {
     },
     devServer: {
         contentBase: './build',
-        //contentBase:path.join(__dirname, '../'),
         overlay: true,
-        hot: true,
-        historyApiFallback: true
+        hot: true
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.EnvironmentPlugin(['TEST_VAR','BUCKET','DOMAIN','IDENTITY_POOL_ID','REGION','USER_POOL_ID','USER_POOL_WEBCLIENT_ID','GRAPHQL']),
-        new HtmlWebpackPlugin({
-            template: 'build/index.html'
-          })
+        new webpack.EnvironmentPlugin(['TEST_VAR','BUCKET','DOMAIN','IDENTITY_POOL_ID','REGION','USER_POOL_ID','USER_POOL_WEBCLIENT_ID','GRAPHQL'])
     ]
 };
