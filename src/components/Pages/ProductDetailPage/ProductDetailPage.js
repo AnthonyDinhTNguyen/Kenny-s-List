@@ -19,7 +19,7 @@ const ProductDetail = (props) => {
                 setProducts(itemsTuple);
                 setItemImg(product1);
                 console.log("aaaa", product1);
-            }).catch(e => {console.log("Failed to retrieve data");}));
+            }));
             
         };
         fetchData();
@@ -34,22 +34,23 @@ const ProductDetail = (props) => {
         <div className="container" style={{padding: '6rem 0'}}>
             <div className="card">
                 <div className="row">
-                    <ProductSlider images={props.product.images}/>
-                    <ProductDetailComponent product={props.product}/>
+                    <ProductSlider images={itemImg.images}/>
+                    <ProductDetailComponent product={itemImg}/>
                 </div>
             </div>
         </div>
     );
 };
 
-const mapStateToProps = (state, props) =>  {
+// const mapStateToProps = (state, props) =>  {
 
-    const product = state.items.items.find(product => product.itemID === props.match.params.id);
-    return {
-        product
-    }
-};
+//     const product = state.items.items.find(product => product.itemID === props.match.params.id);
+//     return {
+//         product
+//     }
+// };
 
 
 
-export default connect(mapStateToProps, null)(ProductDetail);
+// export default connect(mapStateToProps, null)(ProductDetail);
+export default ProductDetail;
