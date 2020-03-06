@@ -24,15 +24,13 @@ const ProductDetail = (props) => {
         fetchData();
     }, []);
 
-    console.log("124", itemImg);
-    console.log("124", itemImg.images);
-
     return (
         <div className="container" style={{padding: '6rem 0'}}>
            
             <div className="card">
                 <div className="row">
-                    {console.log(itemImg.images)}
+                    {console.log("Adsf",temImg.images)}
+                    {console.log("daf",props.product.images)}
                     <ProductSlider images={props.product.images}/>
                     <ProductDetailComponent product={props.product}/>
                 </div>
