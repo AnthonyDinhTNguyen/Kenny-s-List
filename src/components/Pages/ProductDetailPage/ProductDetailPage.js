@@ -48,8 +48,8 @@ render(){
                 <div className="row">
                     {console.log("Adsf",this.state.items.images)}
                     {console.log("daf",item.images)}
-                    <ProductSlider images={item.images}/>
-                    <ProductDetailComponent product={item}/>
+                    <ProductSlider images={this.state.items.images}/>
+                    <ProductDetailComponent product={this.state.items}/>
                 </div>
             </div>
         </div>
