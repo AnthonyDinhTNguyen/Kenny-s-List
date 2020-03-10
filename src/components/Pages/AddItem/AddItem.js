@@ -142,7 +142,7 @@ export default class AddItem extends React.Component {
         //Store (user, magicString) tuple in database
         //let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
         //console.log(response);
-        alert("wait");
+        //alert("wait");
         //Update pre-existing database entry
         // if (response.data.getKennysListUserTable == null) {
         //     API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}));
