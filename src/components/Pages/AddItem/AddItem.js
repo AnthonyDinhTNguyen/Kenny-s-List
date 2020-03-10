@@ -129,7 +129,9 @@ export default class AddItem extends React.Component {
 
       async stripeAccount(){
         let user = (await Auth.currentAuthenticatedUser()).username;
-
+        if(user === null){
+            Auth.signOut();
+        }
         //Generate random value to associate with user
         let magicNumbers = new Uint32Array(2);
         window.crypto.getRandomValues(magicNumbers);
@@ -149,10 +151,10 @@ export default class AddItem extends React.Component {
         // } 
         // //Create new database entry
         // else {
-        //     API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
-        //         username: user,
-        //         randstring: magicString
-        //     }}));
+            // API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
+            //     username: user,
+            //     randstring: magicString
+            // }}));
 
         // }
         
@@ -160,8 +162,14 @@ export default class AddItem extends React.Component {
         let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+magicString;
         window.open(link);
         await API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}));
-        await new Promise(r => setTimeout(r, 4000));
-        await API.graphql(graphqlOperation(updateKennysListUserTable, {input:{username: user, randstring:magicString}}));
+        let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
+        if (response.data.getKennysListUserTable!== null && response.data.getKennysListUserTable.accountID === null) {
+            console.log("!111");
+            await API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
+                username: user,
+                randstring: magicString
+            }}));
+        }
     }
 
     async componentDidMount() {
