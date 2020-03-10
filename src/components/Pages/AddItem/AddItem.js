@@ -155,7 +155,10 @@ export default class AddItem extends React.Component {
         //     }}));
 
         // }
-        API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}})).catch((e)=>{API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
+        API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}})).then((e)=>{API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
+            username: user,
+            randstring: magicString
+        }}))}).catch((e)=>{API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
             username: user,
             randstring: magicString
         }}));});
