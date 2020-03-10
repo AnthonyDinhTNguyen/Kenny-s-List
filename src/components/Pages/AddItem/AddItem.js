@@ -1,7 +1,7 @@
 import React from 'react';
 import {Auth, Storage } from 'aws-amplify';
 import { getItemTable,listItemTables, getKennysListUserTable} from '../../../graphql/queries';
-import {createItemTable,createLatestUserBidTable, createUserBidsTable,updateKennysListUserTable,createKennysListUserTable,deleteKennysListUserTable } from '../../../graphql/mutations';
+import {createItemTable,createLatestUserBidTable, createUserBidsTable,updateKennysListUserTable,createKennysListUserTable } from '../../../graphql/mutations';
 
 import API, { graphqlOperation } from '@aws-amplify/api';
 import uuid from "uuid";
@@ -155,11 +155,11 @@ export default class AddItem extends React.Component {
         //     }}));
 
         // }
-        await API.graphql(graphqlOperation(deleteKennysListUserTable,{input:{username:user}})).then((e)=>{API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}))});
+        API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}));
 
         let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+magicString;
         window.open(link);
-        //location.reload();
+        location.reload();
     }
 
     async componentDidMount() {
