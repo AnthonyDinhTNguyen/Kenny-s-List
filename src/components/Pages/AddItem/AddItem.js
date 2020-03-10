@@ -161,17 +161,11 @@ export default class AddItem extends React.Component {
 
         let link = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_Glz8Mb09LGrSthPbSj28gU0WsDX65f6g&state="+magicString;
         window.open(link);
-        await API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}));
-        console.log("!2212");
-        let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: "cat"}));
-        console.log("1234");
-        if (response.data.getKennysListUserTable!== null) {
-            console.log("!111");
-            await API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
-                username: user,
-                randstring: magicString
-            }}));
-        }
+        await API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}})).catch(e=>
+            API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
+            username: user,
+            randstring: magicString
+        }})));
     }
 
     async componentDidMount() {
