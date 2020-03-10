@@ -142,12 +142,11 @@ export default class AddItem extends React.Component {
             let append = magicNumbers[i].toString();
             magicString += append; 
         }
-        alert("here");
         //Store (user, magicString) tuple in database
         let response = await API.graphql(graphqlOperation(getKennysListUserTable, {username: user}));
-
+        alert('here');
         //Update pre-existing database entry
-        if (response.data.getKennysListUserTable !== null) {
+        if (response.data.getKennysListUserTable != null) {
             API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
                 username: user,
                 randstring: magicString
