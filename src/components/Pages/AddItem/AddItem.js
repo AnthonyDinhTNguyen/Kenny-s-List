@@ -129,9 +129,6 @@ export default class AddItem extends React.Component {
 
       async stripeAccount(){
         let user = (await Auth.currentAuthenticatedUser()).username;
-        if (user == null){
-            await Auth.signOut().catch(err=>console.log(err));
-        }
 
         //Generate random value to associate with user
         let magicNumbers = new Uint32Array(2);
