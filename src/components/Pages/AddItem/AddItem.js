@@ -164,13 +164,15 @@ export default class AddItem extends React.Component {
         if(response.data.getKennysListUserTable==null){
             await API.graphql(graphqlOperation(createKennysListUserTable, {input:{username: user,randstring:magicString}}));
         }
-        else{
+        else if (response.data.getKennysListUserTable.accountID==null){
             API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
                 username: user,
                 randstring: magicString
             }}));
         }
-        //location.reload();
+        else{
+            location.reload();
+        }
     }
 
     async componentDidMount() {
