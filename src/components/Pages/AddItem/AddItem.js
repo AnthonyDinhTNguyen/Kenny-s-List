@@ -149,10 +149,10 @@ export default class AddItem extends React.Component {
         // } 
         // //Create new database entry
         // else {
-            API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
-                username: user,
-                randstring: magicString
-            }}));
+            // API.graphql(graphqlOperation(updateKennysListUserTable, {input:{
+            //     username: user,
+            //     randstring: magicString
+            // }}));
 
         // }
         
